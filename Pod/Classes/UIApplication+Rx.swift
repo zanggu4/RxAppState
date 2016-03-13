@@ -33,6 +33,10 @@ public func ==(lhs: AppState, rhs: AppState) -> Bool {
 // MARK: Rx
 
 extension UIApplication {
+    
+    private var firstLaunchKey:String { return "RxAppState_didLaunchBefore" }
+    private var numDidOpenAppKey:String { return "RxAppState_numDidOpenApp" }
+    
     public var rx_delegate: DelegateProxy {
         return proxyForObject(RxApplicationDelegateProxy.self, self)
     }
@@ -63,5 +67,56 @@ extension UIApplication {
             .map { _ in
                 return .Terminated
         }
+    }
+    
+    public var rx_appState: Observable<AppState> {
+        return Observable.of(
+            rx_applicationDidBecomeActive,
+            rx_applicationWillResignActive,
+            rx_applicationDidEnterBackground,
+            rx_applicationWillTerminate
+            )
+            .merge()
+    }
+    
+    public var rx_didOpenApp: Observable<Void> {
+        return Observable.of(
+            rx_applicationDidBecomeActive,
+            rx_applicationDidEnterBackground
+            )
+            .merge()
+            .distinctUntilChanged()
+            .filter { $0 == .Active }
+            .map { _ in
+                return
+            }
+    }
+    
+    public var rx_didOpenAppCount: Observable<Int> {
+        return rx_didOpenApp
+            .map { _ in
+                let userDefaults = NSUserDefaults.standardUserDefaults()
+                var count = userDefaults.integerForKey(self.numDidOpenAppKey)
+                count = min(count + 1, Int.max - 1)
+                userDefaults.setInteger(count, forKey: self.numDidOpenAppKey)
+                userDefaults.synchronize()
+                return count
+            }
+    }
+    
+    public var rx_firstLaunch: Observable<Bool> {
+        return rx_applicationDidBecomeActive
+            .map { _ in
+                let userDefaults = NSUserDefaults.standardUserDefaults()
+                let didLaunchBefore = userDefaults.boolForKey(self.firstLaunchKey)
+                
+                if didLaunchBefore {
+                    return false
+                } else {
+                    userDefaults.setBool(true, forKey: self.firstLaunchKey)
+                    userDefaults.synchronize()
+                    return true
+                }
+            }
     }
 }
