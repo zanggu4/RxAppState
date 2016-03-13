@@ -14,7 +14,6 @@ import RxAppState
 extension UILabel {
     public var rx_appState: AnyObserver<AppState> {
         return UIBindingObserver(UIElement: self) { label, appState in
-            print(appState)
             switch appState {
             case .Active:
                 label.backgroundColor = UIColor.greenColor()
@@ -29,6 +28,20 @@ extension UILabel {
                 label.backgroundColor = UIColor.lightGrayColor()
                 label.text = "TERMINATED"
             }
-            }.asObserver()
+        }
+        .asObserver()
+    }
+    
+    public var rx_firstLaunch: AnyObserver<Bool> {
+        return UIBindingObserver(UIElement: self) { label, isFirstLaunch in
+            if isFirstLaunch {
+                label.backgroundColor = UIColor.greenColor()
+                label.text = "YES"
+            } else {
+                label.backgroundColor = UIColor.redColor()
+                label.text = "NO"
+            }
+        }
+        .asObserver()
     }
 }
