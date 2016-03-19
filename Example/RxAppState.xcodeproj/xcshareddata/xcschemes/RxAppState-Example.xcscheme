@@ -52,6 +52,16 @@
                ReferencedContainer = "container:RxAppState.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "801A53471C9DA22600C38A16"
+               BuildableName = "RxAppState_ExampleTests.xctest"
+               BlueprintName = "RxAppState_ExampleTests"
+               ReferencedContainer = "container:RxAppState.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
