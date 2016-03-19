@@ -6,6 +6,6 @@ target 'RxAppState_Example', :exclusive => true do
   pod 'RxAppState', :path => '../'
 end
 
-target 'RxAppState_Tests', :exclusive => true do
+target 'RxAppState_ExampleTests', :exclusive => true do
   pod 'RxAppState', :path => '../'
 end

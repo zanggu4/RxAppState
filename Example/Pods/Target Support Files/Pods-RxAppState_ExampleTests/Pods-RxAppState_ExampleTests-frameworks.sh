@@ -84,12 +84,12 @@ strip_invalid_archs() {
 
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
-  install_framework "Pods-RxAppState_Tests/RxAppState.framework"
-  install_framework "Pods-RxAppState_Tests/RxCocoa.framework"
-  install_framework "Pods-RxAppState_Tests/RxSwift.framework"
+  install_framework "Pods-RxAppState_ExampleTests/RxAppState.framework"
+  install_framework "Pods-RxAppState_ExampleTests/RxCocoa.framework"
+  install_framework "Pods-RxAppState_ExampleTests/RxSwift.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
-  install_framework "Pods-RxAppState_Tests/RxAppState.framework"
-  install_framework "Pods-RxAppState_Tests/RxCocoa.framework"
-  install_framework "Pods-RxAppState_Tests/RxSwift.framework"
+  install_framework "Pods-RxAppState_ExampleTests/RxAppState.framework"
+  install_framework "Pods-RxAppState_ExampleTests/RxCocoa.framework"
+  install_framework "Pods-RxAppState_ExampleTests/RxSwift.framework"
 fi

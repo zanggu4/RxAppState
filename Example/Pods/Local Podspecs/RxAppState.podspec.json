@@ -1,7 +1,7 @@
 {
   "name": "RxAppState",
   "version": "0.1.0",
-  "summary": "Handy RxSwift extensions on UIApplication to observe your app's state.",
+  "summary": "Handy RxSwift extensions to observe your app's state.",
   "description": "Transform the state of your App into RxSwift Observables. Including convenience Observables for common scenarios.",
   "homepage": "https://github.com/pixeldock/RxAppState",
   "license": "MIT",
