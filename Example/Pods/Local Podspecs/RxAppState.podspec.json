@@ -26,10 +26,10 @@
   "frameworks": "Foundation",
   "dependencies": {
     "RxSwift": [
-      "~> 2.2"
+      "~> 2.3"
     ],
     "RxCocoa": [
-      "~> 2.2"
+      "~> 2.3"
     ]
   }
 }

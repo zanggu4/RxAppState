@@ -20,6 +20,6 @@ s.resource_bundles = {
 }
 
 s.frameworks = 'Foundation'
-s.dependency 'RxSwift', '~> 2.2'
-s.dependency 'RxCocoa', '~> 2.2'
+s.dependency 'RxSwift', '~> 2.3'
+s.dependency 'RxCocoa', '~> 2.3'
 end
