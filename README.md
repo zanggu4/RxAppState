@@ -16,9 +16,8 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 
 ## Requirements
 
-iOS 8 or greater  
-Xcode 7.3  
-Swift 2.2
+iOS 8 or greater    
+Swift 2.1
 
 ## Dependencies
 RxSwift  

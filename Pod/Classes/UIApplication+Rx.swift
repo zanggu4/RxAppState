@@ -75,7 +75,7 @@ extension UIApplication {
      Reactive wrapper for `delegate` message `applicationDidBecomeActive(_:)`.
      */
     public var rx_applicationDidBecomeActive: Observable<AppState> {
-        return rx_delegate.observe(#selector(UIApplicationDelegate.applicationDidBecomeActive(_:)))
+        return rx_delegate.observe("applicationDidBecomeActive:")
             .map { _ in
                 return .Active
         }
@@ -85,7 +85,7 @@ extension UIApplication {
      Reactive wrapper for `delegate` message `applicationDidEnterBackground(_:)`.
      */
     public var rx_applicationDidEnterBackground: Observable<AppState> {
-        return rx_delegate.observe(#selector(UIApplicationDelegate.applicationDidEnterBackground(_:)))
+        return rx_delegate.observe("applicationDidEnterBackground:")
             .map { _ in
                 return .Background
         }
@@ -95,7 +95,7 @@ extension UIApplication {
      Reactive wrapper for `delegate` message `applicationWillResignActive(_:)`.
      */
     public var rx_applicationWillResignActive: Observable<AppState> {
-        return rx_delegate.observe(#selector(UIApplicationDelegate.applicationWillResignActive(_:)))
+        return rx_delegate.observe("applicationWillResignActive:")
             .map { _ in
                 return .Inactive
         }
@@ -105,7 +105,7 @@ extension UIApplication {
      Reactive wrapper for `delegate` message `applicationWillTerminate(_:)`.
      */
     public var rx_applicationWillTerminate: Observable<AppState> {
-        return rx_delegate.observe(#selector(UIApplicationDelegate.applicationWillTerminate(_:)))
+        return rx_delegate.observe("applicationWillTerminate:")
             .map { _ in
                 return .Terminated
         }
