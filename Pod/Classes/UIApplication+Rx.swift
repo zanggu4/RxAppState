@@ -101,7 +101,7 @@ extension UIApplication {
     }
     
     public var rx_firstLaunch: Observable<Bool> {
-        return rx_applicationDidBecomeActive
+        return rx_didOpenApp
             .map { _ in
                 let userDefaults = NSUserDefaults.standardUserDefaults()
                 let didLaunchBefore = userDefaults.boolForKey(self.firstLaunchKey)
