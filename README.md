@@ -36,7 +36,8 @@ pod "RxAppState"
 ## Author
 
 Jörn Schoppe,  
-joern@pixeldock.com
+joern@pixeldock.com   
+[![Twitter](https://img.shields.io/badge/Twitter-@pixeldock-blue.svg?style=flat)](http://twitter.com/pixeldock)
 
 ## License
 
