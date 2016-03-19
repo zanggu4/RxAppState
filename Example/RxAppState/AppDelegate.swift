@@ -10,7 +10,6 @@ import UIKit
 import RxSwift
 import RxAppState
 
-@UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?

@@ -14,6 +14,8 @@
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
 		801535B91C8CCEF80061DACC /* UILabel+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 801535B81C8CCEF80061DACC /* UILabel+Rx.swift */; };
+		801A53551C9DA37E00C38A16 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 801A53541C9DA37E00C38A16 /* main.swift */; };
+		801A53571C9DA5C600C38A16 /* TestingAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 801A53561C9DA5C600C38A16 /* TestingAppDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +32,8 @@
 		607FACDC1AFB9204008FA782 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		607FACDF1AFB9204008FA782 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		801535B81C8CCEF80061DACC /* UILabel+Rx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UILabel+Rx.swift"; sourceTree = "<group>"; };
+		801A53541C9DA37E00C38A16 /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		801A53561C9DA5C600C38A16 /* TestingAppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestingAppDelegate.swift; sourceTree = "<group>"; };
 		91A0C619F871F12AF5A36F56 /* Pods-RxAppState_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxAppState_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-RxAppState_Tests/Pods-RxAppState_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		953891949A3E0E68462823B9 /* Pods-RxAppState_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxAppState_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-RxAppState_Example/Pods-RxAppState_Example.release.xcconfig"; sourceTree = "<group>"; };
 		999F5132162E03A75A164E14 /* RxAppState.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = RxAppState.podspec; path = ../RxAppState.podspec; sourceTree = "<group>"; };
@@ -86,6 +90,8 @@
 				607FACDC1AFB9204008FA782 /* Images.xcassets */,
 				607FACDE1AFB9204008FA782 /* LaunchScreen.xib */,
 				607FACD31AFB9204008FA782 /* Supporting Files */,
+				801A53541C9DA37E00C38A16 /* main.swift */,
+				801A53561C9DA5C600C38A16 /* TestingAppDelegate.swift */,
 			);
 			name = "Example for RxAppState";
 			path = RxAppState;
@@ -243,7 +249,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				801A53571C9DA5C600C38A16 /* TestingAppDelegate.swift in Sources */,
 				801535B91C8CCEF80061DACC /* UILabel+Rx.swift in Sources */,
+				801A53551C9DA37E00C38A16 /* main.swift in Sources */,
 				607FACD81AFB9204008FA782 /* ViewController.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
 			);
