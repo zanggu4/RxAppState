@@ -45,9 +45,9 @@ public enum AppState: Equatable {
 public func ==(lhs: AppState, rhs: AppState) -> Bool {
     switch (lhs, rhs) {
     case (.Active, .Active),
-         (.Inactive, .Inactive),
-         (.Background, .Background),
-         (.Terminated, .Terminated):
+    (.Inactive, .Inactive),
+    (.Background, .Background),
+    (.Terminated, .Terminated):
         return true
     default:
         return false
@@ -59,7 +59,8 @@ extension UIApplication {
     /**
      Keys for NSUserDefaults
      */
-    private var firstLaunchKey:String { return "RxAppState_didLaunchBefore" }
+    private var isFirstLaunchKey:String { return "RxAppState_isFirstLaunch" }
+    private var firstLaunchOnlyKey:String { return "RxAppState_firstLaunchOnly" }
     private var numDidOpenAppKey:String { return "RxAppState_numDidOpenApp" }
     
     /**
@@ -180,7 +181,7 @@ extension UIApplication {
     }
     
     /**
-     Observable sequence that emits if the app is opened for the first time
+     Observable sequence that emits if the app is opened for the first time when the user opens the app
      
      This is a handy sequence for all the times you want to run some code only
      when the app is launched for the first time
@@ -190,19 +191,44 @@ extension UIApplication {
      
      -returns: Observable sequence of Bool
      */
-    public var rx_firstLaunch: Observable<Bool> {
+    public var rx_isFirstLaunch: Observable<Bool> {
         return rx_didOpenApp
             .map { _ in
                 let userDefaults = NSUserDefaults.standardUserDefaults()
-                let didLaunchBefore = userDefaults.boolForKey(self.firstLaunchKey)
+                let didLaunchBefore = userDefaults.boolForKey(self.isFirstLaunchKey)
                 
                 if didLaunchBefore {
                     return false
                 } else {
-                    userDefaults.setBool(true, forKey: self.firstLaunchKey)
+                    userDefaults.setBool(true, forKey: self.isFirstLaunchKey)
                     userDefaults.synchronize()
                     return true
                 }
+        }
+    }
+    
+    /**
+     Observable sequence that just emits one value if the app is opened for the first time
+     or completes empty if the app has been opened before
+     
+     This is a handy sequence for all the times you want to run some code only
+     when the app is launched for the first time
+     
+     Typical use case:
+     - Show a tutorial to a new user
+     
+     -returns: Observable sequence of Void
+     */
+    public var rx_firstLaunchOnly: Observable<Void> {
+        return Observable.create{ observer in
+            let userDefaults = NSUserDefaults.standardUserDefaults()
+            let didLaunchBefore = userDefaults.boolForKey(self.isFirstLaunchKey)
+            
+            if !didLaunchBefore {
+                observer.onNext()
+            }
+            observer.onCompleted()
+            return NopDisposable.instance
         }
     }
 }

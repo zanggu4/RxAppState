@@ -14,8 +14,10 @@ import RxAppState
 
 class RxAppStateTests: XCTestCase {
     
-    var firstLaunchKey:String { return "RxAppState_didLaunchBefore" }
-    var numDidOpenAppKey:String { return "RxAppState_numDidOpenApp" }
+    private var isFirstLaunchKey:String { return "RxAppState_isFirstLaunch" }
+    private var firstLaunchOnlyKey:String { return "RxAppState_firstLaunchOnly" }
+    private var numDidOpenAppKey:String { return "RxAppState_numDidOpenApp" }
+
     
     let application = UIApplication.sharedApplication()
     var disposeBag = DisposeBag()
@@ -23,7 +25,8 @@ class RxAppStateTests: XCTestCase {
     override func setUp() {
         super.setUp()
         let userDefaults = NSUserDefaults.standardUserDefaults()
-        userDefaults.removeObjectForKey(firstLaunchKey)
+        userDefaults.removeObjectForKey(isFirstLaunchKey)
+        userDefaults.removeObjectForKey(firstLaunchOnlyKey)
         userDefaults.removeObjectForKey(numDidOpenAppKey)
     }
     
@@ -83,10 +86,10 @@ class RxAppStateTests: XCTestCase {
         XCTAssertEqual(didOpenAppCounts, [1,2,3])
     }
     
-    func testFirstLaunch() {
+    func testIsFirstLaunch() {
         // Given
         var firstLaunchArray: [Bool] = []
-        application.rx_firstLaunch
+        application.rx_isFirstLaunch
             .subscribeNext { isFirstLaunch in
                 firstLaunchArray.append(isFirstLaunch)
             }
@@ -97,6 +100,22 @@ class RxAppStateTests: XCTestCase {
         
         // Then
         XCTAssertEqual(firstLaunchArray, [true, false, false])
+    }
+    
+    func testFirstLaunchOnly() {
+        // Given
+        var firstLaunchArray: [Bool] = []
+        application.rx_firstLaunchOnly
+            .subscribeNext { _ in
+                firstLaunchArray.append(true)
+            }
+            .addDisposableTo(disposeBag)
+        
+        // When
+        runAppStateSequence()
+        
+        // Then
+        XCTAssertEqual(firstLaunchArray, [true])
     }
     
     func runAppStateSequence() {
