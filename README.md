@@ -22,19 +22,19 @@ So to really run your code only when your user opens the app you need to keep tr
 
 ```
 class AppDelegate: UIResponder, UIApplicationDelegate {
-var window: UIWindow?
-var didEnterBackground = true
-...
-func applicationDidEnterBackground(application: UIApplication) {
-didEnterBackground = true
-}
-func applicationDidBecomeActive(application: UIApplication) {
-if didEnterBackground {
-// run your code
-didEnterBackground = false
-}
-}
-...
+    var window: UIWindow?
+    var didEnterBackground = true
+    ...
+    func applicationDidEnterBackground(application: UIApplication) {
+        didEnterBackground = true
+    }
+    func applicationDidBecomeActive(application: UIApplication) {
+        if didEnterBackground {
+            // run your code
+            didEnterBackground = false
+        }
+    }
+    ...
 }
 ```
 This is not a big problem, but it is not a very elegant approach. And you have to set the inital value of _didEnterBackground_ to _true_ to run your code after the first launch (see above), even if the app never has been to the background. Call me picky, but I don't like that.
@@ -44,10 +44,10 @@ With RxAppState you can simply do the following:
 
 ```
 UIApplication.sharedApplication().rx_didOpenApp
-.subscribeNext { _ in
-// run your code
-}
-.addDisposableTo(disposeBag)
+    .subscribeNext { _ in
+        // run your code
+    }
+    .addDisposableTo(disposeBag)
 ```
 This runs your code whenever the user opens the app. It includes the first launch of the app and ignores the cases when the app enters active state without having been in background state before (like when the user just opened Control Center or received a phone call)
 
@@ -56,20 +56,20 @@ You want to show your user a tutorial when he first launches the app? And you on
 
 ```
 UIApplication.sharedApplication().rx_firstLaunchOnly
-.subscribeNext { _ in
-// run your code
-}
-.addDisposableTo(disposeBag)
+    .subscribeNext { _ in
+        // run your code
+    }
+    .addDisposableTo(disposeBag)
 ```
 
 You want to keep track of how many times the user has opened your app? Simply do this:
 
 ```
 UIApplication.sharedApplication().rx_didOpenAppCount
-.subscribeNext { count in
-print("app opened \(count) times")
-}
-.addDisposableTo(disposeBag)
+    .subscribeNext { count in
+        print("app opened \(count) times")
+    }
+    .addDisposableTo(disposeBag)
 ```
 
 **The cherry on top:**   
