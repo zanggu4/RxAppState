@@ -84,7 +84,7 @@ There is a simple example project to demonstrate how to use RxAppDelegate.
 ## Requirements
 
 iOS 8 or greater    
-Swift 2.1
+Swift 2.2
 
 ## Dependencies
 RxSwift 2.6  
