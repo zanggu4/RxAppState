@@ -69,14 +69,14 @@ extension UIApplication {
      For more information take a look at `DelegateProxyType` protocol documentation.
      */
     public var rx_delegate: DelegateProxy {
-        return proxyForObject(RxApplicationDelegateProxy.self, self)
+        return RxApplicationDelegateProxy.proxyForObject(self)
     }
     
     /**
      Reactive wrapper for `delegate` message `applicationDidBecomeActive(_:)`.
      */
     public var rx_applicationDidBecomeActive: Observable<AppState> {
-        return rx_delegate.observe("applicationDidBecomeActive:")
+        return rx_delegate.observe(#selector(UIApplicationDelegate.applicationDidBecomeActive(_:)))
             .map { _ in
                 return .Active
         }
@@ -86,7 +86,7 @@ extension UIApplication {
      Reactive wrapper for `delegate` message `applicationDidEnterBackground(_:)`.
      */
     public var rx_applicationDidEnterBackground: Observable<AppState> {
-        return rx_delegate.observe("applicationDidEnterBackground:")
+        return rx_delegate.observe(#selector(UIApplicationDelegate.applicationDidEnterBackground(_:)))
             .map { _ in
                 return .Background
         }
@@ -96,7 +96,7 @@ extension UIApplication {
      Reactive wrapper for `delegate` message `applicationWillResignActive(_:)`.
      */
     public var rx_applicationWillResignActive: Observable<AppState> {
-        return rx_delegate.observe("applicationWillResignActive:")
+        return rx_delegate.observe(#selector(UIApplicationDelegate.applicationWillResignActive(_:)))
             .map { _ in
                 return .Inactive
         }
@@ -106,7 +106,7 @@ extension UIApplication {
      Reactive wrapper for `delegate` message `applicationWillTerminate(_:)`.
      */
     public var rx_applicationWillTerminate: Observable<AppState> {
-        return rx_delegate.observe("applicationWillTerminate:")
+        return rx_delegate.observe(#selector(UIApplicationDelegate.applicationWillTerminate(_:)))
             .map { _ in
                 return .Terminated
         }
