@@ -18,18 +18,13 @@
   },
   "requires_arc": true,
   "source_files": "Pod/Classes/**/*",
-  "resource_bundles": {
-    "UIApplication-Rx": [
-      "Pod/Assets/*.png"
-    ]
-  },
   "frameworks": "Foundation",
   "dependencies": {
     "RxSwift": [
-      "~> 2.3"
+      "~> 2.6"
     ],
     "RxCocoa": [
-      "~> 2.3"
+      "~> 2.6"
     ]
   }
 }
