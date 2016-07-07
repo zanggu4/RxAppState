@@ -87,8 +87,8 @@ iOS 8 or greater
 Swift 2.1
 
 ## Dependencies
-RxSwift 2.3  
-RxCocoa 2.3
+RxSwift 2.6  
+RxCocoa 2.6
 
 ## Installation
 
