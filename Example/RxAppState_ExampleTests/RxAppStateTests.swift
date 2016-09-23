@@ -14,20 +14,20 @@ import RxAppState
 
 class RxAppStateTests: XCTestCase {
     
-    private var isFirstLaunchKey:String { return "RxAppState_isFirstLaunch" }
-    private var firstLaunchOnlyKey:String { return "RxAppState_firstLaunchOnly" }
-    private var numDidOpenAppKey:String { return "RxAppState_numDidOpenApp" }
+    fileprivate var isFirstLaunchKey:String { return "RxAppState_isFirstLaunch" }
+    fileprivate var firstLaunchOnlyKey:String { return "RxAppState_firstLaunchOnly" }
+    fileprivate var numDidOpenAppKey:String { return "RxAppState_numDidOpenApp" }
 
     
-    let application = UIApplication.sharedApplication()
+    let application = UIApplication.shared
     var disposeBag = DisposeBag()
     
     override func setUp() {
         super.setUp()
-        let userDefaults = NSUserDefaults.standardUserDefaults()
-        userDefaults.removeObjectForKey(isFirstLaunchKey)
-        userDefaults.removeObjectForKey(firstLaunchOnlyKey)
-        userDefaults.removeObjectForKey(numDidOpenAppKey)
+        let userDefaults = UserDefaults.standard
+        userDefaults.removeObject(forKey: isFirstLaunchKey)
+        userDefaults.removeObject(forKey: firstLaunchOnlyKey)
+        userDefaults.removeObject(forKey: numDidOpenAppKey)
     }
     
     override func tearDown() {
@@ -51,7 +51,7 @@ class RxAppStateTests: XCTestCase {
         application.delegate?.applicationWillTerminate!(application)
         
         // Then
-        XCTAssertEqual(appStates, [AppState.Active, AppState.Inactive, AppState.Background, AppState.Terminated])
+        XCTAssertEqual(appStates, [AppState.active, AppState.inactive, AppState.background, AppState.terminated])
     }
     
     func testDidOpenApp() {

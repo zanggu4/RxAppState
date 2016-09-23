@@ -20,7 +20,7 @@ public enum AppState: Equatable {
     /**
      The application is running in the foreground.
      */
-    case Active
+    case active
     /**
      The application is running in the foreground but not receiving events.
      Possible reasons:
@@ -28,15 +28,15 @@ public enum AppState: Equatable {
      - The user receives a phone call
      - A system prompt is shown (e.g. Request to allow Push Notifications)
      */
-    case Inactive
+    case inactive
     /**
      The application is in the background because the user closed it.
      */
-    case Background
+    case background
     /**
      The application is about to be terminated by the system
      */
-    case Terminated
+    case terminated
 }
 
 /**
@@ -44,10 +44,10 @@ public enum AppState: Equatable {
  */
 public func ==(lhs: AppState, rhs: AppState) -> Bool {
     switch (lhs, rhs) {
-    case (.Active, .Active),
-    (.Inactive, .Inactive),
-    (.Background, .Background),
-    (.Terminated, .Terminated):
+    case (.active, .active),
+    (.inactive, .inactive),
+    (.background, .background),
+    (.terminated, .terminated):
         return true
     default:
         return false
@@ -59,9 +59,9 @@ extension UIApplication {
     /**
      Keys for NSUserDefaults
      */
-    private var isFirstLaunchKey:String { return "RxAppState_isFirstLaunch" }
-    private var firstLaunchOnlyKey:String { return "RxAppState_firstLaunchOnly" }
-    private var numDidOpenAppKey:String { return "RxAppState_numDidOpenApp" }
+    fileprivate var isFirstLaunchKey:String { return "RxAppState_isFirstLaunch" }
+    fileprivate var firstLaunchOnlyKey:String { return "RxAppState_firstLaunchOnly" }
+    fileprivate var numDidOpenAppKey:String { return "RxAppState_numDidOpenApp" }
     
     /**
      Reactive wrapper for `delegate`.
@@ -78,7 +78,7 @@ extension UIApplication {
     public var rx_applicationDidBecomeActive: Observable<AppState> {
         return rx_delegate.observe(#selector(UIApplicationDelegate.applicationDidBecomeActive(_:)))
             .map { _ in
-                return .Active
+                return .active
         }
     }
     
@@ -88,7 +88,7 @@ extension UIApplication {
     public var rx_applicationDidEnterBackground: Observable<AppState> {
         return rx_delegate.observe(#selector(UIApplicationDelegate.applicationDidEnterBackground(_:)))
             .map { _ in
-                return .Background
+                return .background
         }
     }
     
@@ -98,7 +98,7 @@ extension UIApplication {
     public var rx_applicationWillResignActive: Observable<AppState> {
         return rx_delegate.observe(#selector(UIApplicationDelegate.applicationWillResignActive(_:)))
             .map { _ in
-                return .Inactive
+                return .inactive
         }
     }
     
@@ -108,7 +108,7 @@ extension UIApplication {
     public var rx_applicationWillTerminate: Observable<AppState> {
         return rx_delegate.observe(#selector(UIApplicationDelegate.applicationWillTerminate(_:)))
             .map { _ in
-                return .Terminated
+                return .terminated
         }
     }
     
@@ -151,7 +151,7 @@ extension UIApplication {
             )
             .merge()
             .distinctUntilChanged()
-            .filter { $0 == .Active }
+            .filter { $0 == .active }
             .map { _ in
                 return
         }
@@ -171,10 +171,10 @@ extension UIApplication {
     public var rx_didOpenAppCount: Observable<Int> {
         return rx_didOpenApp
             .map { _ in
-                let userDefaults = NSUserDefaults.standardUserDefaults()
-                var count = userDefaults.integerForKey(self.numDidOpenAppKey)
+                let userDefaults = UserDefaults.standard
+                var count = userDefaults.integer(forKey: self.numDidOpenAppKey)
                 count = min(count + 1, Int.max - 1)
-                userDefaults.setInteger(count, forKey: self.numDidOpenAppKey)
+                userDefaults.set(count, forKey: self.numDidOpenAppKey)
                 userDefaults.synchronize()
                 return count
         }
@@ -194,13 +194,13 @@ extension UIApplication {
     public var rx_isFirstLaunch: Observable<Bool> {
         return rx_didOpenApp
             .map { _ in
-                let userDefaults = NSUserDefaults.standardUserDefaults()
-                let didLaunchBefore = userDefaults.boolForKey(self.isFirstLaunchKey)
+                let userDefaults = UserDefaults.standard
+                let didLaunchBefore = userDefaults.bool(forKey: self.isFirstLaunchKey)
                 
                 if didLaunchBefore {
                     return false
                 } else {
-                    userDefaults.setBool(true, forKey: self.isFirstLaunchKey)
+                    userDefaults.set(true, forKey: self.isFirstLaunchKey)
                     userDefaults.synchronize()
                     return true
                 }
@@ -221,8 +221,8 @@ extension UIApplication {
      */
     public var rx_firstLaunchOnly: Observable<Void> {
         return Observable.create{ observer in
-            let userDefaults = NSUserDefaults.standardUserDefaults()
-            let didLaunchBefore = userDefaults.boolForKey(self.isFirstLaunchKey)
+            let userDefaults = UserDefaults.standard
+            let didLaunchBefore = userDefaults.bool(forKey: self.isFirstLaunchKey)
             
             if !didLaunchBefore {
                 observer.onNext()

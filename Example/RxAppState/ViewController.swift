@@ -22,7 +22,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let application = UIApplication.sharedApplication()
+        let application = UIApplication.shared
         
         /**
         Show the application state
