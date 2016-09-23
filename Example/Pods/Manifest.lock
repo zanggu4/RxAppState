@@ -1,23 +1,31 @@
 PODS:
-  - RxAppState (0.1.0):
-    - RxCocoa (~> 2.6)
-    - RxSwift (~> 2.6)
-  - RxCocoa (2.6.0):
-    - RxSwift (~> 2.5)
-  - RxSwift (2.6.0)
+  - RxAppState (0.3.0):
+    - RxCocoa (= 3.0.0-beta.1)
+    - RxSwift (= 3.0.0-beta.1)
+  - RxCocoa (3.0.0-beta.1):
+    - RxSwift (~> 3.0.0-beta.1)
+  - RxSwift (3.0.0-beta.1)
 
 DEPENDENCIES:
   - RxAppState (from `../`)
+  - RxSwift (from `https://github.com/pixeldock/RxSwift`)
 
 EXTERNAL SOURCES:
   RxAppState:
     :path: "../"
+  RxSwift:
+    :git: https://github.com/pixeldock/RxSwift
+
+CHECKOUT OPTIONS:
+  RxSwift:
+    :commit: d8ac7838ce4cbc6afc331f506ff25e7f7958caf6
+    :git: https://github.com/pixeldock/RxSwift
 
 SPEC CHECKSUMS:
-  RxAppState: ef843ba6c702be2f05535257a704ab1e875602a7
-  RxCocoa: 89ab00d5753502520227940e3a0e0a0413683c6b
-  RxSwift: 77f3a0b15324baa7a1c9bfa9f199648a82424e26
+  RxAppState: 14c95326df36d0419f6f7beaaa6f8280672ae436
+  RxCocoa: 8cecf331302b8ae5381bbab1bccba4ede2eae6a8
+  RxSwift: 0823e8d7969c23bfa9ddfb2afa4881e424a1a710
 
-PODFILE CHECKSUM: 8c319968d7238b714bdf0f4feebe2e3c15c2a604
+PODFILE CHECKSUM: c99a97ff91aa1867087aceb00bff141441ece27d
 
-COCOAPODS: 1.0.0
+COCOAPODS: 1.1.0.rc.2
