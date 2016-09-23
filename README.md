@@ -25,10 +25,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     var didEnterBackground = true
     ...
-    func applicationDidEnterBackground(application: UIApplication) {
+    func applicationDidEnterBackground(_ application: UIApplication) {
         didEnterBackground = true
     }
-    func applicationDidBecomeActive(application: UIApplication) {
+    func applicationDidBecomeActive(_ application: UIApplication) {
         if didEnterBackground {
             // run your code
             didEnterBackground = false
@@ -43,10 +43,10 @@ This is not a big problem, but it is not a very elegant approach. And you have t
 With RxAppState you can simply do the following:
 
 ```
-UIApplication.sharedApplication().rx_didOpenApp
-    .subscribeNext { _ in
+UIApplication.shared.rx_didOpenApp
+    .subscribe(onNext: { _ in
         // run your code
-    }
+    })
     .addDisposableTo(disposeBag)
 ```
 This runs your code whenever the user opens the app. It includes the first launch of the app and ignores the cases when the app enters active state without having been in background state before (like when the user just opened Control Center or received a phone call)
@@ -55,20 +55,20 @@ This runs your code whenever the user opens the app. It includes the first launc
 You want to show your user a tutorial when he first launches the app? And you only want to show it after the first launch and never again? No problem:
 
 ```
-UIApplication.sharedApplication().rx_firstLaunchOnly
-    .subscribeNext { _ in
+UIApplication.shared.rx_firstLaunchOnly
+    .subscribe(onNext: { _ in
         // run your code
-    }
+    })
     .addDisposableTo(disposeBag)
 ```
 
 You want to keep track of how many times the user has opened your app? Simply do this:
 
 ```
-UIApplication.sharedApplication().rx_didOpenAppCount
-    .subscribeNext { count in
+UIApplication.shared.rx_didOpenAppCount
+    .subscribe(onNext: { count in
         print("app opened \(count) times")
-    }
+    })
     .addDisposableTo(disposeBag)
 ```
 
@@ -78,20 +78,17 @@ This code does not have to live in your AppDelegate. You could put it anywhere y
 If you are using _rx_firstLaunchOnly_, _rx_isFirstLaunch_ or _rx_didOpenAppCount_ make sure you only subscribe once to each of those 3 Observables. Those Observables store data in NSUserDefault, so if you have more than one subscription you will get incorrect values. 
 
 ## Example
-
 There is a simple example project to demonstrate how to use RxAppDelegate.
 
 ## Requirements
-
 iOS 8 or greater    
-Swift 2.2
+Swift 3.x
 
 ## Dependencies
-RxSwift 2.6  
-RxCocoa 2.6
+RxSwift 3.0  
+RxCocoa 3.0
 
 ## Installation
-
 RxAppState is available through [CocoaPods](http://cocoapods.org). To install
 it, simply add the following line to your Podfile:
 
