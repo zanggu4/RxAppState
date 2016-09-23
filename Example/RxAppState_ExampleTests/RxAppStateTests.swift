@@ -39,9 +39,9 @@ class RxAppStateTests: XCTestCase {
         // Given
         var appStates: [AppState] = []
         application.rx_appState
-            .subscribeNext { appState in
+            .subscribe(onNext: { appState in
                 appStates.append(appState)
-            }
+            })
             .addDisposableTo(disposeBag)
         
         // When
@@ -58,9 +58,9 @@ class RxAppStateTests: XCTestCase {
         // Given
         var didOpenAppCalledCount = 0
         application.rx_didOpenApp
-            .subscribeNext { _ in
+            .subscribe(onNext: { _ in
                 didOpenAppCalledCount += 1
-            }
+            })
             .addDisposableTo(disposeBag)
         
         // When
@@ -74,9 +74,9 @@ class RxAppStateTests: XCTestCase {
         // Given
         var didOpenAppCounts: [Int] = []
         application.rx_didOpenAppCount
-            .subscribeNext { count in
+            .subscribe(onNext: { count in
                 didOpenAppCounts.append(count)
-            }
+            })
             .addDisposableTo(disposeBag)
         
         // When
@@ -90,9 +90,9 @@ class RxAppStateTests: XCTestCase {
         // Given
         var firstLaunchArray: [Bool] = []
         application.rx_isFirstLaunch
-            .subscribeNext { isFirstLaunch in
+            .subscribe(onNext: { isFirstLaunch in
                 firstLaunchArray.append(isFirstLaunch)
-            }
+            })
             .addDisposableTo(disposeBag)
         
         // When
@@ -106,9 +106,9 @@ class RxAppStateTests: XCTestCase {
         // Given
         var firstLaunchArray: [Bool] = []
         application.rx_firstLaunchOnly
-            .subscribeNext { _ in
+            .subscribe(onNext: { _ in
                 firstLaunchArray.append(true)
-            }
+            })
             .addDisposableTo(disposeBag)
         
         // When

@@ -42,9 +42,9 @@ class ViewController: UIViewController {
         Show how many times the app has been opened
         */
         application.rx_didOpenAppCount
-            .subscribeNext { count in
+            .subscribe(onNext: { count in
                 self.appOpenedLabel.text = count == 1 ? "1 time" : "\(count) times"
-            }
+            })
             .addDisposableTo(disposeBag)
     }
 }
