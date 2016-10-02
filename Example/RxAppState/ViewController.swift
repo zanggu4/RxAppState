@@ -27,21 +27,21 @@ class ViewController: UIViewController {
         /**
         Show the application state
         */
-        application.rx_appState
+        application.rx.appState
             .bindTo(stateLabel.rx_appState)
             .addDisposableTo(disposeBag)
         
         /**
         Show if the app is launched for the first time
         */
-        application.rx_isFirstLaunch
+        application.rx.isFirstLaunch
             .bindTo(firstLaunchLabel.rx_firstLaunch)
             .addDisposableTo(disposeBag)
         
         /**
         Show how many times the app has been opened
         */
-        application.rx_didOpenAppCount
+        application.rx.didOpenAppCount
             .subscribe(onNext: { count in
                 self.appOpenedLabel.text = count == 1 ? "1 time" : "\(count) times"
             })
