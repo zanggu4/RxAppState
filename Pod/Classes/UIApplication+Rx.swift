@@ -228,7 +228,7 @@ extension UIApplication {
                 observer.onNext()
             }
             observer.onCompleted()
-            return NopDisposable.instance
+            return Disposables.create {}
         }
     }
 }
