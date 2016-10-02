@@ -43,7 +43,7 @@ This is not a big problem, but it is not a very elegant approach. And you have t
 With RxAppState you can simply do the following:
 
 ```
-UIApplication.shared.rx_didOpenApp
+UIApplication.shared.rx.didOpenApp
     .subscribe(onNext: { _ in
         // run your code
     })
@@ -55,7 +55,7 @@ This runs your code whenever the user opens the app. It includes the first launc
 You want to show your user a tutorial when he first launches the app? And you only want to show it after the first launch and never again? No problem:
 
 ```
-UIApplication.shared.rx_firstLaunchOnly
+UIApplication.shared.rx.firstLaunchOnly
     .subscribe(onNext: { _ in
         // run your code
     })
@@ -65,7 +65,7 @@ UIApplication.shared.rx_firstLaunchOnly
 You want to keep track of how many times the user has opened your app? Simply do this:
 
 ```
-UIApplication.shared.rx_didOpenAppCount
+UIApplication.shared.rx.didOpenAppCount
     .subscribe(onNext: { count in
         print("app opened \(count) times")
     })
@@ -75,7 +75,7 @@ UIApplication.shared.rx_didOpenAppCount
 **The cherry on top:**   
 This code does not have to live in your AppDelegate. You could put it anywhere you like in your app! So don't clutter your AppDelegate with this code, put it somewhere else!
 
-If you are using _rx_firstLaunchOnly_, _rx_isFirstLaunch_ or _rx_didOpenAppCount_ make sure you only subscribe once to each of those 3 Observables. Those Observables store data in NSUserDefault, so if you have more than one subscription you will get incorrect values. 
+If you are using _firstLaunchOnly_, _isFirstLaunch_ or _didOpenAppCount_ make sure you only subscribe once to each of those 3 Observables. Those Observables store data in NSUserDefault, so if you have more than one subscription you will get incorrect values. 
 
 ## Example
 There is a simple example project to demonstrate how to use RxAppDelegate.

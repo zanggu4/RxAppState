@@ -38,7 +38,7 @@ class RxAppStateTests: XCTestCase {
     func testAppStates() {
         // Given
         var appStates: [AppState] = []
-        application.rx_appState
+        application.rx.appState
             .subscribe(onNext: { appState in
                 appStates.append(appState)
             })
@@ -57,7 +57,7 @@ class RxAppStateTests: XCTestCase {
     func testDidOpenApp() {
         // Given
         var didOpenAppCalledCount = 0
-        application.rx_didOpenApp
+        application.rx.didOpenApp
             .subscribe(onNext: { _ in
                 didOpenAppCalledCount += 1
             })
@@ -73,7 +73,7 @@ class RxAppStateTests: XCTestCase {
     func testDidOpenAppCount() {
         // Given
         var didOpenAppCounts: [Int] = []
-        application.rx_didOpenAppCount
+        application.rx.didOpenAppCount
             .subscribe(onNext: { count in
                 didOpenAppCounts.append(count)
             })
@@ -89,7 +89,7 @@ class RxAppStateTests: XCTestCase {
     func testIsFirstLaunch() {
         // Given
         var firstLaunchArray: [Bool] = []
-        application.rx_isFirstLaunch
+        application.rx.isFirstLaunch
             .subscribe(onNext: { isFirstLaunch in
                 firstLaunchArray.append(isFirstLaunch)
             })
@@ -105,7 +105,7 @@ class RxAppStateTests: XCTestCase {
     func testFirstLaunchOnly() {
         // Given
         var firstLaunchArray: [Bool] = []
-        application.rx_firstLaunchOnly
+        application.rx.firstLaunchOnly
             .subscribe(onNext: { _ in
                 firstLaunchArray.append(true)
             })

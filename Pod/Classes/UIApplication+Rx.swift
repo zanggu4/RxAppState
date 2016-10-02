@@ -54,7 +54,7 @@ public func ==(lhs: AppState, rhs: AppState) -> Bool {
     }
 }
 
-extension UIApplication {
+extension RxSwift.Reactive where Base: UIApplication {
     
     /**
      Keys for NSUserDefaults
@@ -68,15 +68,15 @@ extension UIApplication {
      
      For more information take a look at `DelegateProxyType` protocol documentation.
      */
-    public var rx_delegate: DelegateProxy {
-        return RxApplicationDelegateProxy.proxyForObject(self)
+    public var delegate: DelegateProxy {
+        return RxApplicationDelegateProxy.proxyForObject(base)
     }
     
     /**
      Reactive wrapper for `delegate` message `applicationDidBecomeActive(_:)`.
      */
-    public var rx_applicationDidBecomeActive: Observable<AppState> {
-        return rx_delegate.observe(#selector(UIApplicationDelegate.applicationDidBecomeActive(_:)))
+    public var applicationDidBecomeActive: Observable<AppState> {
+        return delegate.observe(#selector(UIApplicationDelegate.applicationDidBecomeActive(_:)))
             .map { _ in
                 return .active
         }
@@ -85,8 +85,8 @@ extension UIApplication {
     /**
      Reactive wrapper for `delegate` message `applicationDidEnterBackground(_:)`.
      */
-    public var rx_applicationDidEnterBackground: Observable<AppState> {
-        return rx_delegate.observe(#selector(UIApplicationDelegate.applicationDidEnterBackground(_:)))
+    public var applicationDidEnterBackground: Observable<AppState> {
+        return delegate.observe(#selector(UIApplicationDelegate.applicationDidEnterBackground(_:)))
             .map { _ in
                 return .background
         }
@@ -95,8 +95,8 @@ extension UIApplication {
     /**
      Reactive wrapper for `delegate` message `applicationWillResignActive(_:)`.
      */
-    public var rx_applicationWillResignActive: Observable<AppState> {
-        return rx_delegate.observe(#selector(UIApplicationDelegate.applicationWillResignActive(_:)))
+    public var applicationWillResignActive: Observable<AppState> {
+        return delegate.observe(#selector(UIApplicationDelegate.applicationWillResignActive(_:)))
             .map { _ in
                 return .inactive
         }
@@ -105,8 +105,8 @@ extension UIApplication {
     /**
      Reactive wrapper for `delegate` message `applicationWillTerminate(_:)`.
      */
-    public var rx_applicationWillTerminate: Observable<AppState> {
-        return rx_delegate.observe(#selector(UIApplicationDelegate.applicationWillTerminate(_:)))
+    public var applicationWillTerminate: Observable<AppState> {
+        return delegate.observe(#selector(UIApplicationDelegate.applicationWillTerminate(_:)))
             .map { _ in
                 return .terminated
         }
@@ -119,12 +119,12 @@ extension UIApplication {
      
      - returns: Observable sequence of AppStates
      */
-    public var rx_appState: Observable<AppState> {
+    public var appState: Observable<AppState> {
         return Observable.of(
-            rx_applicationDidBecomeActive,
-            rx_applicationWillResignActive,
-            rx_applicationDidEnterBackground,
-            rx_applicationWillTerminate
+            applicationDidBecomeActive,
+            applicationWillResignActive,
+            applicationDidEnterBackground,
+            applicationWillTerminate
             )
             .merge()
     }
@@ -144,10 +144,10 @@ extension UIApplication {
      
      - returns: Observable sequence of Void
      */
-    public var rx_didOpenApp: Observable<Void> {
+    public var didOpenApp: Observable<Void> {
         return Observable.of(
-            rx_applicationDidBecomeActive,
-            rx_applicationDidEnterBackground
+            applicationDidBecomeActive,
+            applicationDidEnterBackground
             )
             .merge()
             .distinctUntilChanged()
@@ -168,8 +168,8 @@ extension UIApplication {
      
      -returns: Observable sequence of Int
      */
-    public var rx_didOpenAppCount: Observable<Int> {
-        return rx_didOpenApp
+    public var didOpenAppCount: Observable<Int> {
+        return didOpenApp
             .map { _ in
                 let userDefaults = UserDefaults.standard
                 var count = userDefaults.integer(forKey: self.numDidOpenAppKey)
@@ -191,8 +191,8 @@ extension UIApplication {
      
      -returns: Observable sequence of Bool
      */
-    public var rx_isFirstLaunch: Observable<Bool> {
-        return rx_didOpenApp
+    public var isFirstLaunch: Observable<Bool> {
+        return didOpenApp
             .map { _ in
                 let userDefaults = UserDefaults.standard
                 let didLaunchBefore = userDefaults.bool(forKey: self.isFirstLaunchKey)
@@ -219,7 +219,7 @@ extension UIApplication {
      
      -returns: Observable sequence of Void
      */
-    public var rx_firstLaunchOnly: Observable<Void> {
+    public var firstLaunchOnly: Observable<Void> {
         return Observable.create{ observer in
             let userDefaults = UserDefaults.standard
             let didLaunchBefore = userDefaults.bool(forKey: self.isFirstLaunchKey)
