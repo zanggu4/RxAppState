@@ -8,24 +8,24 @@ PODS:
 
 DEPENDENCIES:
   - RxAppState (from `../`)
-  - RxSwift (from `https://github.com/pixeldock/RxSwift`)
+  - RxSwift (from `https://github.com/ReactiveX/RxSwift`)
 
 EXTERNAL SOURCES:
   RxAppState:
     :path: "../"
   RxSwift:
-    :git: https://github.com/pixeldock/RxSwift
+    :git: https://github.com/ReactiveX/RxSwift
 
 CHECKOUT OPTIONS:
   RxSwift:
-    :commit: d8ac7838ce4cbc6afc331f506ff25e7f7958caf6
-    :git: https://github.com/pixeldock/RxSwift
+    :commit: e3528abf092330b6fe7eade4e6b704e3054f4bce
+    :git: https://github.com/ReactiveX/RxSwift
 
 SPEC CHECKSUMS:
   RxAppState: 14c95326df36d0419f6f7beaaa6f8280672ae436
   RxCocoa: 8cecf331302b8ae5381bbab1bccba4ede2eae6a8
   RxSwift: 0823e8d7969c23bfa9ddfb2afa4881e424a1a710
 
-PODFILE CHECKSUM: c99a97ff91aa1867087aceb00bff141441ece27d
+PODFILE CHECKSUM: 0b11c2b69a6d7eedd0793dc7da7eeac53d7b92e4
 
 COCOAPODS: 1.1.0.rc.2
