@@ -17,6 +17,7 @@ class RxAppStateTests: XCTestCase {
     fileprivate var isFirstLaunchKey:String { return "RxAppState_isFirstLaunch" }
     fileprivate var firstLaunchOnlyKey:String { return "RxAppState_firstLaunchOnly" }
     fileprivate var numDidOpenAppKey:String { return "RxAppState_numDidOpenApp" }
+    fileprivate var lastAppVersionKey:  String { return "RxAppState_lastAppVersion" }
 
     
     let application = UIApplication.shared
@@ -28,6 +29,7 @@ class RxAppStateTests: XCTestCase {
         userDefaults.removeObject(forKey: isFirstLaunchKey)
         userDefaults.removeObject(forKey: firstLaunchOnlyKey)
         userDefaults.removeObject(forKey: numDidOpenAppKey)
+        userDefaults.removeObject(forKey: lastAppVersionKey)
     }
     
     override func tearDown() {
@@ -116,6 +118,119 @@ class RxAppStateTests: XCTestCase {
         
         // Then
         XCTAssertEqual(firstLaunchArray, [true])
+    }
+    
+    func testisFirstLaunchOfNewVersionNewInstall() {
+        // Given
+        var firstLaunchArray: [Bool] = []
+        application.rx.isFirstLaunchOfNewVersion
+            .subscribe(onNext: { isFirstLaunchOfNewVersion in
+                firstLaunchArray.append(isFirstLaunchOfNewVersion)
+            })
+            .addDisposableTo(disposeBag)
+        
+        // When
+        runAppStateSequence()
+        
+        // Then
+        XCTAssertEqual(firstLaunchArray, [false, false, false])
+    }
+    
+    func testisFirstLaunchOfNewVersionUpdate() {
+        // Given
+        var firstLaunchArray: [Bool] = []
+        UserDefaults.standard.set("3.2", forKey: self.lastAppVersionKey)
+        UserDefaults.standard.synchronize()
+        RxAppState.getCurrentAppVersion = { _ in return "4.2" }
+        
+        application.rx.isFirstLaunchOfNewVersion
+            .subscribe(onNext: { isFirstLaunchOfNewVersion in
+                firstLaunchArray.append(isFirstLaunchOfNewVersion)
+            })
+            .addDisposableTo(disposeBag)
+        
+        // When
+        runAppStateSequence()
+        
+        // Then
+        XCTAssertEqual(firstLaunchArray, [true, false, false])
+        
+    }
+    
+    func testisFirstLaunchOfNewVersionExisting() {
+        // Given
+        var firstLaunchArray: [Bool] = []
+        UserDefaults.standard.set("4.2", forKey: self.lastAppVersionKey)
+        UserDefaults.standard.synchronize()
+        RxAppState.getCurrentAppVersion = { _ in return "4.2" }
+        
+        application.rx.isFirstLaunchOfNewVersion
+            .subscribe(onNext: { isFirstLaunchOfNewVersion in
+                firstLaunchArray.append(isFirstLaunchOfNewVersion)
+            })
+            .addDisposableTo(disposeBag)
+        
+        // When
+        runAppStateSequence()
+        
+        // Then
+        XCTAssertEqual(firstLaunchArray, [false, false, false])
+    }
+    
+    func testfirstLaunchOfNewVersionOnlyNewInstall() {
+        // Given
+        var firstLaunchArray: [Bool] = []
+        application.rx.firstLaunchOfNewVersionOnly
+            .subscribe(onNext: { _ in
+                firstLaunchArray.append(true)
+            })
+            .addDisposableTo(disposeBag)
+        
+        // When
+        runAppStateSequence()
+        
+        // Then
+        XCTAssertEqual(firstLaunchArray, [])
+    }
+    
+    func testfirstLaunchOfNewVersionOnlyNewUpdate() {
+        // Given
+        var firstLaunchArray: [Bool] = []
+        UserDefaults.standard.set("3.2", forKey: self.lastAppVersionKey)
+        UserDefaults.standard.synchronize()
+        RxAppState.getCurrentAppVersion = { _ in return "4.2" }
+        
+        application.rx.firstLaunchOfNewVersionOnly
+            .subscribe(onNext: { _ in
+                firstLaunchArray.append(true)
+            })
+            .addDisposableTo(disposeBag)
+        
+        // When
+        runAppStateSequence()
+        
+        // Then
+        XCTAssertEqual(firstLaunchArray, [true])
+    }
+    
+    func testfirstLaunchOfNewVersionOnlyExisting() {
+        // Given
+        var firstLaunchArray: [Bool] = []
+        UserDefaults.standard.set("4.2", forKey: self.lastAppVersionKey)
+        UserDefaults.standard.synchronize()
+        RxAppState.getCurrentAppVersion = { _ in return "4.2" }
+        
+        application.rx.firstLaunchOfNewVersionOnly
+            .subscribe(onNext: { _ in
+                firstLaunchArray.append(true)
+            })
+            .addDisposableTo(disposeBag)
+        
+        // When
+        runAppStateSequence()
+        
+        // Then
+        XCTAssertEqual(firstLaunchArray, [])
     }
     
     func runAppStateSequence() {

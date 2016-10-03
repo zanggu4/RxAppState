@@ -54,14 +54,36 @@ public func ==(lhs: AppState, rhs: AppState) -> Bool {
     }
 }
 
+public struct RxAppState {
+    /**
+     Allows for the app version to be stored by default in the main bundle from `CFBundleShortVersionString` or
+     a custom implementation per app.
+     */
+    public static var getCurrentAppVersion: ((Void) -> String?) = { _ in return Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String}
+
+}
+
 extension RxSwift.Reactive where Base: UIApplication {
     
     /**
      Keys for NSUserDefaults
      */
-    fileprivate var isFirstLaunchKey:String { return "RxAppState_isFirstLaunch" }
-    fileprivate var firstLaunchOnlyKey:String { return "RxAppState_firstLaunchOnly" }
-    fileprivate var numDidOpenAppKey:String { return "RxAppState_numDidOpenApp" }
+    fileprivate var isFirstLaunchKey:   String { return "RxAppState_isFirstLaunch" }
+    fileprivate var firstLaunchOnlyKey: String { return "RxAppState_firstLaunchOnly" }
+    fileprivate var numDidOpenAppKey:   String { return "RxAppState_numDidOpenApp" }
+    fileprivate var lastAppVersionKey:  String { return "RxAppState_lastAppVersion" }
+
+    /**
+     App versions
+     */
+    fileprivate var appVersions: (last: String, current: String) {
+        return (last: UserDefaults.standard.string(forKey: self.lastAppVersionKey) ?? "",
+                current: RxAppState.getCurrentAppVersion() ?? "")
+    }
+    
+//    public static func getCurrentAppVersion(_ handler: ((Void) -> String?) = { _ in return Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String}) -> String? {
+//        return handler()
+//    }
     
     /**
      Reactive wrapper for `delegate`.
@@ -208,6 +230,61 @@ extension RxSwift.Reactive where Base: UIApplication {
     }
     
     /**
+     Observable sequence that emits if the app is opened for the first time after an app has updated when the user
+     opens the app. This does not occur on first launch of a new app install. See `isFirstLaunch` for that.
+     
+     This is a handy sequence for all the times you want to run some code only when the app is launched for the
+     first time after an update.
+     
+     Typical use case:
+     - Show a what's new dialog to users, or prompt review or signup
+     
+     -returns: Observable sequence of Bool
+     */
+    public var isFirstLaunchOfNewVersion: Observable<Bool> {
+        return didOpenApp
+            .map { _ in
+                let (lastAppVersion, currentAppVersion) = self.appVersions
+                
+                if lastAppVersion.isEmpty || lastAppVersion != currentAppVersion {
+                    UserDefaults.standard.set(currentAppVersion, forKey: self.lastAppVersionKey)
+                    UserDefaults.standard.synchronize()
+                }
+                
+                if !lastAppVersion.isEmpty && lastAppVersion != currentAppVersion {
+                    return true
+                } else {
+                    return false
+                }
+        }
+    }
+    
+    /**
+     Observable sequence that just emits one value if the app is opened for the first time for a new version
+     or completes empty if this version of the app has been opened before
+     
+     This is a handy sequence for all the times you want to run some code only when a new version of the app
+     is launched for the first time
+     
+     Typical use case:
+     - Show a what's new dialog to users, or prompt review or signup
+     
+     -returns: Observable sequence of Void
+     */
+    public var firstLaunchOfNewVersionOnly: Observable<Void> {
+        return Observable.create{ observer in
+            let (lastAppVersion, currentAppVersion) = self.appVersions
+            let isUpgraded = (!lastAppVersion.isEmpty && lastAppVersion != currentAppVersion)
+
+            if isUpgraded {
+                observer.onNext()
+            }
+            observer.onCompleted()
+            return Disposables.create {}
+        }
+    }
+
+    /**
      Observable sequence that just emits one value if the app is opened for the first time
      or completes empty if the app has been opened before
      
@@ -231,4 +308,5 @@ extension RxSwift.Reactive where Base: UIApplication {
             return Disposables.create {}
         }
     }
+    
 }
