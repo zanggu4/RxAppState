@@ -8,6 +8,8 @@ PODS:
 
 DEPENDENCIES:
   - RxAppState (from `../`)
+  - RxCocoa (= 3.0.0-beta.2)
+  - RxSwift (= 3.0.0-beta.2)
 
 EXTERNAL SOURCES:
   RxAppState:
@@ -18,6 +20,6 @@ SPEC CHECKSUMS:
   RxCocoa: 1dd105d8a4e18034ccd7bd6d136445363ce67c8e
   RxSwift: 0ea939d7d97cb70657190ffde8dc2a9b455778fc
 
-PODFILE CHECKSUM: 61547f0ebfd0139202ce75678436fde2e4d9b29d
+PODFILE CHECKSUM: 41ef6376da44c0740eba5083c545dcfdb3c304b8
 
 COCOAPODS: 1.1.0.rc.2
