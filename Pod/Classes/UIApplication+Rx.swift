@@ -93,7 +93,7 @@ extension RxSwift.Reactive where Base: UIApplication {
      Reactive wrapper for `delegate` message `applicationDidBecomeActive(_:)`.
      */
     public var applicationDidBecomeActive: Observable<AppState> {
-        return delegate.observe(#selector(UIApplicationDelegate.applicationDidBecomeActive(_:)))
+        return delegate.methodInvoked(#selector(UIApplicationDelegate.applicationDidBecomeActive(_:)))
             .map { _ in
                 return .active
         }
@@ -103,7 +103,7 @@ extension RxSwift.Reactive where Base: UIApplication {
      Reactive wrapper for `delegate` message `applicationDidEnterBackground(_:)`.
      */
     public var applicationDidEnterBackground: Observable<AppState> {
-        return delegate.observe(#selector(UIApplicationDelegate.applicationDidEnterBackground(_:)))
+        return delegate.methodInvoked(#selector(UIApplicationDelegate.applicationDidEnterBackground(_:)))
             .map { _ in
                 return .background
         }
@@ -113,7 +113,7 @@ extension RxSwift.Reactive where Base: UIApplication {
      Reactive wrapper for `delegate` message `applicationWillResignActive(_:)`.
      */
     public var applicationWillResignActive: Observable<AppState> {
-        return delegate.observe(#selector(UIApplicationDelegate.applicationWillResignActive(_:)))
+        return delegate.methodInvoked(#selector(UIApplicationDelegate.applicationWillResignActive(_:)))
             .map { _ in
                 return .inactive
         }
@@ -123,7 +123,7 @@ extension RxSwift.Reactive where Base: UIApplication {
      Reactive wrapper for `delegate` message `applicationWillTerminate(_:)`.
      */
     public var applicationWillTerminate: Observable<AppState> {
-        return delegate.observe(#selector(UIApplicationDelegate.applicationWillTerminate(_:)))
+        return delegate.methodInvoked(#selector(UIApplicationDelegate.applicationWillTerminate(_:)))
             .map { _ in
                 return .terminated
         }
