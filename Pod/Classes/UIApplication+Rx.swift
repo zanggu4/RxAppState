@@ -59,8 +59,7 @@ public struct RxAppState {
      Allows for the app version to be stored by default in the main bundle from `CFBundleShortVersionString` or
      a custom implementation per app.
      */
-    public static var getCurrentAppVersion: ((Void) -> String?) = { _ in return Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String}
-
+    public static var currentAppVersion = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String
 }
 
 extension RxSwift.Reactive where Base: UIApplication {
@@ -78,12 +77,8 @@ extension RxSwift.Reactive where Base: UIApplication {
      */
     fileprivate var appVersions: (last: String, current: String) {
         return (last: UserDefaults.standard.string(forKey: self.lastAppVersionKey) ?? "",
-                current: RxAppState.getCurrentAppVersion() ?? "")
+                current: RxAppState.currentAppVersion ?? "")
     }
-    
-//    public static func getCurrentAppVersion(_ handler: ((Void) -> String?) = { _ in return Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String}) -> String? {
-//        return handler()
-//    }
     
     /**
      Reactive wrapper for `delegate`.

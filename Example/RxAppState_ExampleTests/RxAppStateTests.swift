@@ -120,7 +120,7 @@ class RxAppStateTests: XCTestCase {
         XCTAssertEqual(firstLaunchArray, [true])
     }
     
-    func testisFirstLaunchOfNewVersionNewInstall() {
+    func testIsFirstLaunchOfNewVersionNewInstall() {
         // Given
         var firstLaunchArray: [Bool] = []
         application.rx.isFirstLaunchOfNewVersion
@@ -136,12 +136,12 @@ class RxAppStateTests: XCTestCase {
         XCTAssertEqual(firstLaunchArray, [false, false, false])
     }
     
-    func testisFirstLaunchOfNewVersionUpdate() {
+    func testIsFirstLaunchOfNewVersionUpdate() {
         // Given
         var firstLaunchArray: [Bool] = []
         UserDefaults.standard.set("3.2", forKey: self.lastAppVersionKey)
         UserDefaults.standard.synchronize()
-        RxAppState.getCurrentAppVersion = { _ in return "4.2" }
+        RxAppState.currentAppVersion = "4.2"
         
         application.rx.isFirstLaunchOfNewVersion
             .subscribe(onNext: { isFirstLaunchOfNewVersion in
@@ -157,12 +157,12 @@ class RxAppStateTests: XCTestCase {
         
     }
     
-    func testisFirstLaunchOfNewVersionExisting() {
+    func testIsFirstLaunchOfNewVersionExisting() {
         // Given
         var firstLaunchArray: [Bool] = []
         UserDefaults.standard.set("4.2", forKey: self.lastAppVersionKey)
         UserDefaults.standard.synchronize()
-        RxAppState.getCurrentAppVersion = { _ in return "4.2" }
+        RxAppState.currentAppVersion = "4.2"
         
         application.rx.isFirstLaunchOfNewVersion
             .subscribe(onNext: { isFirstLaunchOfNewVersion in
@@ -177,7 +177,7 @@ class RxAppStateTests: XCTestCase {
         XCTAssertEqual(firstLaunchArray, [false, false, false])
     }
     
-    func testfirstLaunchOfNewVersionOnlyNewInstall() {
+    func testFirstLaunchOfNewVersionOnlyNewInstall() {
         // Given
         var firstLaunchArray: [Bool] = []
         application.rx.firstLaunchOfNewVersionOnly
@@ -193,12 +193,12 @@ class RxAppStateTests: XCTestCase {
         XCTAssertEqual(firstLaunchArray, [])
     }
     
-    func testfirstLaunchOfNewVersionOnlyNewUpdate() {
+    func testFirstLaunchOfNewVersionOnlyNewUpdate() {
         // Given
         var firstLaunchArray: [Bool] = []
         UserDefaults.standard.set("3.2", forKey: self.lastAppVersionKey)
         UserDefaults.standard.synchronize()
-        RxAppState.getCurrentAppVersion = { _ in return "4.2" }
+        RxAppState.currentAppVersion = "4.2"
         
         application.rx.firstLaunchOfNewVersionOnly
             .subscribe(onNext: { _ in
@@ -213,12 +213,12 @@ class RxAppStateTests: XCTestCase {
         XCTAssertEqual(firstLaunchArray, [true])
     }
     
-    func testfirstLaunchOfNewVersionOnlyExisting() {
+    func testFirstLaunchOfNewVersionOnlyExisting() {
         // Given
         var firstLaunchArray: [Bool] = []
         UserDefaults.standard.set("4.2", forKey: self.lastAppVersionKey)
         UserDefaults.standard.synchronize()
-        RxAppState.getCurrentAppVersion = { _ in return "4.2" }
+        RxAppState.currentAppVersion = "4.2"
         
         application.rx.firstLaunchOfNewVersionOnly
             .subscribe(onNext: { _ in
