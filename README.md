@@ -61,6 +61,15 @@ UIApplication.shared.rx.firstLaunchOnly
     })
     .addDisposableTo(disposeBag)
 ```
+You want to show your user a message when he opens the app for the first time after an update?
+
+```
+UIApplication.shared.rx.firstLaunchOfNewVersionOnly
+    .subscribe(onNext: { _ in
+        // run your code
+    })
+    .addDisposableTo(disposeBag)
+```
 
 You want to keep track of how many times the user has opened your app? Simply do this:
 
@@ -98,7 +107,7 @@ pod "RxAppState"
 
 ## Author
 
-Jörn Schoppe,  
+Jörn Schoppe,  
 joern@pixeldock.com   
 [![Twitter](https://img.shields.io/badge/Twitter-@pixeldock-blue.svg?style=flat)](http://twitter.com/pixeldock)
 
