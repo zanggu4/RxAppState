@@ -1,10 +1,10 @@
 PODS:
-  - RxAppState (0.2.0):
-    - RxCocoa (~> 2.6)
-    - RxSwift (~> 2.6)
-  - RxCocoa (2.6.0):
-    - RxSwift (~> 2.5)
-  - RxSwift (2.6.0)
+  - RxAppState (0.3.0):
+    - RxCocoa (~> 3.0)
+    - RxSwift (~> 3.0)
+  - RxCocoa (3.0.0):
+    - RxSwift (~> 3.0)
+  - RxSwift (3.0.0)
 
 DEPENDENCIES:
   - RxAppState (from `../`)
@@ -14,10 +14,10 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  RxAppState: e0abf1aa8cf89958ea71ed78f48cbe2d4af5af76
-  RxCocoa: 89ab00d5753502520227940e3a0e0a0413683c6b
-  RxSwift: 77f3a0b15324baa7a1c9bfa9f199648a82424e26
+  RxAppState: 7183dfa5193d14c63f5e1281a6b202530ba387f4
+  RxCocoa: 0a2f3ae381cf16f4021a4cee7a4420f83058a965
+  RxSwift: a930cd662f5b4a7ca9dc3518585dba91dadf497c
 
-PODFILE CHECKSUM: 46b5164b39a56ad51d7d83958798398a5ad285fe
+PODFILE CHECKSUM: 61547f0ebfd0139202ce75678436fde2e4d9b29d
 
 COCOAPODS: 1.1.0.rc.2

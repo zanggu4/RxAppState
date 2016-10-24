@@ -14,20 +14,22 @@ import RxAppState
 
 class RxAppStateTests: XCTestCase {
     
-    private var isFirstLaunchKey:String { return "RxAppState_isFirstLaunch" }
-    private var firstLaunchOnlyKey:String { return "RxAppState_firstLaunchOnly" }
-    private var numDidOpenAppKey:String { return "RxAppState_numDidOpenApp" }
+    fileprivate var isFirstLaunchKey:String { return "RxAppState_isFirstLaunch" }
+    fileprivate var firstLaunchOnlyKey:String { return "RxAppState_firstLaunchOnly" }
+    fileprivate var numDidOpenAppKey:String { return "RxAppState_numDidOpenApp" }
+    fileprivate var lastAppVersionKey:  String { return "RxAppState_lastAppVersion" }
 
     
-    let application = UIApplication.sharedApplication()
+    let application = UIApplication.shared
     var disposeBag = DisposeBag()
     
     override func setUp() {
         super.setUp()
-        let userDefaults = NSUserDefaults.standardUserDefaults()
-        userDefaults.removeObjectForKey(isFirstLaunchKey)
-        userDefaults.removeObjectForKey(firstLaunchOnlyKey)
-        userDefaults.removeObjectForKey(numDidOpenAppKey)
+        let userDefaults = UserDefaults.standard
+        userDefaults.removeObject(forKey: isFirstLaunchKey)
+        userDefaults.removeObject(forKey: firstLaunchOnlyKey)
+        userDefaults.removeObject(forKey: numDidOpenAppKey)
+        userDefaults.removeObject(forKey: lastAppVersionKey)
     }
     
     override func tearDown() {
@@ -38,10 +40,10 @@ class RxAppStateTests: XCTestCase {
     func testAppStates() {
         // Given
         var appStates: [AppState] = []
-        application.rx_appState
-            .subscribeNext { appState in
+        application.rx.appState
+            .subscribe(onNext: { appState in
                 appStates.append(appState)
-            }
+            })
             .addDisposableTo(disposeBag)
         
         // When
@@ -51,16 +53,16 @@ class RxAppStateTests: XCTestCase {
         application.delegate?.applicationWillTerminate!(application)
         
         // Then
-        XCTAssertEqual(appStates, [AppState.Active, AppState.Inactive, AppState.Background, AppState.Terminated])
+        XCTAssertEqual(appStates, [AppState.active, AppState.inactive, AppState.background, AppState.terminated])
     }
     
     func testDidOpenApp() {
         // Given
         var didOpenAppCalledCount = 0
-        application.rx_didOpenApp
-            .subscribeNext { _ in
+        application.rx.didOpenApp
+            .subscribe(onNext: { _ in
                 didOpenAppCalledCount += 1
-            }
+            })
             .addDisposableTo(disposeBag)
         
         // When
@@ -73,10 +75,10 @@ class RxAppStateTests: XCTestCase {
     func testDidOpenAppCount() {
         // Given
         var didOpenAppCounts: [Int] = []
-        application.rx_didOpenAppCount
-            .subscribeNext { count in
+        application.rx.didOpenAppCount
+            .subscribe(onNext: { count in
                 didOpenAppCounts.append(count)
-            }
+            })
             .addDisposableTo(disposeBag)
         
         // When
@@ -89,10 +91,10 @@ class RxAppStateTests: XCTestCase {
     func testIsFirstLaunch() {
         // Given
         var firstLaunchArray: [Bool] = []
-        application.rx_isFirstLaunch
-            .subscribeNext { isFirstLaunch in
+        application.rx.isFirstLaunch
+            .subscribe(onNext: { isFirstLaunch in
                 firstLaunchArray.append(isFirstLaunch)
-            }
+            })
             .addDisposableTo(disposeBag)
         
         // When
@@ -105,10 +107,10 @@ class RxAppStateTests: XCTestCase {
     func testFirstLaunchOnly() {
         // Given
         var firstLaunchArray: [Bool] = []
-        application.rx_firstLaunchOnly
-            .subscribeNext { _ in
+        application.rx.firstLaunchOnly
+            .subscribe(onNext: { _ in
                 firstLaunchArray.append(true)
-            }
+            })
             .addDisposableTo(disposeBag)
         
         // When
@@ -116,6 +118,119 @@ class RxAppStateTests: XCTestCase {
         
         // Then
         XCTAssertEqual(firstLaunchArray, [true])
+    }
+    
+    func testIsFirstLaunchOfNewVersionNewInstall() {
+        // Given
+        var firstLaunchArray: [Bool] = []
+        application.rx.isFirstLaunchOfNewVersion
+            .subscribe(onNext: { isFirstLaunchOfNewVersion in
+                firstLaunchArray.append(isFirstLaunchOfNewVersion)
+            })
+            .addDisposableTo(disposeBag)
+        
+        // When
+        runAppStateSequence()
+        
+        // Then
+        XCTAssertEqual(firstLaunchArray, [false, false, false])
+    }
+    
+    func testIsFirstLaunchOfNewVersionUpdate() {
+        // Given
+        var firstLaunchArray: [Bool] = []
+        UserDefaults.standard.set("3.2", forKey: self.lastAppVersionKey)
+        UserDefaults.standard.synchronize()
+        RxAppState.currentAppVersion = "4.2"
+        
+        application.rx.isFirstLaunchOfNewVersion
+            .subscribe(onNext: { isFirstLaunchOfNewVersion in
+                firstLaunchArray.append(isFirstLaunchOfNewVersion)
+            })
+            .addDisposableTo(disposeBag)
+        
+        // When
+        runAppStateSequence()
+        
+        // Then
+        XCTAssertEqual(firstLaunchArray, [true, false, false])
+        
+    }
+    
+    func testIsFirstLaunchOfNewVersionExisting() {
+        // Given
+        var firstLaunchArray: [Bool] = []
+        UserDefaults.standard.set("4.2", forKey: self.lastAppVersionKey)
+        UserDefaults.standard.synchronize()
+        RxAppState.currentAppVersion = "4.2"
+        
+        application.rx.isFirstLaunchOfNewVersion
+            .subscribe(onNext: { isFirstLaunchOfNewVersion in
+                firstLaunchArray.append(isFirstLaunchOfNewVersion)
+            })
+            .addDisposableTo(disposeBag)
+        
+        // When
+        runAppStateSequence()
+        
+        // Then
+        XCTAssertEqual(firstLaunchArray, [false, false, false])
+    }
+    
+    func testFirstLaunchOfNewVersionOnlyNewInstall() {
+        // Given
+        var firstLaunchArray: [Bool] = []
+        application.rx.firstLaunchOfNewVersionOnly
+            .subscribe(onNext: { _ in
+                firstLaunchArray.append(true)
+            })
+            .addDisposableTo(disposeBag)
+        
+        // When
+        runAppStateSequence()
+        
+        // Then
+        XCTAssertEqual(firstLaunchArray, [])
+    }
+    
+    func testFirstLaunchOfNewVersionOnlyNewUpdate() {
+        // Given
+        var firstLaunchArray: [Bool] = []
+        UserDefaults.standard.set("3.2", forKey: self.lastAppVersionKey)
+        UserDefaults.standard.synchronize()
+        RxAppState.currentAppVersion = "4.2"
+        
+        application.rx.firstLaunchOfNewVersionOnly
+            .subscribe(onNext: { _ in
+                firstLaunchArray.append(true)
+            })
+            .addDisposableTo(disposeBag)
+        
+        // When
+        runAppStateSequence()
+        
+        // Then
+        XCTAssertEqual(firstLaunchArray, [true])
+    }
+    
+    func testFirstLaunchOfNewVersionOnlyExisting() {
+        // Given
+        var firstLaunchArray: [Bool] = []
+        UserDefaults.standard.set("4.2", forKey: self.lastAppVersionKey)
+        UserDefaults.standard.synchronize()
+        RxAppState.currentAppVersion = "4.2"
+        
+        application.rx.firstLaunchOfNewVersionOnly
+            .subscribe(onNext: { _ in
+                firstLaunchArray.append(true)
+            })
+            .addDisposableTo(disposeBag)
+        
+        // When
+        runAppStateSequence()
+        
+        // Then
+        XCTAssertEqual(firstLaunchArray, [])
     }
     
     func runAppStateSequence() {

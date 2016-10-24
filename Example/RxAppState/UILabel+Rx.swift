@@ -15,17 +15,17 @@ extension UILabel {
     public var rx_appState: AnyObserver<AppState> {
         return UIBindingObserver(UIElement: self) { label, appState in
             switch appState {
-            case .Active:
-                label.backgroundColor = UIColor.greenColor()
+            case .active:
+                label.backgroundColor = UIColor.green
                 label.text = "ACTIVE"
-            case .Inactive:
-                label.backgroundColor = UIColor.yellowColor()
+            case .inactive:
+                label.backgroundColor = UIColor.yellow
                 label.text = "INACTIVE"
-            case .Background:
-                label.backgroundColor = UIColor.redColor()
+            case .background:
+                label.backgroundColor = UIColor.red
                 label.text = "BACKGROUND"
-            case .Terminated:
-                label.backgroundColor = UIColor.lightGrayColor()
+            case .terminated:
+                label.backgroundColor = UIColor.lightGray
                 label.text = "TERMINATED"
             }
         }
@@ -35,10 +35,10 @@ extension UILabel {
     public var rx_firstLaunch: AnyObserver<Bool> {
         return UIBindingObserver(UIElement: self) { label, isFirstLaunch in
             if isFirstLaunch {
-                label.backgroundColor = UIColor.greenColor()
+                label.backgroundColor = UIColor.green
                 label.text = "YES"
             } else {
-                label.backgroundColor = UIColor.redColor()
+                label.backgroundColor = UIColor.red
                 label.text = "NO"
             }
         }

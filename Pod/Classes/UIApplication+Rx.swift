@@ -20,7 +20,7 @@ public enum AppState: Equatable {
     /**
      The application is running in the foreground.
      */
-    case Active
+    case active
     /**
      The application is running in the foreground but not receiving events.
      Possible reasons:
@@ -28,15 +28,15 @@ public enum AppState: Equatable {
      - The user receives a phone call
      - A system prompt is shown (e.g. Request to allow Push Notifications)
      */
-    case Inactive
+    case inactive
     /**
      The application is in the background because the user closed it.
      */
-    case Background
+    case background
     /**
      The application is about to be terminated by the system
      */
-    case Terminated
+    case terminated
 }
 
 /**
@@ -44,71 +44,88 @@ public enum AppState: Equatable {
  */
 public func ==(lhs: AppState, rhs: AppState) -> Bool {
     switch (lhs, rhs) {
-    case (.Active, .Active),
-    (.Inactive, .Inactive),
-    (.Background, .Background),
-    (.Terminated, .Terminated):
+    case (.active, .active),
+    (.inactive, .inactive),
+    (.background, .background),
+    (.terminated, .terminated):
         return true
     default:
         return false
     }
 }
 
-extension UIApplication {
+public struct RxAppState {
+    /**
+     Allows for the app version to be stored by default in the main bundle from `CFBundleShortVersionString` or
+     a custom implementation per app.
+     */
+    public static var currentAppVersion = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String
+}
+
+extension RxSwift.Reactive where Base: UIApplication {
     
     /**
      Keys for NSUserDefaults
      */
-    private var isFirstLaunchKey:String { return "RxAppState_isFirstLaunch" }
-    private var firstLaunchOnlyKey:String { return "RxAppState_firstLaunchOnly" }
-    private var numDidOpenAppKey:String { return "RxAppState_numDidOpenApp" }
+    fileprivate var isFirstLaunchKey:   String { return "RxAppState_isFirstLaunch" }
+    fileprivate var firstLaunchOnlyKey: String { return "RxAppState_firstLaunchOnly" }
+    fileprivate var numDidOpenAppKey:   String { return "RxAppState_numDidOpenApp" }
+    fileprivate var lastAppVersionKey:  String { return "RxAppState_lastAppVersion" }
+
+    /**
+     App versions
+     */
+    fileprivate var appVersions: (last: String, current: String) {
+        return (last: UserDefaults.standard.string(forKey: self.lastAppVersionKey) ?? "",
+                current: RxAppState.currentAppVersion ?? "")
+    }
     
     /**
      Reactive wrapper for `delegate`.
      
      For more information take a look at `DelegateProxyType` protocol documentation.
      */
-    public var rx_delegate: DelegateProxy {
-        return RxApplicationDelegateProxy.proxyForObject(self)
+    public var delegate: DelegateProxy {
+        return RxApplicationDelegateProxy.proxyForObject(base)
     }
     
     /**
      Reactive wrapper for `delegate` message `applicationDidBecomeActive(_:)`.
      */
-    public var rx_applicationDidBecomeActive: Observable<AppState> {
-        return rx_delegate.observe(#selector(UIApplicationDelegate.applicationDidBecomeActive(_:)))
+    public var applicationDidBecomeActive: Observable<AppState> {
+        return delegate.methodInvoked(#selector(UIApplicationDelegate.applicationDidBecomeActive(_:)))
             .map { _ in
-                return .Active
+                return .active
         }
     }
     
     /**
      Reactive wrapper for `delegate` message `applicationDidEnterBackground(_:)`.
      */
-    public var rx_applicationDidEnterBackground: Observable<AppState> {
-        return rx_delegate.observe(#selector(UIApplicationDelegate.applicationDidEnterBackground(_:)))
+    public var applicationDidEnterBackground: Observable<AppState> {
+        return delegate.methodInvoked(#selector(UIApplicationDelegate.applicationDidEnterBackground(_:)))
             .map { _ in
-                return .Background
+                return .background
         }
     }
     
     /**
      Reactive wrapper for `delegate` message `applicationWillResignActive(_:)`.
      */
-    public var rx_applicationWillResignActive: Observable<AppState> {
-        return rx_delegate.observe(#selector(UIApplicationDelegate.applicationWillResignActive(_:)))
+    public var applicationWillResignActive: Observable<AppState> {
+        return delegate.methodInvoked(#selector(UIApplicationDelegate.applicationWillResignActive(_:)))
             .map { _ in
-                return .Inactive
+                return .inactive
         }
     }
     
     /**
      Reactive wrapper for `delegate` message `applicationWillTerminate(_:)`.
      */
-    public var rx_applicationWillTerminate: Observable<AppState> {
-        return rx_delegate.observe(#selector(UIApplicationDelegate.applicationWillTerminate(_:)))
+    public var applicationWillTerminate: Observable<AppState> {
+        return delegate.methodInvoked(#selector(UIApplicationDelegate.applicationWillTerminate(_:)))
             .map { _ in
-                return .Terminated
+                return .terminated
         }
     }
     
@@ -119,12 +136,12 @@ extension UIApplication {
      
      - returns: Observable sequence of AppStates
      */
-    public var rx_appState: Observable<AppState> {
+    public var appState: Observable<AppState> {
         return Observable.of(
-            rx_applicationDidBecomeActive,
-            rx_applicationWillResignActive,
-            rx_applicationDidEnterBackground,
-            rx_applicationWillTerminate
+            applicationDidBecomeActive,
+            applicationWillResignActive,
+            applicationDidEnterBackground,
+            applicationWillTerminate
             )
             .merge()
     }
@@ -144,14 +161,14 @@ extension UIApplication {
      
      - returns: Observable sequence of Void
      */
-    public var rx_didOpenApp: Observable<Void> {
+    public var didOpenApp: Observable<Void> {
         return Observable.of(
-            rx_applicationDidBecomeActive,
-            rx_applicationDidEnterBackground
+            applicationDidBecomeActive,
+            applicationDidEnterBackground
             )
             .merge()
             .distinctUntilChanged()
-            .filter { $0 == .Active }
+            .filter { $0 == .active }
             .map { _ in
                 return
         }
@@ -168,13 +185,13 @@ extension UIApplication {
      
      -returns: Observable sequence of Int
      */
-    public var rx_didOpenAppCount: Observable<Int> {
-        return rx_didOpenApp
+    public var didOpenAppCount: Observable<Int> {
+        return didOpenApp
             .map { _ in
-                let userDefaults = NSUserDefaults.standardUserDefaults()
-                var count = userDefaults.integerForKey(self.numDidOpenAppKey)
+                let userDefaults = UserDefaults.standard
+                var count = userDefaults.integer(forKey: self.numDidOpenAppKey)
                 count = min(count + 1, Int.max - 1)
-                userDefaults.setInteger(count, forKey: self.numDidOpenAppKey)
+                userDefaults.set(count, forKey: self.numDidOpenAppKey)
                 userDefaults.synchronize()
                 return count
         }
@@ -191,22 +208,77 @@ extension UIApplication {
      
      -returns: Observable sequence of Bool
      */
-    public var rx_isFirstLaunch: Observable<Bool> {
-        return rx_didOpenApp
+    public var isFirstLaunch: Observable<Bool> {
+        return didOpenApp
             .map { _ in
-                let userDefaults = NSUserDefaults.standardUserDefaults()
-                let didLaunchBefore = userDefaults.boolForKey(self.isFirstLaunchKey)
+                let userDefaults = UserDefaults.standard
+                let didLaunchBefore = userDefaults.bool(forKey: self.isFirstLaunchKey)
                 
                 if didLaunchBefore {
                     return false
                 } else {
-                    userDefaults.setBool(true, forKey: self.isFirstLaunchKey)
+                    userDefaults.set(true, forKey: self.isFirstLaunchKey)
                     userDefaults.synchronize()
                     return true
                 }
         }
     }
     
+    /**
+     Observable sequence that emits if the app is opened for the first time after an app has updated when the user
+     opens the app. This does not occur on first launch of a new app install. See `isFirstLaunch` for that.
+     
+     This is a handy sequence for all the times you want to run some code only when the app is launched for the
+     first time after an update.
+     
+     Typical use case:
+     - Show a what's new dialog to users, or prompt review or signup
+     
+     -returns: Observable sequence of Bool
+     */
+    public var isFirstLaunchOfNewVersion: Observable<Bool> {
+        return didOpenApp
+            .map { _ in
+                let (lastAppVersion, currentAppVersion) = self.appVersions
+                
+                if lastAppVersion.isEmpty || lastAppVersion != currentAppVersion {
+                    UserDefaults.standard.set(currentAppVersion, forKey: self.lastAppVersionKey)
+                    UserDefaults.standard.synchronize()
+                }
+                
+                if !lastAppVersion.isEmpty && lastAppVersion != currentAppVersion {
+                    return true
+                } else {
+                    return false
+                }
+        }
+    }
+    
+    /**
+     Observable sequence that just emits one value if the app is opened for the first time for a new version
+     or completes empty if this version of the app has been opened before
+     
+     This is a handy sequence for all the times you want to run some code only when a new version of the app
+     is launched for the first time
+     
+     Typical use case:
+     - Show a what's new dialog to users, or prompt review or signup
+     
+     -returns: Observable sequence of Void
+     */
+    public var firstLaunchOfNewVersionOnly: Observable<Void> {
+        return Observable.create{ observer in
+            let (lastAppVersion, currentAppVersion) = self.appVersions
+            let isUpgraded = (!lastAppVersion.isEmpty && lastAppVersion != currentAppVersion)
+
+            if isUpgraded {
+                observer.onNext()
+            }
+            observer.onCompleted()
+            return Disposables.create {}
+        }
+    }
+
     /**
      Observable sequence that just emits one value if the app is opened for the first time
      or completes empty if the app has been opened before
@@ -219,16 +291,17 @@ extension UIApplication {
      
      -returns: Observable sequence of Void
      */
-    public var rx_firstLaunchOnly: Observable<Void> {
+    public var firstLaunchOnly: Observable<Void> {
         return Observable.create{ observer in
-            let userDefaults = NSUserDefaults.standardUserDefaults()
-            let didLaunchBefore = userDefaults.boolForKey(self.isFirstLaunchKey)
+            let userDefaults = UserDefaults.standard
+            let didLaunchBefore = userDefaults.bool(forKey: self.isFirstLaunchKey)
             
             if !didLaunchBefore {
                 observer.onNext()
             }
             observer.onCompleted()
-            return NopDisposable.instance
+            return Disposables.create {}
         }
     }
+    
 }
