@@ -4,7 +4,7 @@
 [![Version](https://img.shields.io/cocoapods/v/RxAppState.svg?style=flat)](http://cocoapods.org/pods/RxAppState)
 [![License](https://img.shields.io/cocoapods/l/RxAppState.svg?style=flat)](http://cocoapods.org/pods/RxAppState)
 [![Platform](https://img.shields.io/cocoapods/p/RxAppState.svg?style=flat)](http://cocoapods.org/pods/RxAppState)
-[![Swift](https://img.shields.io/badge/Swift-3.0-orange.svg?style=flat)](https://swift.org/)
+[![Swift](https://img.shields.io/badge/Swift-3.x-orange.svg?style=flat)](https://swift.org/)
 [![Twitter](https://img.shields.io/badge/Twitter-@pixeldock-blue.svg?style=flat)](http://twitter.com/pixeldock)
 
 
