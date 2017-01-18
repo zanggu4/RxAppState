@@ -118,6 +118,9 @@ class RxAppStateTests: XCTestCase {
         
         // Then
         XCTAssertEqual(firstLaunchArray, [true])
+
+        // And
+        XCTAssertEqual(UserDefaults.standard.bool(forKey: self.isFirstLaunchKey), true)
     }
     
     func testIsFirstLaunchOfNewVersionNewInstall() {
@@ -211,6 +214,9 @@ class RxAppStateTests: XCTestCase {
         
         // Then
         XCTAssertEqual(firstLaunchArray, [true])
+
+        // And
+        XCTAssertEqual(UserDefaults.standard.string(forKey: self.lastAppVersionKey), "4.2")
     }
     
     func testFirstLaunchOfNewVersionOnlyExisting() {
