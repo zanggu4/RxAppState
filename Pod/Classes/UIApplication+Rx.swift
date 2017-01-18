@@ -68,7 +68,6 @@ extension RxSwift.Reactive where Base: UIApplication {
      Keys for NSUserDefaults
      */
     fileprivate var isFirstLaunchKey:   String { return "RxAppState_isFirstLaunch" }
-    fileprivate var firstLaunchOnlyKey: String { return "RxAppState_firstLaunchOnly" }
     fileprivate var numDidOpenAppKey:   String { return "RxAppState_numDidOpenApp" }
     fileprivate var lastAppVersionKey:  String { return "RxAppState_lastAppVersion" }
 
@@ -267,11 +266,13 @@ extension RxSwift.Reactive where Base: UIApplication {
      -returns: Observable sequence of Void
      */
     public var firstLaunchOfNewVersionOnly: Observable<Void> {
-        return Observable.create{ observer in
+        return Observable.create { observer in
             let (lastAppVersion, currentAppVersion) = self.appVersions
             let isUpgraded = (!lastAppVersion.isEmpty && lastAppVersion != currentAppVersion)
 
             if isUpgraded {
+                UserDefaults.standard.set(currentAppVersion, forKey: self.lastAppVersionKey)
+                UserDefaults.standard.synchronize()
                 observer.onNext()
             }
             observer.onCompleted()
@@ -292,11 +293,13 @@ extension RxSwift.Reactive where Base: UIApplication {
      -returns: Observable sequence of Void
      */
     public var firstLaunchOnly: Observable<Void> {
-        return Observable.create{ observer in
+        return Observable.create { observer in
             let userDefaults = UserDefaults.standard
             let didLaunchBefore = userDefaults.bool(forKey: self.isFirstLaunchKey)
             
             if !didLaunchBefore {
+                userDefaults.set(true, forKey: self.isFirstLaunchKey)
+                userDefaults.synchronize()
                 observer.onNext()
             }
             observer.onCompleted()
