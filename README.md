@@ -97,8 +97,8 @@ Swift 3.x
 If you are using Swift 2.3 please use RxAppState version 0.2.0
 
 ## Dependencies
-RxSwift 3.0  
-RxCocoa 3.0
+RxSwift 3.1  
+RxCocoa 3.1
 
 ## Installation
 RxAppState is available through [CocoaPods](http://cocoapods.org). To install
