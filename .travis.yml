@@ -7,4 +7,7 @@ language: objective-c
 podfile: Example/Podfile
 cache: cocoapods
 
+before_install:
+	travis_wait pod repo update --silent
+
 script: cd Example ; set -o pipefail && xcodebuild -workspace 'RxAppState.xcworkspace' -scheme 'RxAppState-Example' -configuration 'Debug' -sdk iphonesimulator -destination platform='iOS Simulator',OS='10.0',name='iPhone SE' build test | xcpretty -c --test
