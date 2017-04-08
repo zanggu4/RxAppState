@@ -92,13 +92,13 @@ There is a simple example project to demonstrate how to use RxAppDelegate.
 
 ## Requirements
 iOS 8 or greater    
-Swift 3.x 
+Swift 3.1 
 
 If you are using Swift 2.3 please use RxAppState version 0.2.0
 
 ## Dependencies
-RxSwift 3.1  
-RxCocoa 3.1
+RxSwift 3.3  
+RxCocoa 3.3
 
 ## Installation
 RxAppState is available through [CocoaPods](http://cocoapods.org). To install

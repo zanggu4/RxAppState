@@ -1,6 +1,11 @@
 Changelog
 =========
 
+0.3.3
+-----
+- update RxSwift / RxCocoa dependency to 3.3
+- update to Swift 3.1
+
 0.3.1
 -----
 - bugfix in `isFirstLaunchOfNewVersion` (fixed by https://github.com/krider2010)

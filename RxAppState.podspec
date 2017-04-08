@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
 s.name             = "RxAppState"
-s.version          = "0.3.1"
+s.version          = "0.3.3"
 s.summary          = "Handy RxSwift extensions to observe your app's state."
 s.description      = <<-DESC
 Transform the state of your App into RxSwift Observables. Including convenience Observables for common scenarios.
@@ -17,7 +17,7 @@ s.requires_arc = true
 s.source_files = 'Pod/Classes/**/*'
 
 s.frameworks = 'Foundation'
-s.dependency 'RxSwift', '~> 3.1'
-s.dependency 'RxCocoa', '~> 3.1'
+s.dependency 'RxSwift', '~> 3.3'
+s.dependency 'RxCocoa', '~> 3.3'
 
 end
