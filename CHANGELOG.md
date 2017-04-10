@@ -1,6 +1,10 @@
 Changelog
 =========
 
+0.3.4
+-----
+- update RxSwift / RxCocoa dependency to 3.4
+
 0.3.3
 -----
 - update RxSwift / RxCocoa dependency to 3.3
