@@ -32,14 +32,14 @@ class ViewController: UIViewController {
         Show the application state
         */
         application.rx.appState
-            .bindTo(stateLabel.rx_appState)
+            .bind(to: stateLabel.rx_appState)
             .addDisposableTo(disposeBag)
         
         /**
         Show if the app is launched for the first time
         */
         application.rx.isFirstLaunch
-            .bindTo(firstLaunchLabel.rx_firstLaunch)
+            .bind(to: firstLaunchLabel.rx_firstLaunch)
             .addDisposableTo(disposeBag)
         
         /**
@@ -55,7 +55,7 @@ class ViewController: UIViewController {
          Show if the app is launched for the first time after an update
          */
         application.rx.isFirstLaunchOfNewVersion
-            .bindTo(firstLaunchAfterUpdateLabel.rx_firstLaunch)
+            .bind(to: firstLaunchAfterUpdateLabel.rx_firstLaunch)
             .addDisposableTo(disposeBag)
     }
     
