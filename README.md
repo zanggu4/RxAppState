@@ -4,7 +4,7 @@
 [![Version](https://img.shields.io/cocoapods/v/RxAppState.svg?style=flat)](http://cocoapods.org/pods/RxAppState)
 [![License](https://img.shields.io/cocoapods/l/RxAppState.svg?style=flat)](http://cocoapods.org/pods/RxAppState)
 [![Platform](https://img.shields.io/cocoapods/p/RxAppState.svg?style=flat)](http://cocoapods.org/pods/RxAppState)
-[![Swift](https://img.shields.io/badge/Swift-3.x-orange.svg?style=flat)](https://swift.org/)
+[![Swift](https://img.shields.io/badge/Swift-3.1-orange.svg?style=flat)](https://swift.org/)
 [![Twitter](https://img.shields.io/badge/Twitter-@pixeldock-blue.svg?style=flat)](http://twitter.com/pixeldock)
 
 
@@ -97,8 +97,8 @@ Swift 3.1
 If you are using Swift 2.3 please use RxAppState version 0.2.0
 
 ## Dependencies
-RxSwift 3.3  
-RxCocoa 3.3
+RxSwift 3.4  
+RxCocoa 3.4
 
 ## Installation
 RxAppState is available through [CocoaPods](http://cocoapods.org). To install
