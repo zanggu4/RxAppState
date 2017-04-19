@@ -67,16 +67,31 @@ extension RxSwift.Reactive where Base: UIApplication {
     /**
      Keys for NSUserDefaults
      */
-    fileprivate var isFirstLaunchKey:   String { return "RxAppState_isFirstLaunch" }
-    fileprivate var numDidOpenAppKey:   String { return "RxAppState_numDidOpenApp" }
-    fileprivate var lastAppVersionKey:  String { return "RxAppState_lastAppVersion" }
-
+    fileprivate struct DefaultName {
+        static var isFirstLaunch: String { return "RxAppState_isFirstLaunch" }
+        static var numDidOpenApp: String { return "RxAppState_numDidOpenApp" }
+        static var lastAppVersion: String { return "RxAppState_lastAppVersion" }
+    }
+    
     /**
      App versions
      */
-    fileprivate var appVersions: (last: String, current: String) {
-        return (last: UserDefaults.standard.string(forKey: self.lastAppVersionKey) ?? "",
-                current: RxAppState.currentAppVersion ?? "")
+    fileprivate struct AppVersions {
+        let last: String?
+        let current: String
+        
+        var isLastEmpty: Bool { return last?.isEmpty ?? true }
+        var isUpgraded: Bool {
+            if let last = last, last != current {
+                return true
+            }
+            return false
+        }
+    }
+    
+    fileprivate static var appVersions: AppVersions {
+        return AppVersions(last: UserDefaults.standard.string(forKey: DefaultName.lastAppVersion),
+                           current: RxAppState.currentAppVersion ?? "")
     }
     
     /**
@@ -188,12 +203,13 @@ extension RxSwift.Reactive where Base: UIApplication {
         return didOpenApp
             .map { _ in
                 let userDefaults = UserDefaults.standard
-                var count = userDefaults.integer(forKey: self.numDidOpenAppKey)
+                var count = userDefaults.integer(forKey: DefaultName.numDidOpenApp)
                 count = min(count + 1, Int.max - 1)
-                userDefaults.set(count, forKey: self.numDidOpenAppKey)
+                userDefaults.set(count, forKey: DefaultName.numDidOpenApp)
                 userDefaults.synchronize()
                 return count
-        }
+            }
+            .shareReplay(1)
     }
     
     /**
@@ -211,16 +227,17 @@ extension RxSwift.Reactive where Base: UIApplication {
         return didOpenApp
             .map { _ in
                 let userDefaults = UserDefaults.standard
-                let didLaunchBefore = userDefaults.bool(forKey: self.isFirstLaunchKey)
+                let didLaunchBefore = userDefaults.bool(forKey: DefaultName.isFirstLaunch)
                 
                 if didLaunchBefore {
                     return false
                 } else {
-                    userDefaults.set(true, forKey: self.isFirstLaunchKey)
+                    userDefaults.set(true, forKey: DefaultName.isFirstLaunch)
                     userDefaults.synchronize()
                     return true
                 }
-        }
+            }
+            .shareReplay(1)
     }
     
     /**
@@ -238,19 +255,17 @@ extension RxSwift.Reactive where Base: UIApplication {
     public var isFirstLaunchOfNewVersion: Observable<Bool> {
         return didOpenApp
             .map { _ in
-                let (lastAppVersion, currentAppVersion) = self.appVersions
+                let userDefaults = UserDefaults.standard
+                let appVersions = type(of: self).appVersions
                 
-                if lastAppVersion.isEmpty || lastAppVersion != currentAppVersion {
-                    UserDefaults.standard.set(currentAppVersion, forKey: self.lastAppVersionKey)
-                    UserDefaults.standard.synchronize()
+                if appVersions.isLastEmpty || appVersions.isUpgraded {
+                    userDefaults.set(appVersions.current, forKey: DefaultName.lastAppVersion)
+                    userDefaults.synchronize()
                 }
                 
-                if !lastAppVersion.isEmpty && lastAppVersion != currentAppVersion {
-                    return true
-                } else {
-                    return false
-                }
-        }
+                return appVersions.isUpgraded
+            }
+            .shareReplay(1)
     }
     
     /**
@@ -266,18 +281,19 @@ extension RxSwift.Reactive where Base: UIApplication {
      -returns: Observable sequence of Void
      */
     public var firstLaunchOfNewVersionOnly: Observable<Void> {
-        return Observable.create { observer in
-            let (lastAppVersion, currentAppVersion) = self.appVersions
-            let isUpgraded = (!lastAppVersion.isEmpty && lastAppVersion != currentAppVersion)
+        return Observable
+            .create { observer in
+                let appVersions = type(of: self).appVersions
 
-            if isUpgraded {
-                UserDefaults.standard.set(currentAppVersion, forKey: self.lastAppVersionKey)
-                UserDefaults.standard.synchronize()
-                observer.onNext()
+                if appVersions.isUpgraded {
+                    UserDefaults.standard.set(appVersions.current, forKey: DefaultName.lastAppVersion)
+                    UserDefaults.standard.synchronize()
+                    observer.onNext()
+                }
+                observer.onCompleted()
+                return Disposables.create {}
             }
-            observer.onCompleted()
-            return Disposables.create {}
-        }
+            .shareReplay(1)
     }
 
     /**
@@ -293,18 +309,20 @@ extension RxSwift.Reactive where Base: UIApplication {
      -returns: Observable sequence of Void
      */
     public var firstLaunchOnly: Observable<Void> {
-        return Observable.create { observer in
-            let userDefaults = UserDefaults.standard
-            let didLaunchBefore = userDefaults.bool(forKey: self.isFirstLaunchKey)
-            
-            if !didLaunchBefore {
-                userDefaults.set(true, forKey: self.isFirstLaunchKey)
-                userDefaults.synchronize()
-                observer.onNext()
+        return Observable
+            .create { observer in
+                let userDefaults = UserDefaults.standard
+                let didLaunchBefore = userDefaults.bool(forKey: DefaultName.isFirstLaunch)
+                
+                if !didLaunchBefore {
+                    userDefaults.set(true, forKey: DefaultName.isFirstLaunch)
+                    userDefaults.synchronize()
+                    observer.onNext()
+                }
+                observer.onCompleted()
+                return Disposables.create {}
             }
-            observer.onCompleted()
-            return Disposables.create {}
-        }
+            .shareReplay(1)
     }
     
 }
