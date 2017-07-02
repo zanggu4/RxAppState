@@ -4,6 +4,7 @@
 [![Version](https://img.shields.io/cocoapods/v/RxAppState.svg?style=flat)](http://cocoapods.org/pods/RxAppState)
 [![License](https://img.shields.io/cocoapods/l/RxAppState.svg?style=flat)](http://cocoapods.org/pods/RxAppState)
 [![Platform](https://img.shields.io/cocoapods/p/RxAppState.svg?style=flat)](http://cocoapods.org/pods/RxAppState)
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![Swift](https://img.shields.io/badge/Swift-3.1-orange.svg?style=flat)](https://swift.org/)
 [![Twitter](https://img.shields.io/badge/Twitter-@pixeldock-blue.svg?style=flat)](http://twitter.com/pixeldock)
 
@@ -100,12 +101,20 @@ If you are using Swift 2.3 please use RxAppState version 0.2.0
 RxSwift 3.4  
 RxCocoa 3.4
 
-## Installation
-RxAppState is available through [CocoaPods](http://cocoapods.org). To install
-it, simply add the following line to your Podfile:
+## Integration
+### CocoaPods
+`RxAppState` is available through [CocoaPods](http://cocoapods.org). To install
+it, simply add the following line to your `Podfile`:
 
 ```ruby
 pod "RxAppState"
+```
+### Carthage
+
+You can use [Carthage](https://github.com/Carthage/Carthage) to install `RxAppState` by adding it to your `Cartfile`:
+
+```
+github "pixeldock/RxAppState"
 ```
 
 ## Author
