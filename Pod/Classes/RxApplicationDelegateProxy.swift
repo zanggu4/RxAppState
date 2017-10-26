@@ -20,7 +20,7 @@ class RxApplicationDelegateProxy: DelegateProxy<UIApplication, UIApplicationDele
     }
     
     static func registerKnownImplementations() {
-        register { RxApplicationDelegateProxy(application: $0) }
+        self.register { RxApplicationDelegateProxy(application: $0) }
     }
     
     static func currentDelegate(for object: UIApplication) -> UIApplicationDelegate? {
