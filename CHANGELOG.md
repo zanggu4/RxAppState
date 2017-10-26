@@ -1,6 +1,11 @@
 Changelog
 =========
 
+0.4.0
+-----
+- update RxSwift / RxCocoa dependency to 4.0
+- update to Swift 4.0
+
 0.3.4
 -----
 - update RxSwift / RxCocoa dependency to 3.4

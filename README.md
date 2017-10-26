@@ -5,7 +5,7 @@
 [![License](https://img.shields.io/cocoapods/l/RxAppState.svg?style=flat)](http://cocoapods.org/pods/RxAppState)
 [![Platform](https://img.shields.io/cocoapods/p/RxAppState.svg?style=flat)](http://cocoapods.org/pods/RxAppState)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
-[![Swift](https://img.shields.io/badge/Swift-3.1-orange.svg?style=flat)](https://swift.org/)
+[![Swift](https://img.shields.io/badge/Swift-4.0-orange.svg?style=flat)](https://swift.org/)
 [![Twitter](https://img.shields.io/badge/Twitter-@pixeldock-blue.svg?style=flat)](http://twitter.com/pixeldock)
 
 
@@ -49,7 +49,7 @@ UIApplication.shared.rx.didOpenApp
     .subscribe(onNext: { _ in
         // run your code
     })
-    .addDisposableTo(disposeBag)
+    .disposed(by: disposeBag)
 ```
 This runs your code whenever the user opens the app. It includes the first launch of the app and ignores the cases when the app enters active state without having been in background state before (like when the user just opened Control Center or received a phone call)
 
@@ -61,7 +61,7 @@ UIApplication.shared.rx.firstLaunchOnly
     .subscribe(onNext: { _ in
         // run your code
     })
-    .addDisposableTo(disposeBag)
+    .disposed(by: disposeBag)
 ```
 You want to show your user a message when he opens the app for the first time after an update?
 
@@ -70,7 +70,7 @@ UIApplication.shared.rx.firstLaunchOfNewVersionOnly
     .subscribe(onNext: { _ in
         // run your code
     })
-    .addDisposableTo(disposeBag)
+    .disposed(by: disposeBag)
 ```
 
 You want to keep track of how many times the user has opened your app? Simply do this:
@@ -80,26 +80,27 @@ UIApplication.shared.rx.didOpenAppCount
     .subscribe(onNext: { count in
         print("app opened \(count) times")
     })
-    .addDisposableTo(disposeBag)
+    .disposed(by: disposeBag)
 ```
 
 **The cherry on top:**   
 This code does not have to live in your AppDelegate. You could put it anywhere you like in your app! So don't clutter your AppDelegate with this code, put it somewhere else!
 
-If you are using _firstLaunchOnly_, _isFirstLaunch_ or _didOpenAppCount_ make sure you only subscribe once to each of those 3 Observables. Those Observables store data in NSUserDefault, so if you have more than one subscription you will get incorrect values. 
+If you are using _firstLaunchOnly_, _isFirstLaunch_ or _didOpenAppCount_ make sure you only subscribe once to each of those 3 Observables. Those Observables store data in NSUserDefault, so if you have more than one subscription you will get incorrect values.
 
 ## Example
 There is a simple example project to demonstrate how to use RxAppDelegate.
 
 ## Requirements
 iOS 8 or greater    
-Swift 3.1 
+Swift 4.0
 
-If you are using Swift 2.3 please use RxAppState version 0.2.0
+If you are using Swift 2.3 please use RxAppState version 0.2.0  
+If you are using Swift 3.x please use RxAppState version 0.3.4
 
 ## Dependencies
-RxSwift 3.4  
-RxCocoa 3.4
+RxSwift 4.0  
+RxCocoa 4.0
 
 ## Integration
 ### CocoaPods
@@ -121,6 +122,7 @@ github "pixeldock/RxAppState"
 
 Jörn Schoppe,  
 joern@pixeldock.com   
+
 [![Twitter](https://img.shields.io/badge/Twitter-@pixeldock-blue.svg?style=flat)](http://twitter.com/pixeldock)
 
 ## License
