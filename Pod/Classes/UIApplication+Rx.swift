@@ -84,8 +84,8 @@ extension RxSwift.Reactive where Base: UIApplication {
      
      For more information take a look at `DelegateProxyType` protocol documentation.
      */
-    public var delegate: DelegateProxy {
-        return RxApplicationDelegateProxy.proxyForObject(base)
+    public var delegate: DelegateProxy<UIApplication, UIApplicationDelegate> {
+        return RxApplicationDelegateProxy.proxy(for: base)
     }
     
     /**
@@ -273,7 +273,7 @@ extension RxSwift.Reactive where Base: UIApplication {
             if isUpgraded {
                 UserDefaults.standard.set(currentAppVersion, forKey: self.lastAppVersionKey)
                 UserDefaults.standard.synchronize()
-                observer.onNext()
+                observer.onNext(())
             }
             observer.onCompleted()
             return Disposables.create {}
@@ -300,7 +300,7 @@ extension RxSwift.Reactive where Base: UIApplication {
             if !didLaunchBefore {
                 userDefaults.set(true, forKey: self.isFirstLaunchKey)
                 userDefaults.synchronize()
-                observer.onNext()
+                observer.onNext(())
             }
             observer.onCompleted()
             return Disposables.create {}

@@ -33,14 +33,14 @@ class ViewController: UIViewController {
         */
         application.rx.appState
             .bind(to: stateLabel.rx_appState)
-            .addDisposableTo(disposeBag)
+            .disposed(by: disposeBag)
         
         /**
         Show if the app is launched for the first time
         */
         application.rx.isFirstLaunch
             .bind(to: firstLaunchLabel.rx_firstLaunch)
-            .addDisposableTo(disposeBag)
+            .disposed(by: disposeBag)
         
         /**
         Show how many times the app has been opened
@@ -49,14 +49,14 @@ class ViewController: UIViewController {
             .subscribe(onNext: { count in
                 self.appOpenedLabel.text = count == 1 ? "1 time" : "\(count) times"
             })
-            .addDisposableTo(disposeBag)
+            .disposed(by: disposeBag)
         
         /**
          Show if the app is launched for the first time after an update
          */
         application.rx.isFirstLaunchOfNewVersion
             .bind(to: firstLaunchAfterUpdateLabel.rx_firstLaunch)
-            .addDisposableTo(disposeBag)
+            .disposed(by: disposeBag)
     }
     
     func setupExampleUI() {
@@ -66,7 +66,7 @@ class ViewController: UIViewController {
             .subscribe(onNext: { [weak self] _ in
                 self?.simulateAppUpdate()
             })
-            .addDisposableTo(disposeBag)
+            .disposed(by: disposeBag)
     }
     
     func simulateAppUpdate() {
