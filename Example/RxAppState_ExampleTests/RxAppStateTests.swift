@@ -10,7 +10,7 @@ import XCTest
 @testable import RxAppState_Example
 import RxSwift
 import RxCocoa
-import RxAppState
+@testable import RxAppState
 
 class RxAppStateTests: XCTestCase {
     
@@ -25,11 +25,14 @@ class RxAppStateTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
+        
         let userDefaults = UserDefaults.standard
         userDefaults.removeObject(forKey: isFirstLaunchKey)
         userDefaults.removeObject(forKey: firstLaunchOnlyKey)
         userDefaults.removeObject(forKey: numDidOpenAppKey)
         userDefaults.removeObject(forKey: lastAppVersionKey)
+        
+        RxAppState.test_clearSharedObservables()
     }
     
     override func tearDown() {
@@ -157,7 +160,34 @@ class RxAppStateTests: XCTestCase {
         
         // Then
         XCTAssertEqual(firstLaunchArray, [true, false, false])
+    }
+    
+    func testIsFirstLaunchOfNewVersionUpdateMultipleSubscription() {
+        // Given
+        var firstLaunchArray: [Bool] = []
+        var anotherFirstLaunchArray: [Bool] = []
+        UserDefaults.standard.set("3.2", forKey: self.lastAppVersionKey)
+        UserDefaults.standard.synchronize()
+        RxAppState.currentAppVersion = "4.2"
         
+        application.rx.isFirstLaunchOfNewVersion
+            .subscribe(onNext: { isFirstLaunchOfNewVersion in
+                firstLaunchArray.append(isFirstLaunchOfNewVersion)
+            })
+            .addDisposableTo(disposeBag)
+        
+        application.rx.isFirstLaunchOfNewVersion
+            .subscribe(onNext: { isFirstLaunchOfNewVersion in
+                anotherFirstLaunchArray.append(isFirstLaunchOfNewVersion)
+            })
+            .addDisposableTo(disposeBag)
+        
+        // When
+        runAppStateSequence()
+        
+        // Then
+        XCTAssertEqual(firstLaunchArray, [true, false, false])
+        XCTAssertEqual(anotherFirstLaunchArray, [true, false, false])
     }
     
     func testIsFirstLaunchOfNewVersionExisting() {

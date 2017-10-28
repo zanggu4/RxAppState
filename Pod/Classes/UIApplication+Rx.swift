@@ -67,16 +67,10 @@ extension RxSwift.Reactive where Base: UIApplication {
     /**
      Keys for NSUserDefaults
      */
-    fileprivate var isFirstLaunchKey:   String { return "RxAppState_isFirstLaunch" }
-    fileprivate var numDidOpenAppKey:   String { return "RxAppState_numDidOpenApp" }
-    fileprivate var lastAppVersionKey:  String { return "RxAppState_lastAppVersion" }
-
-    /**
-     App versions
-     */
-    fileprivate var appVersions: (last: String, current: String) {
-        return (last: UserDefaults.standard.string(forKey: self.lastAppVersionKey) ?? "",
-                current: RxAppState.currentAppVersion ?? "")
+    fileprivate struct DefaultName {
+        static var isFirstLaunch: String { return "RxAppState_isFirstLaunch" }
+        static var numDidOpenApp: String { return "RxAppState_numDidOpenApp" }
+        static var lastAppVersion: String { return "RxAppState_lastAppVersion" }
     }
     
     /**
@@ -185,15 +179,7 @@ extension RxSwift.Reactive where Base: UIApplication {
      -returns: Observable sequence of Int
      */
     public var didOpenAppCount: Observable<Int> {
-        return didOpenApp
-            .map { _ in
-                let userDefaults = UserDefaults.standard
-                var count = userDefaults.integer(forKey: self.numDidOpenAppKey)
-                count = min(count + 1, Int.max - 1)
-                userDefaults.set(count, forKey: self.numDidOpenAppKey)
-                userDefaults.synchronize()
-                return count
-        }
+        return base._sharedRxAppState.didOpenAppCount
     }
     
     /**
@@ -208,19 +194,7 @@ extension RxSwift.Reactive where Base: UIApplication {
      -returns: Observable sequence of Bool
      */
     public var isFirstLaunch: Observable<Bool> {
-        return didOpenApp
-            .map { _ in
-                let userDefaults = UserDefaults.standard
-                let didLaunchBefore = userDefaults.bool(forKey: self.isFirstLaunchKey)
-                
-                if didLaunchBefore {
-                    return false
-                } else {
-                    userDefaults.set(true, forKey: self.isFirstLaunchKey)
-                    userDefaults.synchronize()
-                    return true
-                }
-        }
+        return base._sharedRxAppState.isFirstLaunch
     }
     
     /**
@@ -236,21 +210,7 @@ extension RxSwift.Reactive where Base: UIApplication {
      -returns: Observable sequence of Bool
      */
     public var isFirstLaunchOfNewVersion: Observable<Bool> {
-        return didOpenApp
-            .map { _ in
-                let (lastAppVersion, currentAppVersion) = self.appVersions
-                
-                if lastAppVersion.isEmpty || lastAppVersion != currentAppVersion {
-                    UserDefaults.standard.set(currentAppVersion, forKey: self.lastAppVersionKey)
-                    UserDefaults.standard.synchronize()
-                }
-                
-                if !lastAppVersion.isEmpty && lastAppVersion != currentAppVersion {
-                    return true
-                } else {
-                    return false
-                }
-        }
+        return base._sharedRxAppState.isFirstLaunchOfNewVersion
     }
     
     /**
@@ -266,18 +226,7 @@ extension RxSwift.Reactive where Base: UIApplication {
      -returns: Observable sequence of Void
      */
     public var firstLaunchOfNewVersionOnly: Observable<Void> {
-        return Observable.create { observer in
-            let (lastAppVersion, currentAppVersion) = self.appVersions
-            let isUpgraded = (!lastAppVersion.isEmpty && lastAppVersion != currentAppVersion)
-
-            if isUpgraded {
-                UserDefaults.standard.set(currentAppVersion, forKey: self.lastAppVersionKey)
-                UserDefaults.standard.synchronize()
-                observer.onNext(())
-            }
-            observer.onCompleted()
-            return Disposables.create {}
-        }
+        return base._sharedRxAppState.firstLaunchOfNewVersionOnly
     }
 
     /**
@@ -293,18 +242,141 @@ extension RxSwift.Reactive where Base: UIApplication {
      -returns: Observable sequence of Void
      */
     public var firstLaunchOnly: Observable<Void> {
-        return Observable.create { observer in
+        return base._sharedRxAppState.firstLaunchOnly
+    }
+    
+}
+
+fileprivate struct _SharedRxAppState {
+    typealias DefaultName = Reactive<UIApplication>.DefaultName
+    
+    /**
+     App versions
+     */
+    fileprivate struct AppVersions {
+        let last: String?
+        let current: String
+        
+        var isLastEmpty: Bool { return last?.isEmpty ?? true }
+        var isUpgraded: Bool {
+            if let last = last, last != current {
+                return true
+            }
+            return false
+        }
+        
+        static func get() -> AppVersions {
+            return AppVersions(last: UserDefaults.standard.string(forKey: DefaultName.lastAppVersion),
+                               current: RxAppState.currentAppVersion ?? "")
+        }
+        
+        static func setLastVersion(lastVersion: String) {
             let userDefaults = UserDefaults.standard
-            let didLaunchBefore = userDefaults.bool(forKey: self.isFirstLaunchKey)
+            userDefaults.set(lastVersion, forKey: DefaultName.lastAppVersion)
+            userDefaults.synchronize()
+        }
+    }
+    
+    let rx: Reactive<UIApplication>
+    
+    init(_ application: UIApplication) {
+        rx = application.rx
+    }
+    
+    lazy var didOpenAppCount: Observable<Int> = self.rx.didOpenApp
+        .map { _ in
+            let userDefaults = UserDefaults.standard
+            var count = userDefaults.integer(forKey: DefaultName.numDidOpenApp)
+            count = min(count + 1, Int.max - 1)
+            userDefaults.set(count, forKey: DefaultName.numDidOpenApp)
+            userDefaults.synchronize()
+            return count
+        }
+        .shareReplay(1)
+    
+    lazy var isFirstLaunch: Observable<Bool> = self.rx.didOpenApp
+        .map { _ in
+            let userDefaults = UserDefaults.standard
+            let didLaunchBefore = userDefaults.bool(forKey: DefaultName.isFirstLaunch)
+            
+            if didLaunchBefore {
+                return false
+            } else {
+                userDefaults.set(true, forKey: DefaultName.isFirstLaunch)
+                userDefaults.synchronize()
+                return true
+            }
+        }
+        .shareReplay(1)
+    
+    lazy var isFirstLaunchOfNewVersion: Observable<Bool> = self.rx.didOpenApp
+        .map { _ in
+            let appVersions = AppVersions.get()
+            
+            if appVersions.isLastEmpty || appVersions.isUpgraded {
+                AppVersions.setLastVersion(lastVersion: appVersions.current)
+            }
+            
+            return appVersions.isUpgraded
+        }
+        .shareReplay(1)
+    
+    lazy var firstLaunchOfNewVersionOnly: Observable<Void> = Observable
+        .create { observer in
+            let appVersions = AppVersions.get()
+            
+            if appVersions.isUpgraded {
+                AppVersions.setLastVersion(lastVersion: appVersions.current)
+                observer.onNext()
+            }
+            observer.onCompleted()
+            return Disposables.create {}
+        }
+        .shareReplay(1)
+    
+    lazy var firstLaunchOnly: Observable<Void> = Observable
+        .create { observer in
+            let userDefaults = UserDefaults.standard
+            let didLaunchBefore = userDefaults.bool(forKey: DefaultName.isFirstLaunch)
             
             if !didLaunchBefore {
-                userDefaults.set(true, forKey: self.isFirstLaunchKey)
+                userDefaults.set(true, forKey: DefaultName.isFirstLaunch)
                 userDefaults.synchronize()
                 observer.onNext(())
             }
             observer.onCompleted()
             return Disposables.create {}
         }
+        .shareReplay(1)
+}
+
+private var _sharedRxAppStateKey: UInt8 = 0
+extension UIApplication {
+    fileprivate var _sharedRxAppState: _SharedRxAppState {
+        get {
+            if let stored = objc_getAssociatedObject(self, &_sharedRxAppStateKey) as? _SharedRxAppState {
+                return stored
+            }
+            let defaultValue = _SharedRxAppState(self)
+            self._sharedRxAppState = defaultValue
+            return defaultValue
+        }
+        set {
+            objc_setAssociatedObject(self, &_sharedRxAppStateKey,
+                                     newValue,
+                                     .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
     }
-    
+}
+
+extension RxAppState {
+    /**
+     For Test
+     */
+    internal static func test_clearSharedObservables() {
+        objc_setAssociatedObject(UIApplication.shared,
+                                 &_sharedRxAppStateKey,
+                                 nil,
+                                 .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+    }
 }
