@@ -78,8 +78,8 @@ extension RxSwift.Reactive where Base: UIApplication {
      
      For more information take a look at `DelegateProxyType` protocol documentation.
      */
-    public var delegate: DelegateProxy {
-        return RxApplicationDelegateProxy.proxyForObject(base)
+    public var delegate: DelegateProxy<UIApplication, UIApplicationDelegate> {
+        return RxApplicationDelegateProxy.proxy(for: base)
     }
     
     /**
@@ -342,7 +342,7 @@ fileprivate struct _SharedRxAppState {
             if !didLaunchBefore {
                 userDefaults.set(true, forKey: DefaultName.isFirstLaunch)
                 userDefaults.synchronize()
-                observer.onNext()
+                observer.onNext(())
             }
             observer.onCompleted()
             return Disposables.create {}

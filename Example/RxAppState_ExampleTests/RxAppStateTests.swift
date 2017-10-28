@@ -47,7 +47,7 @@ class RxAppStateTests: XCTestCase {
             .subscribe(onNext: { appState in
                 appStates.append(appState)
             })
-            .addDisposableTo(disposeBag)
+            .disposed(by: disposeBag)
         
         // When
         application.delegate?.applicationDidBecomeActive!(application)
@@ -66,7 +66,7 @@ class RxAppStateTests: XCTestCase {
             .subscribe(onNext: { _ in
                 didOpenAppCalledCount += 1
             })
-            .addDisposableTo(disposeBag)
+            .disposed(by: disposeBag)
         
         // When
         runAppStateSequence()
@@ -82,7 +82,7 @@ class RxAppStateTests: XCTestCase {
             .subscribe(onNext: { count in
                 didOpenAppCounts.append(count)
             })
-            .addDisposableTo(disposeBag)
+            .disposed(by: disposeBag)
         
         // When
         runAppStateSequence()
@@ -98,7 +98,7 @@ class RxAppStateTests: XCTestCase {
             .subscribe(onNext: { isFirstLaunch in
                 firstLaunchArray.append(isFirstLaunch)
             })
-            .addDisposableTo(disposeBag)
+            .disposed(by: disposeBag)
         
         // When
         runAppStateSequence()
@@ -114,7 +114,7 @@ class RxAppStateTests: XCTestCase {
             .subscribe(onNext: { _ in
                 firstLaunchArray.append(true)
             })
-            .addDisposableTo(disposeBag)
+            .disposed(by: disposeBag)
         
         // When
         runAppStateSequence()
@@ -133,7 +133,7 @@ class RxAppStateTests: XCTestCase {
             .subscribe(onNext: { isFirstLaunchOfNewVersion in
                 firstLaunchArray.append(isFirstLaunchOfNewVersion)
             })
-            .addDisposableTo(disposeBag)
+            .disposed(by: disposeBag)
         
         // When
         runAppStateSequence()
@@ -153,7 +153,7 @@ class RxAppStateTests: XCTestCase {
             .subscribe(onNext: { isFirstLaunchOfNewVersion in
                 firstLaunchArray.append(isFirstLaunchOfNewVersion)
             })
-            .addDisposableTo(disposeBag)
+            .disposed(by: disposeBag)
         
         // When
         runAppStateSequence()
@@ -201,7 +201,7 @@ class RxAppStateTests: XCTestCase {
             .subscribe(onNext: { isFirstLaunchOfNewVersion in
                 firstLaunchArray.append(isFirstLaunchOfNewVersion)
             })
-            .addDisposableTo(disposeBag)
+            .disposed(by: disposeBag)
         
         // When
         runAppStateSequence()
@@ -217,7 +217,7 @@ class RxAppStateTests: XCTestCase {
             .subscribe(onNext: { _ in
                 firstLaunchArray.append(true)
             })
-            .addDisposableTo(disposeBag)
+            .disposed(by: disposeBag)
         
         // When
         runAppStateSequence()
@@ -237,7 +237,7 @@ class RxAppStateTests: XCTestCase {
             .subscribe(onNext: { _ in
                 firstLaunchArray.append(true)
             })
-            .addDisposableTo(disposeBag)
+            .disposed(by: disposeBag)
         
         // When
         runAppStateSequence()
@@ -260,7 +260,7 @@ class RxAppStateTests: XCTestCase {
             .subscribe(onNext: { _ in
                 firstLaunchArray.append(true)
             })
-            .addDisposableTo(disposeBag)
+            .disposed(by: disposeBag)
         
         // When
         runAppStateSequence()

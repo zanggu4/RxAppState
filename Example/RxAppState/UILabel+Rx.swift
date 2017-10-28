@@ -13,7 +13,7 @@ import RxAppState
 
 extension UILabel {
     public var rx_appState: AnyObserver<AppState> {
-        return UIBindingObserver(UIElement: self) { label, appState in
+        return Binder(self) { label, appState in
             switch appState {
             case .active:
                 label.backgroundColor = UIColor.green
@@ -33,7 +33,7 @@ extension UILabel {
     }
     
     public var rx_firstLaunch: AnyObserver<Bool> {
-        return UIBindingObserver(UIElement: self) { label, isFirstLaunch in
+        return Binder(self) { label, isFirstLaunch in
             if isFirstLaunch {
                 label.backgroundColor = UIColor.green
                 label.text = "YES"

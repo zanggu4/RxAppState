@@ -1,6 +1,11 @@
 Changelog
 =========
 
+0.4.0
+-----
+- update RxSwift / RxCocoa dependency to 4.0
+- update to Swift 4.0 (thanks to [pual](https://github.com/pual) for requesting a crucial change in RxSwift 4)
+
 0.3.4
 -----
 - update RxSwift / RxCocoa dependency to 3.4
@@ -12,7 +17,7 @@ Changelog
 
 0.3.1
 -----
-- bugfix in `isFirstLaunchOfNewVersion` (fixed by https://github.com/krider2010)
+- bugfix in `isFirstLaunchOfNewVersion` (fixed by [krider2010](https://github.com/krider2010))
 - update RxSwift / RxCocoa dependency to 3.1
 
 0.3.0
@@ -20,7 +25,7 @@ Changelog
 - update to Swift 3.0
 - update RxSwift / RxCocoa dependency to 3.0
 - use Reactive proxy
-- add `isFirstLaunchOfNewVersion` (contribution by https://github.com/krider2010)
+- add `isFirstLaunchOfNewVersion` (contribution by [krider2010](https://github.com/krider2010))
 
 0.2.0
 -----
