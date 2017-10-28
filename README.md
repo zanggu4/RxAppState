@@ -86,8 +86,6 @@ UIApplication.shared.rx.didOpenAppCount
 **The cherry on top:**   
 This code does not have to live in your AppDelegate. You could put it anywhere you like in your app! So don't clutter your AppDelegate with this code, put it somewhere else!
 
-If you are using _firstLaunchOnly_, _isFirstLaunch_ or _didOpenAppCount_ make sure you only subscribe once to each of those 3 Observables. Those Observables store data in NSUserDefault, so if you have more than one subscription you will get incorrect values.
-
 ## Example
 There is a simple example project to demonstrate how to use RxAppDelegate.
 
