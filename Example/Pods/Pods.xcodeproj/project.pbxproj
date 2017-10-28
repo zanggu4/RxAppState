@@ -155,6 +155,7 @@
 		7D6DE1E4E5FE42D00DC100C1DEA3D3EA /* RxSwift-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 09F6E9B71E9F2EF4A7596DF883BBFE29 /* RxSwift-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		803AF627C5135E62242CD65444DCFC2E /* KVORepresentable+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5080D0B2B075DFA8CED8DDE7C958CB2 /* KVORepresentable+Swift.swift */; };
 		80509890D39E0BCB8F7669B85B16A7E2 /* RxPickerViewAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58A41AC9FC5A351F7233CEA30E735866 /* RxPickerViewAdapter.swift */; };
+		80F95E6B1FA4C97800812CD9 /* UIViewController+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F95E671FA4A2C100812CD9 /* UIViewController+Rx.swift */; };
 		8253683C4EEEA73577919757D6288360 /* VirtualTimeScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2CB5E000E351FC130B6188D0CD465EF /* VirtualTimeScheduler.swift */; };
 		84688A128B85A9A086F18540113DECEE /* RxApplicationDelegateProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43CB9CAF2F1969B1328DD97DBBDF3B9A /* RxApplicationDelegateProxy.swift */; };
 		8693CD6DD41437CB380C7BFB9F5AFE9C /* UIViewController+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF1A5E07B854550359E35AA4C730CEF3 /* UIViewController+Rx.swift */; };
@@ -500,6 +501,7 @@
 		7DFCA9F03E9F83EDA725AA8B581F2271 /* ImmediateSchedulerType.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ImmediateSchedulerType.swift; path = RxSwift/ImmediateSchedulerType.swift; sourceTree = "<group>"; };
 		7E995758314CC570778F3DE00579A872 /* Bag.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Bag.swift; path = Platform/DataStructures/Bag.swift; sourceTree = "<group>"; };
 		7F789D26F277407820DE63A7A18F9AE1 /* RxCollectionViewDataSourceType.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RxCollectionViewDataSourceType.swift; path = RxCocoa/iOS/Protocols/RxCollectionViewDataSourceType.swift; sourceTree = "<group>"; };
+		80F95E671FA4A2C100812CD9 /* UIViewController+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "UIViewController+Rx.swift"; path = "Pod/Classes/UIViewController+Rx.swift"; sourceTree = "<group>"; };
 		8115407B4FB0493DD3D3286176A6CE86 /* _RXDelegateProxy.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = _RXDelegateProxy.h; path = RxCocoa/Runtime/include/_RXDelegateProxy.h; sourceTree = "<group>"; };
 		81C16AADF702E137AE897E7FC213A2ED /* UISlider+Rx.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UISlider+Rx.swift"; path = "RxCocoa/iOS/UISlider+Rx.swift"; sourceTree = "<group>"; };
 		8241CD6598238126A3B0DB1BCAF7D11F /* Pods-RxAppState_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-RxAppState_Example-umbrella.h"; sourceTree = "<group>"; };
@@ -766,6 +768,7 @@
 			children = (
 				43CB9CAF2F1969B1328DD97DBBDF3B9A /* RxApplicationDelegateProxy.swift */,
 				340956B56EEEBF6F60E96E503EF35A08 /* UIApplication+Rx.swift */,
+				80F95E671FA4A2C100812CD9 /* UIViewController+Rx.swift */,
 				F00DC919C42552ABCBD026DD916E8509 /* Support Files */,
 			);
 			name = RxAppState;
@@ -1280,6 +1283,11 @@
 			attributes = {
 				LastSwiftUpdateCheck = 0830;
 				LastUpgradeCheck = 0900;
+				TargetAttributes = {
+					0CA98B7ABD18C16B11283620A106307B = {
+						LastSwiftMigration = 0900;
+					};
+				};
 			};
 			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -1481,6 +1489,7 @@
 			files = (
 				84688A128B85A9A086F18540113DECEE /* RxApplicationDelegateProxy.swift in Sources */,
 				3F16B6C4EC5E4D5FFBC6D370BB27C4CB /* RxAppState-dummy.m in Sources */,
+				80F95E6B1FA4C97800812CD9 /* UIViewController+Rx.swift in Sources */,
 				C510D73F1F0313B1DD608341B66BE9F0 /* UIApplication+Rx.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1743,6 +1752,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2874E656D639F7D23E4FA5D00463A36A /* Pods-RxAppState_Example.debug.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -1962,6 +1972,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 8457A93BF1DC8E2AC9F630AF4323DCCF /* Pods-RxAppState_Example.release.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
