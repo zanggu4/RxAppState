@@ -44,4 +44,24 @@ extension UILabel {
         }
         .asObserver()
     }
+    
+    public var rx_viewState: AnyObserver<ViewControllerViewState> {
+        return Binder(self) { label, appState in
+            switch appState {
+            case .viewWillAppear:
+                label.backgroundColor = UIColor.yellow
+                label.text = "VIEW WILL APPEAR"
+            case .viewDidAppear:
+                label.backgroundColor = UIColor.green
+                label.text = "VIEW DID APPEAR"
+            case .viewWillDisappear:
+                label.backgroundColor = UIColor.orange
+                label.text = "VIEW WILL DISAPPEAR"
+            case .viewDidDisappear:
+                label.backgroundColor = UIColor.red
+                label.text = "VIEW DID DISAPPEAR"
+            }
+            }
+            .asObserver()
+    }
 }
