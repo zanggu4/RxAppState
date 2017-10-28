@@ -37,20 +37,17 @@ public enum AppState: Equatable {
      The application is about to be terminated by the system
      */
     case terminated
-}
-
-/**
- Equality function for AppState
- */
-public func ==(lhs: AppState, rhs: AppState) -> Bool {
-    switch (lhs, rhs) {
-    case (.active, .active),
-    (.inactive, .inactive),
-    (.background, .background),
-    (.terminated, .terminated):
-        return true
-    default:
-        return false
+    
+    public static func ==(lhs: AppState, rhs: AppState) -> Bool {
+        switch (lhs, rhs) {
+        case (.active, .active),
+             (.inactive, .inactive),
+             (.background, .background),
+             (.terminated, .terminated):
+            return true
+        default:
+            return false
+        }
     }
 }
 
@@ -292,7 +289,7 @@ fileprivate struct _SharedRxAppState {
             userDefaults.synchronize()
             return count
         }
-        .shareReplay(1)
+        .share(replay: 1, scope: .forever)
     
     lazy var isFirstLaunch: Observable<Bool> = self.rx.didOpenApp
         .map { _ in
@@ -307,7 +304,7 @@ fileprivate struct _SharedRxAppState {
                 return true
             }
         }
-        .shareReplay(1)
+        .share(replay: 1, scope: .forever)
     
     lazy var isFirstLaunchOfNewVersion: Observable<Bool> = self.rx.didOpenApp
         .map { _ in
@@ -319,7 +316,7 @@ fileprivate struct _SharedRxAppState {
             
             return appVersions.isUpgraded
         }
-        .shareReplay(1)
+        .share(replay: 1, scope: .forever)
     
     lazy var firstLaunchOfNewVersionOnly: Observable<Void> = Observable
         .create { observer in
@@ -327,12 +324,12 @@ fileprivate struct _SharedRxAppState {
             
             if appVersions.isUpgraded {
                 AppVersions.setLastVersion(lastVersion: appVersions.current)
-                observer.onNext()
+                observer.onNext(())
             }
             observer.onCompleted()
             return Disposables.create {}
         }
-        .shareReplay(1)
+        .share(replay: 1, scope: .forever)
     
     lazy var firstLaunchOnly: Observable<Void> = Observable
         .create { observer in
@@ -347,7 +344,7 @@ fileprivate struct _SharedRxAppState {
             observer.onCompleted()
             return Disposables.create {}
         }
-        .shareReplay(1)
+        .share(replay: 1, scope: .forever)
 }
 
 private var _sharedRxAppStateKey: UInt8 = 0

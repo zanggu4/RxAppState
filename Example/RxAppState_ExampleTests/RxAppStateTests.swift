@@ -19,7 +19,6 @@ class RxAppStateTests: XCTestCase {
     fileprivate var numDidOpenAppKey:String { return "RxAppState_numDidOpenApp" }
     fileprivate var lastAppVersionKey:  String { return "RxAppState_lastAppVersion" }
 
-    
     let application = UIApplication.shared
     var disposeBag = DisposeBag()
     
@@ -174,13 +173,13 @@ class RxAppStateTests: XCTestCase {
             .subscribe(onNext: { isFirstLaunchOfNewVersion in
                 firstLaunchArray.append(isFirstLaunchOfNewVersion)
             })
-            .addDisposableTo(disposeBag)
+            .disposed(by: disposeBag)
         
         application.rx.isFirstLaunchOfNewVersion
             .subscribe(onNext: { isFirstLaunchOfNewVersion in
                 anotherFirstLaunchArray.append(isFirstLaunchOfNewVersion)
             })
-            .addDisposableTo(disposeBag)
+            .disposed(by: disposeBag)
         
         // When
         runAppStateSequence()

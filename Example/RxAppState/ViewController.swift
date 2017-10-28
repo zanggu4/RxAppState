@@ -57,6 +57,7 @@ class ViewController: UIViewController {
         application.rx.isFirstLaunchOfNewVersion
             .bind(to: firstLaunchAfterUpdateLabel.rx_firstLaunch)
             .disposed(by: disposeBag)
+        
     }
     
     func setupExampleUI() {

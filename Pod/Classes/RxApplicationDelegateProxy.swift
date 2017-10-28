@@ -9,7 +9,7 @@
 import RxSwift
 import RxCocoa
 
-class RxApplicationDelegateProxy: DelegateProxy<UIApplication, UIApplicationDelegate>, DelegateProxyType, UIApplicationDelegate {
+open class RxApplicationDelegateProxy: DelegateProxy<UIApplication, UIApplicationDelegate>, DelegateProxyType, UIApplicationDelegate {
     
     // Typed parent object.
     public weak private(set) var application: UIApplication?
@@ -19,15 +19,15 @@ class RxApplicationDelegateProxy: DelegateProxy<UIApplication, UIApplicationDele
         super.init(parentObject: application, delegateProxy: RxApplicationDelegateProxy.self)
     }
     
-    static func registerKnownImplementations() {
+    public static func registerKnownImplementations() {
         self.register { RxApplicationDelegateProxy(application: $0) }
     }
     
-    static func currentDelegate(for object: UIApplication) -> UIApplicationDelegate? {
+    public static func currentDelegate(for object: UIApplication) -> UIApplicationDelegate? {
         return object.delegate
     }
     
-    static func setCurrentDelegate(_ delegate: UIApplicationDelegate?, to object: UIApplication) {
+    public static func setCurrentDelegate(_ delegate: UIApplicationDelegate?, to object: UIApplication) {
         object.delegate = delegate
     }
     
@@ -54,7 +54,7 @@ class RxApplicationDelegateProxy: DelegateProxy<UIApplication, UIApplicationDele
      his answer to my question on Stack Overflow:
      http://stackoverflow.com/questions/35575305/transform-uiapplicationdelegate-methods-into-rxswift-observables
      */
-    override func setForwardToDelegate(_ forwardToDelegate: UIApplicationDelegate?, retainDelegate: Bool) {
+    override open func setForwardToDelegate(_ forwardToDelegate: UIApplicationDelegate?, retainDelegate: Bool) {
         super.setForwardToDelegate(forwardToDelegate, retainDelegate: true)
     }
     
