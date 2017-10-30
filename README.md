@@ -9,9 +9,10 @@
 [![Twitter](https://img.shields.io/badge/Twitter-@pixeldock-blue.svg?style=flat)](http://twitter.com/pixeldock)
 
 
-A collection of handy RxSwift Observables that let you observe all the changes in your app's state.
+A collection of handy RxSwift Observables that let you observe all the changes in your Application's state and your UIViewController view-related notifications.
 
 ## About
+### Application states
 In almost every app there is some code that you want to run each time a user opens the app. For example you want to refresh some data or track that the user opened your app.
 
 **UIApplicationDelegate** offers two methods that you could use to run the code when the user opens the app: _applicationWillEnterForeground_ and _applicationDidBecomeActive_. But either of these methods is not ideal for this case:
@@ -85,6 +86,40 @@ UIApplication.shared.rx.didOpenAppCount
 
 **The cherry on top:**   
 This code does not have to live in your AppDelegate. You could put it anywhere you like in your app! So don't clutter your AppDelegate with this code, put it somewhere else!
+
+### ViewController view-related notifications
+
+You can also use Observables to subscribe to your view controllers' view-related notifications:
+
+Do do something when your view controller's `viewDidAppear:` method is called you can do this in your view controller class:
+
+```
+rx.viewDidAppear
+    .subscribe(onNext: { _ in
+       // do something
+    })
+    .disposed(by: disposeBag)
+```
+
+If you want to do something only when the view appeared for the first time you can easily do it like this:
+
+```
+rx.viewDidAppear
+    .take(1)
+    .subscribe(onNext: { _ in
+       // do something
+    })
+    .disposed(by: disposeBag)
+```
+
+You can also directly bind you view controller's view state to another object:
+
+```
+rx.viewWillDisappear
+    .bind(to: viewModel.saveChanges)
+    .disposed(by: disposeBag)
+```
+
 
 ## Example
 There is a simple example project to demonstrate how to use RxAppDelegate.
