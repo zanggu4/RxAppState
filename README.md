@@ -95,7 +95,7 @@ Do do something when your view controller's `viewDidAppear:` method is called yo
 
 ```
 rx.viewDidAppear
-    .subscribe(onNext: { _ in
+    .subscribe(onNext: { animated in
        // do something
     })
     .disposed(by: disposeBag)
@@ -106,7 +106,7 @@ If you want to do something only when the view appeared for the first time you c
 ```
 rx.viewDidAppear
     .take(1)
-    .subscribe(onNext: { _ in
+    .subscribe(onNext: { animated in
        // do something
     })
     .disposed(by: disposeBag)
