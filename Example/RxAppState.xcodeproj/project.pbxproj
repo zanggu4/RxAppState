@@ -17,6 +17,7 @@
 		801A534B1C9DA22600C38A16 /* RxAppStateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 801A534A1C9DA22600C38A16 /* RxAppStateTests.swift */; };
 		801A53551C9DA37E00C38A16 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 801A53541C9DA37E00C38A16 /* main.swift */; };
 		801A53571C9DA5C600C38A16 /* TestingAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 801A53561C9DA5C600C38A16 /* TestingAppDelegate.swift */; };
+		80A0FA351FA86E4000ABD580 /* RxAppStateVCTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A0FA341FA86E4000ABD580 /* RxAppStateVCTests.swift */; };
 		80F95E6A1FA4AD1700812CD9 /* SecondaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F95E691FA4AD1700812CD9 /* SecondaryViewController.swift */; };
 		EB03626B0D60EF01D7E5610A /* Pods_RxAppState_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77F537BC5BAEBF831B1D8FA1 /* Pods_RxAppState_Example.framework */; };
 /* End PBXBuildFile section */
@@ -50,6 +51,7 @@
 		801A534C1C9DA22600C38A16 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		801A53541C9DA37E00C38A16 /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		801A53561C9DA5C600C38A16 /* TestingAppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestingAppDelegate.swift; sourceTree = "<group>"; };
+		80A0FA341FA86E4000ABD580 /* RxAppStateVCTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxAppStateVCTests.swift; sourceTree = "<group>"; };
 		80F95E691FA4AD1700812CD9 /* SecondaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondaryViewController.swift; sourceTree = "<group>"; };
 		942E7BB1E0F57BA13D230B1F /* Pods-RxAppState_ExampleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxAppState_ExampleTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RxAppState_ExampleTests/Pods-RxAppState_ExampleTests.debug.xcconfig"; sourceTree = "<group>"; };
 		999F5132162E03A75A164E14 /* RxAppState.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = RxAppState.podspec; path = ../RxAppState.podspec; sourceTree = "<group>"; };
@@ -147,6 +149,7 @@
 			isa = PBXGroup;
 			children = (
 				801A534A1C9DA22600C38A16 /* RxAppStateTests.swift */,
+				80A0FA341FA86E4000ABD580 /* RxAppStateVCTests.swift */,
 				801A534C1C9DA22600C38A16 /* Info.plist */,
 			);
 			name = Tests;
@@ -393,6 +396,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				80A0FA351FA86E4000ABD580 /* RxAppStateVCTests.swift in Sources */,
 				801A534B1C9DA22600C38A16 /* RxAppStateTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

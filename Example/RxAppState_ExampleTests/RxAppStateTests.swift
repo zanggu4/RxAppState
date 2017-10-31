@@ -7,9 +7,9 @@
 //
 
 import XCTest
-@testable import RxAppState_Example
 import RxSwift
 import RxCocoa
+@testable import RxAppState_Example
 @testable import RxAppState
 
 class RxAppStateTests: XCTestCase {
