@@ -22,20 +22,14 @@ class RxAppStateTests: XCTestCase {
     let application = UIApplication.shared
     var disposeBag = DisposeBag()
     
-    override func setUp() {
-        super.setUp()
-        
+    override func tearDown() {
+        super.tearDown()
         let userDefaults = UserDefaults.standard
         userDefaults.removeObject(forKey: isFirstLaunchKey)
         userDefaults.removeObject(forKey: firstLaunchOnlyKey)
         userDefaults.removeObject(forKey: numDidOpenAppKey)
         userDefaults.removeObject(forKey: lastAppVersionKey)
-        
-        RxAppState.test_clearSharedObservables()
-    }
-    
-    override func tearDown() {
-        super.tearDown()
+        RxAppState.clearSharedObservables()
         disposeBag = DisposeBag()
     }
     
