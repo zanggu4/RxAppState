@@ -1,9 +1,9 @@
 Pod::Spec.new do |s|
 s.name             = "RxAppState"
-s.version          = "0.4.0"
-s.summary          = "Handy RxSwift extensions to observe your app's state."
+s.version          = "1.0.0"
+s.summary          = "Handy RxSwift extensions to observe your app's state and view controllers' view-related notifications"
 s.description      = <<-DESC
-Transform the state of your App into RxSwift Observables. Including convenience Observables for common scenarios.
+Transform the state of your App and UIViewController's view-related notifications into RxSwift Observables. Including convenience Observables for common scenarios.
 DESC
 s.homepage         = "https://github.com/pixeldock/RxAppState"
 s.license          = 'MIT'
