@@ -1,5 +1,5 @@
 PODS:
-  - RxAppState (0.4.0):
+  - RxAppState (1.0.0):
     - RxCocoa (~> 4.0)
     - RxSwift (~> 4.0)
   - RxCocoa (4.0.0):
@@ -14,7 +14,7 @@ EXTERNAL SOURCES:
     :path: ../
 
 SPEC CHECKSUMS:
-  RxAppState: 0e8dfa0a10c72e9a556c744a4ff9fc840795d7df
+  RxAppState: abbfa1ccc54c0825c134c2adf155d38fa2b56be5
   RxCocoa: d62846ca96495d862fa4c59ea7d87e5031d7340e
   RxSwift: fd680d75283beb5e2559486f3c0ff852f0d35334
 
