@@ -368,9 +368,9 @@ extension UIApplication {
 
 extension RxAppState {
     /**
-     For Test
+     For testing purposes
      */
-    internal static func test_clearSharedObservables() {
+    internal static func clearSharedObservables() {
         objc_setAssociatedObject(UIApplication.shared,
                                  &_sharedRxAppStateKey,
                                  nil,
