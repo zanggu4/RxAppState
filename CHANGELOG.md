@@ -1,6 +1,11 @@
 Changelog
 =========
 
+1.0.0
+-----
+- add Observables for UIViewController's view-related notifications
+- allow multiple subscriptions to Observables that use UserDefaults (thanks to [junmo-kim](https://github.com/junmo-kim) for the contribution)
+
 0.4.0
 -----
 - update RxSwift / RxCocoa dependency to 4.0
