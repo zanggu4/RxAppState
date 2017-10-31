@@ -31,32 +31,29 @@ public enum ViewControllerViewState: Equatable {
 }
 
 /**
- UIViewController view state changes
- 
- The original UIViewController methods have a parameter 'animated'
- I almost never use that parameter and therefor decided to just emit Void
- in these Observables. This
+ UIViewController view state changes.
+ Emits a Bool value indicating whether the change was animated or not
  */
 
 extension RxSwift.Reactive where Base: UIViewController {
-    public var viewWillAppear: Observable<ViewControllerViewState> {
+    public var viewWillAppear: Observable<Bool> {
         return methodInvoked(#selector(UIViewController.viewWillAppear))
-            .map { _ in return .viewWillAppear }
+            .map { $0.first as? Bool ?? false }
     }
     
-    public var viewDidAppear: Observable<ViewControllerViewState> {
+    public var viewDidAppear: Observable<Bool> {
         return methodInvoked(#selector(UIViewController.viewDidAppear))
-            .map { _ in return .viewDidAppear }
+            .map { $0.first as? Bool ?? false }
     }
     
-    public var viewWillDisappear: Observable<ViewControllerViewState> {
+    public var viewWillDisappear: Observable<Bool> {
         return methodInvoked(#selector(UIViewController.viewWillDisappear))
-            .map { _ in return .viewWillDisappear }
+            .map { $0.first as? Bool ?? false }
     }
     
-    public var viewDidDisappear: Observable<ViewControllerViewState> {
+    public var viewDidDisappear: Observable<Bool> {
         return methodInvoked(#selector(UIViewController.viewDidDisappear))
-            .map { _ in return .viewDidDisappear }
+            .map { $0.first as? Bool ?? false }
     }
     
     /**
@@ -68,10 +65,10 @@ extension RxSwift.Reactive where Base: UIViewController {
      */
     public var viewState: Observable<ViewControllerViewState> {
         return Observable.of(
-            viewWillAppear,
-            viewDidAppear,
-            viewWillDisappear,
-            viewDidDisappear
+            viewWillAppear.map {_ in return ViewControllerViewState.viewWillAppear },
+            viewDidAppear.map {_ in return ViewControllerViewState.viewDidAppear },
+            viewWillDisappear.map {_ in return ViewControllerViewState.viewWillDisappear },
+            viewDidDisappear.map {_ in return ViewControllerViewState.viewDidDisappear }
             )
             .merge()
     }
