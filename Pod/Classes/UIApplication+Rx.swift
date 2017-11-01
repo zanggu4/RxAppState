@@ -15,6 +15,35 @@ import RxCocoa
  There are two more app states in the Apple Docs ("Not running" and "Suspended").
  I decided to ignore those two states because there are no UIApplicationDelegate
  methods for those states.
+
+ +------------------------------------------------+
+ |                     active                     |
+ +------------------------------------------------+
+             ^                        |
+             |                        |
+      didBecomeActive          willResignActive
+             |                        |
+             |                        v
+ +------------------------------------------------+
+ |                    inactive                    |
+ +------------------------------------------------+
+             ^                        |
+             |                        |
+    willEnterForeground       didEnterBackground
+             |                        |
+             |                        v
+ +------------------------------------------------+
+ |                   background                   |
+ +------------------------------------------------+
+                                      |
+                                      |
+                                willTerminate
+                                      |
+                                      v
+ +------------------------------------------------+
+ |                   terminated                   |
+ +------------------------------------------------+
+
  */
 public enum AppState: Equatable {
     /**
@@ -80,6 +109,16 @@ extension RxSwift.Reactive where Base: UIApplication {
     }
     
     /**
+     Reactive wrapper for `delegate` message `applicationWillEnterForeground(_:)`.
+     */
+    public var applicationWillEnterForeground: Observable<AppState> {
+        return delegate.methodInvoked(#selector(UIApplicationDelegate.applicationWillEnterForeground(_:)))
+            .map { _ in
+                return .inactive
+        }
+    }
+
+    /**
      Reactive wrapper for `delegate` message `applicationDidBecomeActive(_:)`.
      */
     public var applicationDidBecomeActive: Observable<AppState> {
@@ -88,7 +127,7 @@ extension RxSwift.Reactive where Base: UIApplication {
                 return .active
         }
     }
-    
+
     /**
      Reactive wrapper for `delegate` message `applicationDidEnterBackground(_:)`.
      */
@@ -130,6 +169,7 @@ extension RxSwift.Reactive where Base: UIApplication {
         return Observable.of(
             applicationDidBecomeActive,
             applicationWillResignActive,
+            applicationWillEnterForeground,
             applicationDidEnterBackground,
             applicationWillTerminate
             )
