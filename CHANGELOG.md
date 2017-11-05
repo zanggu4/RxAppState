@@ -1,6 +1,11 @@
 Changelog
 =========
 
+1.0.1
+-----
+- add observable for `applicationWillEnterForeground` (thanks to [pepasflo](https://github.com/pepasflo) for the contribution)
+- fix deployment target for Carthage usage
+
 1.0.0
 -----
 - add Observables for UIViewController's view-related notifications
