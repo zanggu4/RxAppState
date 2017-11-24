@@ -143,6 +143,19 @@ it, simply add the following line to your `Podfile`:
 ```ruby
 pod "RxAppState"
 ```
+
+If Xcode complains about Swift versions add this to the end of your Podfile:
+
+```
+post_install do |installer|
+    installer.pods_project.targets.each do |target|
+        target.build_configurations.each do |config|
+            config.build_settings['SWIFT_VERSION'] = '4.0'
+        end
+    end
+end
+```
+
 ### Carthage
 
 You can use [Carthage](https://github.com/Carthage/Carthage) to install `RxAppState` by adding it to your `Cartfile`:
