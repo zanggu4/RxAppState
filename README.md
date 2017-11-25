@@ -7,7 +7,7 @@
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![Swift](https://img.shields.io/badge/Swift-4.0-orange.svg?style=flat)](https://swift.org/)
 [![Twitter](https://img.shields.io/badge/Twitter-@pixeldock-blue.svg?style=flat)](http://twitter.com/pixeldock)
-
+[![Blog](https://img.shields.io/badge/Blog-pixeldock-FF0066.svg?style=flat)](http://pixeldock.com/blog)
 
 A collection of handy RxSwift Observables that let you observe all the changes in your Application's state and your UIViewController view-related notifications.
 
@@ -170,6 +170,8 @@ Jörn Schoppe,
 joern@pixeldock.com   
 
 [![Twitter](https://img.shields.io/badge/Twitter-@pixeldock-blue.svg?style=flat)](http://twitter.com/pixeldock)
+[![Blog](https://img.shields.io/badge/Blog-pixeldock-FF0066.svg?style=flat)](http://pixeldock.com/blog)
+
 
 ## License
 
