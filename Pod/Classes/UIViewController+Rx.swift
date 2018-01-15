@@ -16,10 +16,14 @@ public enum ViewControllerViewState: Equatable {
     case viewDidAppear
     case viewWillDisappear
     case viewDidDisappear
+    case viewDidLoad
+    case viewDidLayoutSubviews
     
     public static func ==(lhs: ViewControllerViewState, rhs: ViewControllerViewState) -> Bool {
         switch (lhs, rhs) {
-        case (.viewWillAppear, .viewWillAppear),
+        case (.viewDidLoad, .viewDidLoad),
+             (.viewDidLayoutSubviews, .viewDidLayoutSubviews),
+             (.viewWillAppear, .viewWillAppear),
              (.viewDidAppear, .viewDidAppear),
              (.viewWillDisappear, .viewWillDisappear),
              (.viewDidDisappear, .viewDidDisappear):
@@ -36,6 +40,20 @@ public enum ViewControllerViewState: Equatable {
  */
 
 extension RxSwift.Reactive where Base: UIViewController {
+    public var viewDidLoad: Observable<Void> {
+        return methodInvoked(#selector(UIViewController.viewDidLoad))
+            .map { (_) -> Void in
+                return
+            }
+    }
+    
+    public var viewDidLayoutSubviews: Observable<Void> {
+        return methodInvoked(#selector(UIViewController.viewDidLayoutSubviews))
+            .map { (_) -> Void in
+                return
+            }
+    }
+    
     public var viewWillAppear: Observable<Bool> {
         return methodInvoked(#selector(UIViewController.viewWillAppear))
             .map { $0.first as? Bool ?? false }
@@ -65,6 +83,8 @@ extension RxSwift.Reactive where Base: UIViewController {
      */
     public var viewState: Observable<ViewControllerViewState> {
         return Observable.of(
+            viewDidLoad.map {_ in return ViewControllerViewState.viewDidLoad },
+            viewDidLayoutSubviews.map {_ in return ViewControllerViewState.viewDidLayoutSubviews },
             viewWillAppear.map {_ in return ViewControllerViewState.viewWillAppear },
             viewDidAppear.map {_ in return ViewControllerViewState.viewDidAppear },
             viewWillDisappear.map {_ in return ViewControllerViewState.viewWillDisappear },
