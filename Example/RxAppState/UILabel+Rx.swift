@@ -48,6 +48,12 @@ extension UILabel {
     public var rx_viewState: AnyObserver<ViewControllerViewState> {
         return Binder(self) { label, appState in
             switch appState {
+            case .viewDidLoad:
+                label.backgroundColor = UIColor.blue
+                label.text = "VIEW DID LOAD"
+            case .viewDidLayoutSubviews:
+                label.backgroundColor = UIColor.magenta
+                label.text = "VIEW DID LAYOUT SUBVIEWS"
             case .viewWillAppear:
                 label.backgroundColor = UIColor.yellow
                 label.text = "VIEW WILL APPEAR"

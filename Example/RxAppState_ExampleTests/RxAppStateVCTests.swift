@@ -17,6 +17,38 @@ class RxAppStateVCTests: XCTestCase {
     let viewController = UIViewController()
     let disposeBag = DisposeBag()
     
+    func testViewDidLoad() {
+        // Given
+        var didCallViewDidLoad: Bool = false
+        viewController.rx.viewDidLoad
+            .subscribe(onNext: {  _ in
+                didCallViewDidLoad = true
+            })
+            .disposed(by: disposeBag)
+        
+        // When
+        viewController.viewDidLoad()
+        
+        // Then
+        XCTAssertEqual(didCallViewDidLoad, true)
+    }
+    
+    func testViewDidLayoutSubviews() {
+        // Given
+        var didCallViewDidLayoutSubviews: Bool = false
+        viewController.rx.viewDidLayoutSubviews
+            .subscribe(onNext: {  _ in
+                didCallViewDidLayoutSubviews = true
+            })
+            .disposed(by: disposeBag)
+        
+        // When
+        viewController.viewDidLayoutSubviews()
+        
+        // Then
+        XCTAssertEqual(didCallViewDidLayoutSubviews, true)
+    }
+    
     func testViewWillAppear() {
         // Given
         var didCallViewWillAppear: Bool?
