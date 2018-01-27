@@ -8,7 +8,9 @@
 
 #if os(iOS) || os(tvOS)
 
+#if !RX_NO_MODULE
 import RxSwift
+#endif
 import UIKit
 
 // Items
@@ -385,7 +387,7 @@ extension Reactive where Base: UITableView {
             
             let source = delegate.methodInvoked(#selector(UITableViewDelegate.tableView(_:didUpdateFocusIn:with:)))
                 .map { a -> (context: UITableViewFocusUpdateContext, animationCoordinator: UIFocusAnimationCoordinator) in
-                    let context = try castOrThrow(UITableViewFocusUpdateContext.self, a[1])
+                    let context = a[1] as! UITableViewFocusUpdateContext
                     let animationCoordinator = try castOrThrow(UIFocusAnimationCoordinator.self, a[2])
                     return (context: context, animationCoordinator: animationCoordinator)
             }
