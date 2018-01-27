@@ -1,6 +1,11 @@
 Changelog
 =========
 
+1.1.0
+-----
+- add observables for `viewDidLoad` and `viewDidLayoutSubviews` (thanks to [ivanmkc](https://github.com/ivanmkc) for the contribution)
+- update example to show more UIViewController view states
+
 1.0.1
 -----
 - add observable for `applicationWillEnterForeground` (thanks to [pepasflo](https://github.com/pepasflo) for the contribution)
