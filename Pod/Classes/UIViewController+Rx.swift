@@ -42,16 +42,12 @@ public enum ViewControllerViewState: Equatable {
 extension RxSwift.Reactive where Base: UIViewController {
     public var viewDidLoad: Observable<Void> {
         return methodInvoked(#selector(UIViewController.viewDidLoad))
-            .map { (_) -> Void in
-                return
-            }
+            .map { _ in return }
     }
     
     public var viewDidLayoutSubviews: Observable<Void> {
         return methodInvoked(#selector(UIViewController.viewDidLayoutSubviews))
-            .map { (_) -> Void in
-                return
-            }
+            .map { _ in return }
     }
     
     public var viewWillAppear: Observable<Bool> {
