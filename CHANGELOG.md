@@ -1,6 +1,10 @@
 Changelog
 =========
 
+1.1.1
+-----
+- fixes issue [#13](https://github.com/pixeldock/RxAppState/issues/13) where `firstLaunchOfNewVersionOnly` would not emit events correctly. Thanks to [ptigro89](https://github.com/ptigro89) for finding that bug!
+
 1.1.0
 -----
 - add observables for `viewDidLoad` and `viewDidLayoutSubviews` (thanks to [ivanmkc](https://github.com/ivanmkc) for the contribution)
