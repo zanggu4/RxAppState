@@ -349,7 +349,7 @@ fileprivate struct _SharedRxAppState {
     lazy var isFirstLaunchOfNewVersion: Observable<Bool> = self.rx.didOpenApp
         .map { _ in
             let appVersions = AppVersions.get()
-            
+            print(appVersions)
             if appVersions.isLastEmpty || appVersions.isUpgraded {
                 AppVersions.setLastVersion(lastVersion: appVersions.current)
             }
@@ -358,18 +358,10 @@ fileprivate struct _SharedRxAppState {
         }
         .share(replay: 1, scope: .forever)
     
-    lazy var firstLaunchOfNewVersionOnly: Observable<Void> = Observable
-        .create { observer in
-            let appVersions = AppVersions.get()
-            
-            if appVersions.isUpgraded {
-                AppVersions.setLastVersion(lastVersion: appVersions.current)
-                observer.onNext(())
-            }
-            observer.onCompleted()
-            return Disposables.create {}
-        }
-        .share(replay: 1, scope: .forever)
+    lazy var firstLaunchOfNewVersionOnly: Observable<Void> =
+        self.isFirstLaunchOfNewVersion
+            .filter { $0 }
+            .map { _ in return }
     
     lazy var firstLaunchOnly: Observable<Void> = Observable
         .create { observer in
