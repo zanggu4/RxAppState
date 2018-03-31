@@ -1,6 +1,11 @@
 Changelog
 =========
 
+1.1.2
+-----
+- updates to Swift 4.1
+- fixes an issue with Carthage compatibility
+
 1.1.1
 -----
 - fixes issue [#13](https://github.com/pixeldock/RxAppState/issues/13) where `firstLaunchOfNewVersionOnly` would not emit events correctly. Thanks to [ptigro89](https://github.com/ptigro89) for finding that bug!

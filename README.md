@@ -5,7 +5,7 @@
 [![License](https://img.shields.io/cocoapods/l/RxAppState.svg?style=flat)](http://cocoapods.org/pods/RxAppState)
 [![Platform](https://img.shields.io/cocoapods/p/RxAppState.svg?style=flat)](http://cocoapods.org/pods/RxAppState)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
-[![Swift](https://img.shields.io/badge/Swift-4.0-orange.svg?style=flat)](https://swift.org/)
+[![Swift](https://img.shields.io/badge/Swift-4.1-orange.svg?style=flat)](https://swift.org/)
 [![Twitter](https://img.shields.io/badge/Twitter-@pixeldock-blue.svg?style=flat)](http://twitter.com/pixeldock)
 [![Blog](https://img.shields.io/badge/Blog-pixeldock-FF0066.svg?style=flat)](http://pixeldock.com/blog)
 
@@ -126,10 +126,12 @@ There is a simple example project to demonstrate how to use RxAppDelegate.
 
 ## Requirements
 iOS 8 or greater    
-Swift 4.0
+Swift 4.1
 
 If you are using Swift 2.3 please use RxAppState version 0.2.0  
 If you are using Swift 3.x please use RxAppState version 0.3.4
+If you are using Swift 4.0 please use RxAppState version 1.1.1
+
 
 ## Dependencies
 RxSwift 4.0  
@@ -150,7 +152,7 @@ If Xcode complains about Swift versions add this to the end of your Podfile:
 post_install do |installer|
     installer.pods_project.targets.each do |target|
         target.build_configurations.each do |config|
-            config.build_settings['SWIFT_VERSION'] = '4.0'
+            config.build_settings['SWIFT_VERSION'] = '4.1'
         end
     end
 end
