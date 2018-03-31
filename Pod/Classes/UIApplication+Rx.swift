@@ -349,7 +349,6 @@ fileprivate struct _SharedRxAppState {
     lazy var isFirstLaunchOfNewVersion: Observable<Bool> = self.rx.didOpenApp
         .map { _ in
             let appVersions = AppVersions.get()
-            print(appVersions)
             if appVersions.isLastEmpty || appVersions.isUpgraded {
                 AppVersions.setLastVersion(lastVersion: appVersions.current)
             }
