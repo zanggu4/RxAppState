@@ -12,7 +12,7 @@ DEPENDENCIES:
   - RxSwift
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  https://github.com/CocoaPods/Specs.git:
     - RxCocoa
     - RxSwift
 
@@ -27,4 +27,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: db7af95ffeabefa6bd0633f84d15e84f95f0ace5
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.5.0
