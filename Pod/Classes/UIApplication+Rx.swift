@@ -66,18 +66,6 @@ public enum AppState: Equatable {
      The application is about to be terminated by the system
      */
     case terminated
-    
-    public static func ==(lhs: AppState, rhs: AppState) -> Bool {
-        switch (lhs, rhs) {
-        case (.active, .active),
-             (.inactive, .inactive),
-             (.background, .background),
-             (.terminated, .terminated):
-            return true
-        default:
-            return false
-        }
-    }
 }
 
 public struct RxAppState {
