@@ -14,20 +14,14 @@ let isRunningTests = NSClassFromString("XCTestCase") != nil
 if isRunningTests {
     UIApplicationMain(
         CommandLine.argc,
-        UnsafeMutableRawPointer(CommandLine.unsafeArgv)
-            .bindMemory(
-                to: UnsafeMutablePointer<Int8>.self,
-                capacity: Int(CommandLine.argc)),
+        CommandLine.unsafeArgv,
         nil,
         NSStringFromClass(TestingAppDelegate.self)
     )
 } else {
     UIApplicationMain(
         CommandLine.argc,
-        UnsafeMutableRawPointer(CommandLine.unsafeArgv)
-            .bindMemory(
-                to: UnsafeMutablePointer<Int8>.self,
-                capacity: Int(CommandLine.argc)),
+        CommandLine.unsafeArgv,
         nil,
         NSStringFromClass(AppDelegate.self)
     )
