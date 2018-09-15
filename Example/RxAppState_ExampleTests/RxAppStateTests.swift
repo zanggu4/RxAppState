@@ -139,7 +139,6 @@ class RxAppStateTests: XCTestCase {
         // Given
         var firstLaunchArray: [Bool] = []
         UserDefaults.standard.set("3.2", forKey: self.lastAppVersionKey)
-        UserDefaults.standard.synchronize()
         RxAppState.currentAppVersion = "4.2"
         
         application.rx.isFirstLaunchOfNewVersion
@@ -160,7 +159,6 @@ class RxAppStateTests: XCTestCase {
         var firstLaunchArray: [Bool] = []
         var anotherFirstLaunchArray: [Bool] = []
         UserDefaults.standard.set("3.2", forKey: self.lastAppVersionKey)
-        UserDefaults.standard.synchronize()
         RxAppState.currentAppVersion = "4.2"
         
         application.rx.isFirstLaunchOfNewVersion
@@ -187,7 +185,6 @@ class RxAppStateTests: XCTestCase {
         // Given
         var firstLaunchArray: [Bool] = []
         UserDefaults.standard.set("4.2", forKey: self.lastAppVersionKey)
-        UserDefaults.standard.synchronize()
         RxAppState.currentAppVersion = "4.2"
         
         application.rx.isFirstLaunchOfNewVersion
@@ -223,7 +220,6 @@ class RxAppStateTests: XCTestCase {
         // Given
         var firstLaunchArray: [Bool] = []
         UserDefaults.standard.set("3.2", forKey: self.lastAppVersionKey)
-        UserDefaults.standard.synchronize()
         RxAppState.currentAppVersion = "4.2"
         
         application.rx.firstLaunchOfNewVersionOnly
@@ -246,7 +242,6 @@ class RxAppStateTests: XCTestCase {
         // Given
         var firstLaunchArray: [Bool] = []
         UserDefaults.standard.set("4.2", forKey: self.lastAppVersionKey)
-        UserDefaults.standard.synchronize()
         RxAppState.currentAppVersion = "4.2"
         
         application.rx.firstLaunchOfNewVersionOnly

@@ -298,7 +298,6 @@ fileprivate struct _SharedRxAppState {
         static func setLastVersion(lastVersion: String) {
             let userDefaults = UserDefaults.standard
             userDefaults.set(lastVersion, forKey: DefaultName.lastAppVersion)
-            userDefaults.synchronize()
         }
     }
     
@@ -314,7 +313,6 @@ fileprivate struct _SharedRxAppState {
             var count = userDefaults.integer(forKey: DefaultName.numDidOpenApp)
             count = min(count + 1, Int.max - 1)
             userDefaults.set(count, forKey: DefaultName.numDidOpenApp)
-            userDefaults.synchronize()
             return count
         }
         .share(replay: 1, scope: .forever)
@@ -328,7 +326,6 @@ fileprivate struct _SharedRxAppState {
                 return false
             } else {
                 userDefaults.set(true, forKey: DefaultName.isFirstLaunch)
-                userDefaults.synchronize()
                 return true
             }
         }
@@ -357,7 +354,6 @@ fileprivate struct _SharedRxAppState {
             
             if !didLaunchBefore {
                 userDefaults.set(true, forKey: DefaultName.isFirstLaunch)
-                userDefaults.synchronize()
                 observer.onNext(())
             }
             observer.onCompleted()
