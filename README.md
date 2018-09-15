@@ -11,6 +11,8 @@
 
 A collection of handy RxSwift Observables that let you observe all the changes in your Application's state and your UIViewController view-related notifications.
 
+⚠️⚠️⚠️ Don't use this branch yet! It is still waiting for a RxSwift release supporting iOS 12 ⚠️⚠️⚠️
+
 ## About
 ### Application states
 In almost every app there is some code that you want to run each time a user opens the app. For example you want to refresh some data or track that the user opened your app.
@@ -126,16 +128,16 @@ There is a simple example project to demonstrate how to use RxAppDelegate.
 
 ## Requirements
 iOS 8 or greater    
-Swift 4.1
+Swift 4.2
 
 If you are using Swift 2.3 please use RxAppState version 0.2.0  
-If you are using Swift 3.x please use RxAppState version 0.3.4
-If you are using Swift 4.0 please use RxAppState version 1.1.1
+If you are using Swift 3.x please use RxAppState version 0.3.4  
+If you are using Swift 4.0 please use RxAppState version 1.1.1  
 If you are using Swift 4.1 please use RxAppState version 1.1.2
 
 
 ## Dependencies
-RxSwift 4.2 
+RxSwift 4.2  
 RxCocoa 4.2
 
 ## Integration
