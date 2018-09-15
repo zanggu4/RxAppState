@@ -18,20 +18,6 @@ public enum ViewControllerViewState: Equatable {
     case viewDidDisappear
     case viewDidLoad
     case viewDidLayoutSubviews
-    
-    public static func ==(lhs: ViewControllerViewState, rhs: ViewControllerViewState) -> Bool {
-        switch (lhs, rhs) {
-        case (.viewDidLoad, .viewDidLoad),
-             (.viewDidLayoutSubviews, .viewDidLayoutSubviews),
-             (.viewWillAppear, .viewWillAppear),
-             (.viewDidAppear, .viewDidAppear),
-             (.viewWillDisappear, .viewWillDisappear),
-             (.viewDidDisappear, .viewDidDisappear):
-            return true
-        default:
-            return false
-        }
-    }
 }
 
 /**
