@@ -1,12 +1,13 @@
 # RxAppState
 
 [![CI Status](http://img.shields.io/travis/pixeldock/RxAppState.svg?style=flat)](https://travis-ci.org/pixeldock/RxAppState)
-[![Version](https://img.shields.io/cocoapods/v/RxAppState.svg?style=flat)](http://cocoapods.org/pods/RxAppState)
-[![License](https://img.shields.io/cocoapods/l/RxAppState.svg?style=flat)](http://cocoapods.org/pods/RxAppState)
 [![Platform](https://img.shields.io/cocoapods/p/RxAppState.svg?style=flat)](http://cocoapods.org/pods/RxAppState)
+[![Version](https://img.shields.io/cocoapods/v/RxAppState.svg?style=flat)](http://cocoapods.org/pods/RxAppState)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![Swift](https://img.shields.io/badge/Swift-4.2-orange.svg?style=flat)](https://swift.org/)
-[![Twitter](https://img.shields.io/badge/Twitter-@pixeldock-blue.svg?style=flat)](http://twitter.com/pixeldock)
+[![Xcode](https://img.shields.io/badge/xcode-10-5995EE.svg?style=flat)](https://developer.apple.com)
+[![License](https://img.shields.io/cocoapods/l/RxAppState.svg?style=flat)](http://cocoapods.org/pods/RxAppState)
+[![Twitter](https://img.shields.io/badge/Twitter-@pixeldock-5E9FE5.svg?logo=twitter)](http://twitter.com/pixeldock)
 [![Blog](https://img.shields.io/badge/Blog-pixeldock-FF0066.svg?style=flat)](http://pixeldock.com/blog)
 
 A collection of handy RxSwift Observables that let you observe all the changes in your Application's state and your UIViewController view-related notifications.
@@ -126,7 +127,8 @@ There is a simple example project to demonstrate how to use RxAppDelegate.
 
 ## Requirements
 iOS 8 or greater    
-Swift 4.2
+Swift 4.2  
+Xcode 10
 
 If you are using Swift 2.3 please use RxAppState version 0.2.0  
 If you are using Swift 3.x please use RxAppState version 0.3.4  
@@ -135,8 +137,8 @@ If you are using Swift 4.1 please use RxAppState version 1.1.2
 
 
 ## Dependencies
-RxSwift 4.2  
-RxCocoa 4.2
+RxSwift 4.3  
+RxCocoa 4.3
 
 ## Integration
 ### CocoaPods
