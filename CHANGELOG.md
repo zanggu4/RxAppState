@@ -1,6 +1,12 @@
 Changelog
 =========
 
+1.2.0
+-----
+- updates to Swift 4.2
+- removes obsolete `Equatable` implementation (thanks to [Pavel Sorokin](https://github.com/NeverwinterMoon) for the contribution)
+- removes all calls to `UserDefaults.standard.synchronize()` (thanks again to [Pavel Sorokin](https://github.com/NeverwinterMoon) for pointing that out)
+
 1.1.2
 -----
 - updates to Swift 4.1

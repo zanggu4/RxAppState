@@ -11,8 +11,6 @@
 
 A collection of handy RxSwift Observables that let you observe all the changes in your Application's state and your UIViewController view-related notifications.
 
-⚠️⚠️⚠️ Don't use this branch yet! It is still waiting for a RxSwift release supporting iOS 12 ⚠️⚠️⚠️
-
 ## About
 ### Application states
 In almost every app there is some code that you want to run each time a user opens the app. For example you want to refresh some data or track that the user opened your app.
