@@ -24,7 +24,7 @@ _applicationDidBecomeActive_ does get called when the app is launched for the fi
 
 So to really run your code only when your user opens the app you need to keep track of the app's state. You would probably implement something like this:
 
-```
+```swift
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     var didEnterBackground = true
@@ -46,7 +46,7 @@ This is not a big problem, but it is not a very elegant approach. And you have t
 **RxAppState to the rescue!**  
 With RxAppState you can simply do the following:
 
-```
+```swift
 UIApplication.shared.rx.didOpenApp
     .subscribe(onNext: { _ in
         // run your code
@@ -58,7 +58,7 @@ This runs your code whenever the user opens the app. It includes the first launc
 **And there is more!**  
 You want to show your user a tutorial when he first launches the app? And you only want to show it after the first launch and never again? No problem:
 
-```
+```swift
 UIApplication.shared.rx.firstLaunchOnly
     .subscribe(onNext: { _ in
         // run your code
@@ -67,7 +67,7 @@ UIApplication.shared.rx.firstLaunchOnly
 ```
 You want to show your user a message when he opens the app for the first time after an update?
 
-```
+```swift
 UIApplication.shared.rx.firstLaunchOfNewVersionOnly
     .subscribe(onNext: { _ in
         // run your code
@@ -94,7 +94,7 @@ You can also use Observables to subscribe to your view controllers' view-related
 
 Do do something when your view controller's `viewDidAppear:` method is called you can do this in your view controller class:
 
-```
+```swift
 rx.viewDidAppear
     .subscribe(onNext: { animated in
        // do something
@@ -104,7 +104,7 @@ rx.viewDidAppear
 
 If you want to do something only when the view appeared for the first time you can easily do it like this:
 
-```
+```swift
 rx.viewDidAppear
     .take(1)
     .subscribe(onNext: { animated in
@@ -115,7 +115,7 @@ rx.viewDidAppear
 
 You can also directly bind you view controller's view state to another object:
 
-```
+```swift
 rx.viewWillDisappear
     .bind(to: viewModel.saveChanges)
     .disposed(by: disposeBag)
@@ -151,7 +151,7 @@ pod "RxAppState"
 
 If Xcode complains about Swift versions add this to the end of your Podfile:
 
-```
+```ruby
 post_install do |installer|
     installer.pods_project.targets.each do |target|
         target.build_configurations.each do |config|
