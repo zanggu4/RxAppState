@@ -82,9 +82,9 @@ extension RxSwift.Reactive where Base: UIApplication {
      Keys for NSUserDefaults
      */
     fileprivate struct DefaultName {
-        static var isFirstLaunch: String { return "RxAppState_isFirstLaunch" }
-        static var numDidOpenApp: String { return "RxAppState_numDidOpenApp" }
-        static var lastAppVersion: String { return "RxAppState_lastAppVersion" }
+        static var didOpenAppCount: String { return "RxAppState_didOpenAppCount" }
+        static var previousAppVersion: String { return "RxAppState_previousAppVersion" }
+        static var currentAppVersion: String { return "RxAppState_currentAppVersion" }
     }
     
     /**
@@ -275,91 +275,56 @@ extension RxSwift.Reactive where Base: UIApplication {
 fileprivate struct _SharedRxAppState {
     typealias DefaultName = Reactive<UIApplication>.DefaultName
     
-    /**
-     App versions
-     */
-    fileprivate struct AppVersions {
-        let last: String?
-        let current: String
-        
-        var isLastEmpty: Bool { return last?.isEmpty ?? true }
-        var isUpgraded: Bool {
-            if let last = last, last != current {
-                return true
-            }
-            return false
-        }
-        
-        static func get() -> AppVersions {
-            return AppVersions(last: UserDefaults.standard.string(forKey: DefaultName.lastAppVersion),
-                               current: RxAppState.currentAppVersion ?? "")
-        }
-        
-        static func setLastVersion(lastVersion: String) {
-            let userDefaults = UserDefaults.standard
-            userDefaults.set(lastVersion, forKey: DefaultName.lastAppVersion)
-        }
-    }
-    
     let rx: Reactive<UIApplication>
+    let disposeBag = DisposeBag()
     
     init(_ application: UIApplication) {
         rx = application.rx
+        rx.didOpenApp
+            .subscribe(onNext: updateAppStats)
+            .disposed(by: disposeBag)
     }
     
-    lazy var didOpenAppCount: Observable<Int> = self.rx.didOpenApp
+    private func updateAppStats() {
+        let userDefaults = UserDefaults.standard
+        
+        var count = userDefaults.integer(forKey: DefaultName.didOpenAppCount)
+        count = min(count + 1, Int.max - 1)
+        userDefaults.set(count, forKey: DefaultName.didOpenAppCount)
+        
+        let previousAppVersion = userDefaults.string(forKey: DefaultName.currentAppVersion) ?? RxAppState.currentAppVersion
+        let currentAppVersion = RxAppState.currentAppVersion
+        userDefaults.set(previousAppVersion, forKey: DefaultName.previousAppVersion)
+        userDefaults.set(currentAppVersion, forKey: DefaultName.currentAppVersion)
+    }
+    
+    lazy var didOpenAppCount: Observable<Int> = rx.didOpenApp
+        .map { _ in
+            return UserDefaults.standard.integer(forKey: DefaultName.didOpenAppCount)
+        }
+        .share(replay: 1, scope: .forever)
+    
+    lazy var isFirstLaunch: Observable<Bool> = rx.didOpenApp
+        .map { _ in
+            let didOpenAppCount = UserDefaults.standard.integer(forKey: DefaultName.didOpenAppCount)
+            return didOpenAppCount == 1
+        }
+        .share(replay: 1, scope: .forever)
+    
+    lazy var firstLaunchOnly: Observable<Void> = isFirstLaunch
+        .filter { $0 }
+        .map { _ in return }
+    
+    lazy var isFirstLaunchOfNewVersion: Observable<Bool> = rx.didOpenApp
         .map { _ in
             let userDefaults = UserDefaults.standard
-            var count = userDefaults.integer(forKey: DefaultName.numDidOpenApp)
-            count = min(count + 1, Int.max - 1)
-            userDefaults.set(count, forKey: DefaultName.numDidOpenApp)
-            return count
+            return userDefaults.string(forKey: DefaultName.previousAppVersion) != userDefaults.string(forKey: DefaultName.currentAppVersion)
         }
         .share(replay: 1, scope: .forever)
     
-    lazy var isFirstLaunch: Observable<Bool> = self.rx.didOpenApp
-        .map { _ in
-            let userDefaults = UserDefaults.standard
-            let didLaunchBefore = userDefaults.bool(forKey: DefaultName.isFirstLaunch)
-            
-            if didLaunchBefore {
-                return false
-            } else {
-                userDefaults.set(true, forKey: DefaultName.isFirstLaunch)
-                return true
-            }
-        }
-        .share(replay: 1, scope: .forever)
-    
-    lazy var isFirstLaunchOfNewVersion: Observable<Bool> = self.rx.didOpenApp
-        .map { _ in
-            let appVersions = AppVersions.get()
-            if appVersions.isLastEmpty || appVersions.isUpgraded {
-                AppVersions.setLastVersion(lastVersion: appVersions.current)
-            }
-            
-            return appVersions.isUpgraded
-        }
-        .share(replay: 1, scope: .forever)
-    
-    lazy var firstLaunchOfNewVersionOnly: Observable<Void> =
-        self.isFirstLaunchOfNewVersion
-            .filter { $0 }
-            .map { _ in return }
-    
-    lazy var firstLaunchOnly: Observable<Void> = Observable
-        .create { observer in
-            let userDefaults = UserDefaults.standard
-            let didLaunchBefore = userDefaults.bool(forKey: DefaultName.isFirstLaunch)
-            
-            if !didLaunchBefore {
-                userDefaults.set(true, forKey: DefaultName.isFirstLaunch)
-                observer.onNext(())
-            }
-            observer.onCompleted()
-            return Disposables.create {}
-        }
-        .share(replay: 1, scope: .forever)
+    lazy var firstLaunchOfNewVersionOnly: Observable<Void> = isFirstLaunchOfNewVersion
+        .filter { $0 }
+        .map { _ in return }
 }
 
 private var _sharedRxAppStateKey: UInt8 = 0
