@@ -14,8 +14,7 @@ import RxCocoa
 
 class RxAppStateTests: XCTestCase {
     
-    fileprivate var didLaunchBeforeKey:String { return "RxAppState_didLaunchBefore" }
-    fileprivate var didOpenAppCountKey:String { return "RxAppState_didOpenAppCount" }
+    fileprivate var didOpenAppCountKey:String { return "RxAppState_numDidOpenApp" }
     fileprivate var previousAppVersionKey:  String { return "RxAppState_previousAppVersion" }
     fileprivate var currentAppVersionKey:  String { return "RxAppState_currentAppVersion" }
 
@@ -25,7 +24,6 @@ class RxAppStateTests: XCTestCase {
     override func tearDown() {
         super.tearDown()
         let userDefaults = UserDefaults.standard
-        userDefaults.removeObject(forKey: didLaunchBeforeKey)
         userDefaults.removeObject(forKey: didOpenAppCountKey)
         userDefaults.removeObject(forKey: previousAppVersionKey)
         userDefaults.removeObject(forKey: currentAppVersionKey)

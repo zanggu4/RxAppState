@@ -82,7 +82,7 @@ extension RxSwift.Reactive where Base: UIApplication {
      Keys for NSUserDefaults
      */
     fileprivate struct DefaultName {
-        static var didOpenAppCount: String { return "RxAppState_didOpenAppCount" }
+        static var didOpenAppCount: String { return "RxAppState_numDidOpenApp" }
         static var previousAppVersion: String { return "RxAppState_previousAppVersion" }
         static var currentAppVersion: String { return "RxAppState_currentAppVersion" }
     }
