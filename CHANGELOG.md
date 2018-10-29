@@ -1,6 +1,10 @@
 Changelog
 =========
 
+1.3.0
+-----
+- App open counts and app versions are now tracked even if there is no subscription to the relevant Observables  (thanks to [Philippe Cuvillier](https://github.com/PhilippeCuvillier) for suggesting that change!)
+
 1.2.0
 -----
 - updates to Swift 4.2
