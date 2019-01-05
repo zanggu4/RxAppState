@@ -15,6 +15,8 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var stateLabel: UILabel!
     @IBOutlet weak var firstLaunchLabel: UILabel!
+    @IBOutlet weak var previousVersionLabel: UILabel!
+    @IBOutlet weak var currentVersionLabel: UILabel!
     @IBOutlet weak var appOpenedLabel: UILabel!
     @IBOutlet weak var firstLaunchAfterUpdateLabel: UILabel!
     @IBOutlet weak var appVersionLabel: UILabel!
@@ -52,12 +54,27 @@ class ViewController: UIViewController {
             .disposed(by: disposeBag)
         
         /**
+         Show previous app version
+         */
+        application.rx.appVersion
+            .map { $0.previous }
+            .bind(to: previousVersionLabel.rx.text)
+            .disposed(by: disposeBag)
+        
+        /**
+         Show current app version
+         */
+        application.rx.appVersion
+            .map { $0.current }
+            .bind(to: currentVersionLabel.rx.text)
+            .disposed(by: disposeBag)
+        
+        /**
          Show if the app is launched for the first time after an update
          */
         application.rx.isFirstLaunchOfNewVersion
             .bind(to: firstLaunchAfterUpdateLabel.rx_firstLaunch)
             .disposed(by: disposeBag)
-        
     }
     
     func setupExampleUI() {

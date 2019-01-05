@@ -66,22 +66,6 @@ class RxAppStateTests: XCTestCase {
         XCTAssertEqual(didOpenAppCalledCount, 3)
     }
     
-    func testDidOpenAppCount() {
-        // Given
-        var didOpenAppCounts: [Int] = []
-        application.rx.didOpenAppCount
-            .subscribe(onNext: { count in
-                didOpenAppCounts.append(count)
-            })
-            .disposed(by: disposeBag)
-        
-        // When
-        runAppStateSequence()
-        
-        // Then
-        XCTAssertEqual(didOpenAppCounts, [1,2,3])
-    }
-    
     func testIsFirstLaunch() {
         // Given
         var firstLaunchArray: [Bool] = []
@@ -112,6 +96,35 @@ class RxAppStateTests: XCTestCase {
         
         // Then
         XCTAssertEqual(firstLaunchArray, [true])
+    }
+    
+    func testAppVersionAndDidOpenAppCount() {
+        // Given
+        var didOpenAppCounts: [Int] = []
+        var appVersionArray: [AppVersion] = []
+        UserDefaults.standard.set("3.2", forKey: self.previousAppVersionKey)
+        UserDefaults.standard.set("3.2", forKey: self.currentAppVersionKey)
+        RxAppState.currentAppVersion = "3.2"
+        
+        application.rx.didOpenAppCount
+            .subscribe(onNext: { count in
+                didOpenAppCounts.append(count)
+            })
+            .disposed(by: disposeBag)
+        
+        application.rx.appVersion
+            .subscribe(onNext: { version in
+                appVersionArray.append(version)
+                RxAppState.currentAppVersion = "4.2"
+            })
+            .disposed(by: disposeBag)
+        
+        // When
+        runAppStateSequence()
+        
+        // Then
+        XCTAssertEqual(didOpenAppCounts, [1,2,3])
+        XCTAssertEqual(appVersionArray, [AppVersion(previous: "3.2", current: "3.2"), AppVersion(previous: "3.2", current: "4.2"), AppVersion(previous: "4.2", current: "4.2")])
     }
     
     func testIsFirstLaunchOfNewVersionNewInstall() {
@@ -216,14 +229,14 @@ class RxAppStateTests: XCTestCase {
     
     func testFirstLaunchOfNewVersionOnlyNewUpdate() {
         // Given
-        var firstLaunchArray: [Bool] = []
+        var firstLaunchArray: [AppVersion] = []
         UserDefaults.standard.set("3.2", forKey: self.previousAppVersionKey)
         UserDefaults.standard.set("3.2", forKey: self.currentAppVersionKey)
         RxAppState.currentAppVersion = "4.2"
         
         application.rx.firstLaunchOfNewVersionOnly
-            .subscribe(onNext: { _ in
-                firstLaunchArray.append(true)
+            .subscribe(onNext: { version in
+                firstLaunchArray.append(version)
             })
             .disposed(by: disposeBag)
         
@@ -231,19 +244,19 @@ class RxAppStateTests: XCTestCase {
         runAppStateSequence()
         
         // Then
-        XCTAssertEqual(firstLaunchArray, [true])
+        XCTAssertEqual(firstLaunchArray, [AppVersion(previous: "3.2", current: "4.2")])
     }
     
     func testFirstLaunchOfNewVersionOnlyExisting() {
         // Given
-        var firstLaunchArray: [Bool] = []
+        var firstLaunchArray: [AppVersion] = []
         UserDefaults.standard.set("4.2", forKey: self.previousAppVersionKey)
         UserDefaults.standard.set("4.2", forKey: self.currentAppVersionKey)
         RxAppState.currentAppVersion = "4.2"
         
         application.rx.firstLaunchOfNewVersionOnly
-            .subscribe(onNext: { _ in
-                firstLaunchArray.append(true)
+            .subscribe(onNext: { version in
+                firstLaunchArray.append(version)
             })
             .disposed(by: disposeBag)
         

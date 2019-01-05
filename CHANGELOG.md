@@ -1,6 +1,11 @@
 Changelog
 =========
 
+1.4.0
+-----
+- New observable `appVersion` that emits your app's previous and current version string each time the user opens the app
+- `firstLaunchOfNewVersionOnly` now emits an `AppVersion` object that contains the previous and the current app version string (thanks to [Ashton Meuser](https://github.com/ashtonmeuser) for suggesting that change!)
+
 1.3.0
 -----
 - App open counts and app versions are now tracked even if there is no subscription to the relevant Observables  (thanks to [Philippe Cuvillier](https://github.com/PhilippeCuvillier) for suggesting that change!)
