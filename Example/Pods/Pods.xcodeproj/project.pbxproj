@@ -1267,9 +1267,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B6FFF36BE4476A5A25F6D49CD77DD7D1 /* Build configuration list for PBXNativeTarget "RxAppState" */;
 			buildPhases = (
+				F6B2C719360E046074F9A0B741D1B27B /* Headers */,
 				E8C5C76903A2CA8992019A18A8A8D78C /* Sources */,
 				F16D5E8AB460147D954C4C9166451293 /* Frameworks */,
-				F6B2C719360E046074F9A0B741D1B27B /* Headers */,
 			);
 			buildRules = (
 			);
