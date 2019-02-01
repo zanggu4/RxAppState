@@ -1,6 +1,10 @@
 Changelog
 =========
 
+1.4.1
+-----
+- improved Carthage build stability
+
 1.4.0
 -----
 - New observable `appVersion` that emits your app's previous and current version string each time the user opens the app
