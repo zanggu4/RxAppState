@@ -2,7 +2,7 @@ Changelog
 =========
 1.5.0
 -----
-- updates to Swift 5.0
+- updates to Swift 5
 
 1.4.1
 -----

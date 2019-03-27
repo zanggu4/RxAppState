@@ -4,8 +4,8 @@
 [![Platform](https://img.shields.io/cocoapods/p/RxAppState.svg?style=flat)](http://cocoapods.org/pods/RxAppState)
 [![Version](https://img.shields.io/cocoapods/v/RxAppState.svg?style=flat)](http://cocoapods.org/pods/RxAppState)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
-[![Swift](https://img.shields.io/badge/Swift-5.0-orange.svg?style=flat)](https://swift.org/)
-[![Xcode](https://img.shields.io/badge/xcode-10-5995EE.svg?style=flat)](https://developer.apple.com)
+[![Swift](https://img.shields.io/badge/Swift-5-orange.svg?style=flat)](https://swift.org/)
+[![Xcode](https://img.shields.io/badge/xcode-10.2-5995EE.svg?style=flat)](https://developer.apple.com)
 [![License](https://img.shields.io/cocoapods/l/RxAppState.svg?style=flat)](http://cocoapods.org/pods/RxAppState)
 [![Twitter](https://img.shields.io/badge/Twitter-@pixeldock-5E9FE5.svg?logo=twitter)](http://twitter.com/pixeldock)
 [![Blog](https://img.shields.io/badge/Blog-pixeldock-FF0066.svg?style=flat)](http://pixeldock.com/blog)
@@ -142,8 +142,8 @@ There is a simple example project to demonstrate how to use RxAppDelegate.
 
 ## Requirements
 iOS 8 or greater    
-Swift 5.0  
-Xcode 10
+Swift 5 
+Xcode 10.2
 
 If you are using Swift 3.x please use RxAppState version 0.3.4  
 If you are using Swift 4.0 please use RxAppState version 1.1.1  
