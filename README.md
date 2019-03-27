@@ -142,17 +142,17 @@ There is a simple example project to demonstrate how to use RxAppDelegate.
 
 ## Requirements
 iOS 8 or greater    
-Swift 5 
+Swift 5  
 Xcode 10.2
 
 If you are using Swift 3.x please use RxAppState version 0.3.4  
 If you are using Swift 4.0 please use RxAppState version 1.1.1  
-If you are using Swift 4.1 please use RxAppState version 1.1.2
+If you are using Swift 4.1 please use RxAppState version 1.1.2  
 If you are using Swift 4.2 please use RxAppState version 1.4.1
 
 
 ## Dependencies
-RxSwift 4.4 
+RxSwift 4.4  
 RxCocoa 4.4
 
 ## Integration
