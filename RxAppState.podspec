@@ -1,6 +1,7 @@
 Pod::Spec.new do |s|
 s.name             = "RxAppState"
 s.version          = "1.5.1"
+s.swift_versions   = ['5.0']
 s.summary          = "Handy RxSwift extensions to observe your app's state and view controllers' view-related notifications"
 s.description      = <<-DESC
 Transform the state of your App and UIViewController's view-related notifications into RxSwift Observables. Including convenience Observables for common scenarios.
