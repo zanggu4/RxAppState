@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
 s.name             = "RxAppState"
-s.version          = "1.5.1"
+s.version          = "1.5.2"
 s.swift_versions   = ['5.0']
 s.summary          = "Handy RxSwift extensions to observe your app's state and view controllers' view-related notifications"
 s.description      = <<-DESC

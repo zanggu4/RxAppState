@@ -1,5 +1,9 @@
 Changelog
 =========
+1.5.2
+-----
+- sets Swift version to 5.0
+
 1.5.1
 -----
 - updates dependencies to RxSwift 5.0
