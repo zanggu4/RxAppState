@@ -12,6 +12,7 @@
 		082D76C91EFBC28A00A4E97B /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 082D76C71EFBC28A00A4E97B /* RxSwift.framework */; };
 		082D76CE1EFBC2BE00A4E97B /* RxApplicationDelegateProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 082D76CC1EFBC2BE00A4E97B /* RxApplicationDelegateProxy.swift */; };
 		082D76CF1EFBC2BE00A4E97B /* UIApplication+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 082D76CD1EFBC2BE00A4E97B /* UIApplication+Rx.swift */; };
+		A46E5C61231D7158002DD06E /* UIViewController+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46E5C60231D7158002DD06E /* UIViewController+Rx.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		082D76C71EFBC28A00A4E97B /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = Carthage/Build/iOS/RxSwift.framework; sourceTree = "<group>"; };
 		082D76CC1EFBC2BE00A4E97B /* RxApplicationDelegateProxy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RxApplicationDelegateProxy.swift; path = Pod/Classes/RxApplicationDelegateProxy.swift; sourceTree = SOURCE_ROOT; };
 		082D76CD1EFBC2BE00A4E97B /* UIApplication+Rx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIApplication+Rx.swift"; path = "Pod/Classes/UIApplication+Rx.swift"; sourceTree = SOURCE_ROOT; };
+		A46E5C60231D7158002DD06E /* UIViewController+Rx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIViewController+Rx.swift"; path = "Pod/Classes/UIViewController+Rx.swift"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +61,7 @@
 			children = (
 				082D76CC1EFBC2BE00A4E97B /* RxApplicationDelegateProxy.swift */,
 				082D76CD1EFBC2BE00A4E97B /* UIApplication+Rx.swift */,
+				A46E5C60231D7158002DD06E /* UIViewController+Rx.swift */,
 				082D76BD1EFBC24400A4E97B /* RxAppState.h */,
 				082D76BE1EFBC24400A4E97B /* Info.plist */,
 			);
@@ -156,6 +159,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				082D76CF1EFBC2BE00A4E97B /* UIApplication+Rx.swift in Sources */,
+				A46E5C61231D7158002DD06E /* UIViewController+Rx.swift in Sources */,
 				082D76CE1EFBC2BE00A4E97B /* RxApplicationDelegateProxy.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
