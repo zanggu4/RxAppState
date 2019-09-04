@@ -14,7 +14,7 @@ let package = Package(
         .package(url: "https://github.com/ReactiveX/RxSwift.git", .upToNextMajor(from: "5.0.0")),
     ],
     targets: [
-        .target(name: "RxAppState", dependencies: ["RxSwift", "RxCocoa"], path: "Source")
+        .target(name: "RxAppState", dependencies: ["RxSwift", "RxCocoa"], path: "Pod/Classes")
     ],
     swiftLanguageVersions: [.v4_2, .v5]
 )
