@@ -4,6 +4,8 @@
 [![Platform](https://img.shields.io/cocoapods/p/RxAppState.svg?style=flat)](http://cocoapods.org/pods/RxAppState)
 [![Version](https://img.shields.io/cocoapods/v/RxAppState.svg?style=flat)](http://cocoapods.org/pods/RxAppState)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+[![SPM compatible](https://img.shields.io/badge/SPM-compatible-%23e05c43?style=flat)](https://swift.org/package-manager/)
+[![Xcode](https://img.shields.io/badge/xcode-10.2-5995EE.svg?style=flat)](https://developer.apple.com)
 [![Swift](https://img.shields.io/badge/Swift-5-orange.svg?style=flat)](https://swift.org/)
 [![Xcode](https://img.shields.io/badge/xcode-10.2-5995EE.svg?style=flat)](https://developer.apple.com)
 [![License](https://img.shields.io/cocoapods/l/RxAppState.svg?style=flat)](http://cocoapods.org/pods/RxAppState)
@@ -183,6 +185,12 @@ You can use [Carthage](https://github.com/Carthage/Carthage) to install `RxAppSt
 ```
 github "pixeldock/RxAppState"
 ```
+
+### Swift Package Manager
+
+You can use Swift Package Manager to install `RxAppState`:
+
+https://swift.org/package-manager/
 
 ## Author
 

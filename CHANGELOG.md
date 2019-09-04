@@ -1,5 +1,9 @@
 Changelog
 =========
+1.5.3
+-----
+- adds Swift Package Manager support. (thanks to [Sergey Kuleshov](https://github.com/svyatogor) for this contribution!)
+
 1.5.2
 -----
 - sets Swift version to 5.0
