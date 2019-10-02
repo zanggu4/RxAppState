@@ -41,10 +41,10 @@ class RxAppStateTests: XCTestCase {
             .disposed(by: disposeBag)
         
         // When
-        application.delegate?.applicationDidBecomeActive!(application)
-        application.delegate?.applicationWillResignActive!(application)
-        application.delegate?.applicationDidEnterBackground!(application)
-        application.delegate?.applicationWillTerminate!(application)
+        NotificationCenter.default.post(name: UIApplication.didBecomeActiveNotification, object: nil)
+        NotificationCenter.default.post(name: UIApplication.willResignActiveNotification, object: nil)
+        NotificationCenter.default.post(name: UIApplication.didEnterBackgroundNotification, object: nil)
+        NotificationCenter.default.post(name: UIApplication.willTerminateNotification, object: nil)
         
         // Then
         XCTAssertEqual(appStates, [AppState.active, AppState.inactive, AppState.background, AppState.terminated])
@@ -268,12 +268,12 @@ class RxAppStateTests: XCTestCase {
     }
     
     func runAppStateSequence() {
-        application.delegate?.applicationDidBecomeActive!(application)
-        application.delegate?.applicationWillResignActive!(application)
-        application.delegate?.applicationDidBecomeActive!(application)
-        application.delegate?.applicationDidEnterBackground!(application)
-        application.delegate?.applicationDidBecomeActive!(application)
-        application.delegate?.applicationDidEnterBackground!(application)
-        application.delegate?.applicationDidBecomeActive!(application)
+        NotificationCenter.default.post(name: UIApplication.didBecomeActiveNotification, object: nil)
+        NotificationCenter.default.post(name: UIApplication.willResignActiveNotification, object: nil)
+        NotificationCenter.default.post(name: UIApplication.didBecomeActiveNotification, object: nil)
+        NotificationCenter.default.post(name: UIApplication.didEnterBackgroundNotification, object: nil)
+        NotificationCenter.default.post(name: UIApplication.didBecomeActiveNotification, object: nil)
+        NotificationCenter.default.post(name: UIApplication.didEnterBackgroundNotification, object: nil)
+        NotificationCenter.default.post(name: UIApplication.didBecomeActiveNotification, object: nil)
     }
 }
