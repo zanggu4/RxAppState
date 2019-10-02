@@ -7,7 +7,6 @@
 [![SPM compatible](https://img.shields.io/badge/SPM-compatible-E05C43.svg?style=flat)](https://swift.org/package-manager/)
 [![Xcode](https://img.shields.io/badge/xcode-10.2-5995EE.svg?style=flat)](https://developer.apple.com)
 [![Swift](https://img.shields.io/badge/Swift-5-orange.svg?style=flat)](https://swift.org/)
-[![Xcode](https://img.shields.io/badge/xcode-10.2-5995EE.svg?style=flat)](https://developer.apple.com)
 [![License](https://img.shields.io/cocoapods/l/RxAppState.svg?style=flat)](http://cocoapods.org/pods/RxAppState)
 [![Twitter](https://img.shields.io/badge/Twitter-@pixeldock-5E9FE5.svg?logo=twitter)](http://twitter.com/pixeldock)
 [![Blog](https://img.shields.io/badge/Blog-pixeldock-FF0066.svg?style=flat)](http://pixeldock.com/blog)
