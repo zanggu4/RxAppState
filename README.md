@@ -5,7 +5,7 @@
 [![Version](https://img.shields.io/cocoapods/v/RxAppState.svg?style=flat)](http://cocoapods.org/pods/RxAppState)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![SPM compatible](https://img.shields.io/badge/SPM-compatible-E05C43.svg?style=flat)](https://swift.org/package-manager/)
-[![Xcode](https://img.shields.io/badge/xcode-10.2-5995EE.svg?style=flat)](https://developer.apple.com)
+[![Xcode](https://img.shields.io/badge/xcode-11-5995EE.svg?style=flat)](https://developer.apple.com)
 [![Swift](https://img.shields.io/badge/Swift-5-orange.svg?style=flat)](https://swift.org/)
 [![License](https://img.shields.io/cocoapods/l/RxAppState.svg?style=flat)](http://cocoapods.org/pods/RxAppState)
 [![Twitter](https://img.shields.io/badge/Twitter-@pixeldock-5E9FE5.svg?logo=twitter)](http://twitter.com/pixeldock)
