@@ -96,61 +96,52 @@ extension RxSwift.Reactive where Base: UIApplication {
     }
     
     /**
-     Reactive wrapper for `delegate`.
-     
-     For more information take a look at `DelegateProxyType` protocol documentation.
-     */
-    public var delegate: DelegateProxy<UIApplication, UIApplicationDelegate> {
-        return RxApplicationDelegateProxy.proxy(for: base)
-    }
-    
-    /**
-     Reactive wrapper for `delegate` message `applicationWillEnterForeground(_:)`.
+     Reactive wrapper for `UIApplication.willEnterForegroundNotification`.
      */
     public var applicationWillEnterForeground: Observable<AppState> {
-        return delegate.methodInvoked(#selector(UIApplicationDelegate.applicationWillEnterForeground(_:)))
+        return NotificationCenter.default.rx.notification(UIApplication.willEnterForegroundNotification)
             .map { _ in
                 return .inactive
-        }
+            }
     }
 
     /**
-     Reactive wrapper for `delegate` message `applicationDidBecomeActive(_:)`.
+     Reactive wrapper for `UIApplication.didBecomeActiveNotification`.
      */
     public var applicationDidBecomeActive: Observable<AppState> {
-        return delegate.methodInvoked(#selector(UIApplicationDelegate.applicationDidBecomeActive(_:)))
-            .map { _ in
-                return .active
+        return NotificationCenter.default.rx.notification(UIApplication.didBecomeActiveNotification)
+        .map { _ in
+            return .active
         }
     }
 
     /**
-     Reactive wrapper for `delegate` message `applicationDidEnterBackground(_:)`.
+     Reactive wrapper for `UIApplication.didBecomeActiveNotification`.
      */
     public var applicationDidEnterBackground: Observable<AppState> {
-        return delegate.methodInvoked(#selector(UIApplicationDelegate.applicationDidEnterBackground(_:)))
-            .map { _ in
-                return .background
+        return NotificationCenter.default.rx.notification(UIApplication.didEnterBackgroundNotification)
+        .map { _ in
+            return .background
         }
     }
     
     /**
-     Reactive wrapper for `delegate` message `applicationWillResignActive(_:)`.
+     Reactive wrapper for `UIApplication.willResignActiveNotification`.
      */
     public var applicationWillResignActive: Observable<AppState> {
-        return delegate.methodInvoked(#selector(UIApplicationDelegate.applicationWillResignActive(_:)))
-            .map { _ in
-                return .inactive
+        return NotificationCenter.default.rx.notification(UIApplication.willResignActiveNotification)
+        .map { _ in
+            return .inactive
         }
     }
     
     /**
-     Reactive wrapper for `delegate` message `applicationWillTerminate(_:)`.
+     Reactive wrapper for `UIApplication.willTerminateNotification`.
      */
     public var applicationWillTerminate: Observable<AppState> {
-        return delegate.methodInvoked(#selector(UIApplicationDelegate.applicationWillTerminate(_:)))
-            .map { _ in
-                return .terminated
+        return NotificationCenter.default.rx.notification(UIApplication.willTerminateNotification)
+        .map { _ in
+            return .terminated
         }
     }
     

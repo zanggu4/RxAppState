@@ -184,7 +184,6 @@
 		9802E8A25D7D7FB441EE1EB0CF8E03AC /* SynchronizedUnsubscribeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A191C0B79D2D292A6489225B75C96F78 /* SynchronizedUnsubscribeType.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		98632FB6E52BC5069821A830D22C07F8 /* RxCollectionViewDataSourceProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C71C280869A12921740CDA3C5E1AAB /* RxCollectionViewDataSourceProxy.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		998127D2951B9EF4C38176B7580D9AB7 /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55849747AF5CF9A7C1E294B18B17FBC5 /* Map.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		999E25DCD6E98ABB4369112FE198A544 /* RxApplicationDelegateProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = B992319ED897235B9475459C09D9544E /* RxApplicationDelegateProxy.swift */; };
 		9AB1180546B92B960062845E2A137571 /* UIScrollView+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC53735C617D942B9B7F5CE2EBFF44A /* UIScrollView+Rx.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		9B6B11F8A2D5339411990CAB5B72AD5D /* RetryWhen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 903CC3B43CF196BABE1203F0937613C4 /* RetryWhen.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		9C9830C24EB96C12981C9F7F12C38367 /* MainScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77917E87819B29705BC4EA3CA9599AB0 /* MainScheduler.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
@@ -621,7 +620,6 @@
 		B8DAFBEAF87B30E5E94DB308A6A4BAF3 /* SkipUntil.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SkipUntil.swift; path = RxSwift/Observables/SkipUntil.swift; sourceTree = "<group>"; };
 		B9662813826CAD3CAA5DF0FD7F6F2ABF /* UIWebView+Rx.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UIWebView+Rx.swift"; path = "RxCocoa/iOS/UIWebView+Rx.swift"; sourceTree = "<group>"; };
 		B9915142CA054F40D1153D28F073D81C /* Delay.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Delay.swift; path = RxSwift/Observables/Delay.swift; sourceTree = "<group>"; };
-		B992319ED897235B9475459C09D9544E /* RxApplicationDelegateProxy.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RxApplicationDelegateProxy.swift; path = Pod/Classes/RxApplicationDelegateProxy.swift; sourceTree = "<group>"; };
 		BA73A811BEB641E4C365EB8BDE42CEB2 /* UINavigationItem+Rx.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UINavigationItem+Rx.swift"; path = "RxCocoa/iOS/UINavigationItem+Rx.swift"; sourceTree = "<group>"; };
 		BA83F9614A3E43A539A5727CA96A1A43 /* Multicast.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Multicast.swift; path = RxSwift/Observables/Multicast.swift; sourceTree = "<group>"; };
 		BA8481C27BDA900E1E2904CD127673E0 /* Signal+Subscription.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Signal+Subscription.swift"; path = "RxCocoa/Traits/Signal/Signal+Subscription.swift"; sourceTree = "<group>"; };
@@ -995,7 +993,6 @@
 		64815F9A513D066F3E3A8C4DF55A4B2F /* RxAppState */ = {
 			isa = PBXGroup;
 			children = (
-				B992319ED897235B9475459C09D9544E /* RxApplicationDelegateProxy.swift */,
 				A5B5D9E256E864C719406B40A090837F /* UIApplication+Rx.swift */,
 				121DBB63FAF0907912FBF6EAC19CCCC7 /* UIViewController+Rx.swift */,
 				3A56B64EE88137DCDCD327F56A0CBB46 /* Pod */,
@@ -1698,7 +1695,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				999E25DCD6E98ABB4369112FE198A544 /* RxApplicationDelegateProxy.swift in Sources */,
 				3BF8798DDC77B847FCBF60C4A6ADB6A3 /* RxAppState-dummy.m in Sources */,
 				E6686E331BC8CC82F34742804134A58B /* UIApplication+Rx.swift in Sources */,
 				4ED5F9F2A6FC018E67E4D58520B79A1D /* UIViewController+Rx.swift in Sources */,
