@@ -1,23 +1,29 @@
-// swift-tools-version:5.0
+// swift-tools-version:5.2
+// The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
-
 let package = Package(
-    name: "RxSwiftExt",
+    name: "RxAppState",
     platforms: [
-        .iOS(.v8), .tvOS(.v9), .macOS(.v10_11)
+        .iOS(.v8)
     ],
     products: [
-        .library(name: "RxAppState", targets: ["RxAppState"]),
+        .library(
+            name: "RxAppState",
+            targets: ["RxAppState"])
     ],
     dependencies: [
-        .package(url: "https://github.com/ReactiveX/RxSwift.git", .upToNextMajor(from: "5.0.0")),
+        .package(url: "https://github.com/ReactiveX/RxSwift.git", .upToNextMajor(from: "5.0.0"))
     ],
     targets: [
-        .target(name: "RxAppState",
-                dependencies: ["RxSwift", "RxCocoa"],
-                path: "RxAppState",
-                sources: ["Pod/Classes"])
+        .target(
+            name: "RxAppState",
+            dependencies: [
+                "RxSwift",
+                .product(name: "RxCocoa", package: "RxSwift")
+            ],
+            path: "Pod/Classes"
+        )
     ],
     swiftLanguageVersions: [.v4_2, .v5]
 )
