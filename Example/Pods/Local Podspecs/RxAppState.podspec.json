@@ -1,6 +1,6 @@
 {
   "name": "RxAppState",
-  "version": "1.6.0",
+  "version": "1.7.0",
   "swift_versions": [
     "5.0"
   ],
@@ -13,21 +13,21 @@
   },
   "source": {
     "git": "https://github.com/pixeldock/RxAppState.git",
-    "tag": "1.6.0"
+    "tag": "1.7.0"
   },
   "social_media_url": "https://twitter.com/pixeldock",
   "platforms": {
-    "ios": "8.0"
+    "ios": "10.0"
   },
   "requires_arc": true,
   "source_files": "Pod/Classes/**/*",
   "frameworks": "Foundation",
   "dependencies": {
     "RxSwift": [
-      "~> 5.0"
+      "~> 6.0"
     ],
     "RxCocoa": [
-      "~> 5.0"
+      "~> 6.0"
     ]
   },
   "swift_version": "5.0"

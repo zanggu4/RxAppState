@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
 s.name             = "RxAppState"
-s.version          = "1.6.0"
+s.version          = "1.7.0"
 s.swift_versions   = ['5.0']
 s.summary          = "Handy RxSwift extensions to observe your app's state and view controllers' view-related notifications"
 s.description      = <<-DESC
@@ -12,13 +12,13 @@ s.author           = { "Jörn Schoppe" => "joern@pixeldock.com" }
 s.source           = { :git => "https://github.com/pixeldock/RxAppState.git", :tag => s.version.to_s }
 s.social_media_url = 'https://twitter.com/pixeldock'
 
-s.ios.deployment_target = '8.0'
+s.ios.deployment_target = '10.0'
 s.requires_arc = true
 
 s.source_files = 'Pod/Classes/**/*'
 
 s.frameworks = 'Foundation'
-s.dependency 'RxSwift', '~> 5.0'
-s.dependency 'RxCocoa', '~> 5.0'
+s.dependency 'RxSwift', '~> 6.0'
+s.dependency 'RxCocoa', '~> 6.0'
 
 end

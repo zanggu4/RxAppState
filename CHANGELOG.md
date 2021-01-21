@@ -1,5 +1,14 @@
 Changelog
 =========
+1.7.0
+-----
+- update to RxSwift 6.0
+- bump iOS deployment target to 10.0
+
+1.6.1
+-----
+- fix SPM. (thanks to  [Kazuki Tanaka](https://github.com/KazukiTanaka) for this contribution!
+
 1.6.0
 -----
 - uses notifications to create the AppState observables. 
