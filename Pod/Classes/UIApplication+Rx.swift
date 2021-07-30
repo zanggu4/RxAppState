@@ -372,6 +372,7 @@ extension RxAppState {
     /**
      For testing purposes
      */
+    @available(iOSApplicationExtension, unavailable)
     internal static func clearSharedObservables() {
         objc_setAssociatedObject(UIApplication.shared,
                                  &_sharedRxAppStateKey,
