@@ -1,5 +1,10 @@
 Changelog
 =========
+1.7.1
+-----
+- update to RxSwift 6.2
+- fix Xcode 13 error (thanks to [hebdavepaul0](https://github.com/hebdavepaul0) for this contribution!)
+
 1.7.0
 -----
 - update to RxSwift 6.0

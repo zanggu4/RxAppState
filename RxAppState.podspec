@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
 s.name             = "RxAppState"
-s.version          = "1.7.0"
+s.version          = "1.7.1"
 s.swift_versions   = ['5.0']
 s.summary          = "Handy RxSwift extensions to observe your app's state and view controllers' view-related notifications"
 s.description      = <<-DESC
@@ -18,7 +18,7 @@ s.requires_arc = true
 s.source_files = 'Pod/Classes/**/*'
 
 s.frameworks = 'Foundation'
-s.dependency 'RxSwift', '~> 6.0'
-s.dependency 'RxCocoa', '~> 6.0'
+s.dependency 'RxSwift', '~> 6.2'
+s.dependency 'RxCocoa', '~> 6.2'
 
 end

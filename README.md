@@ -152,8 +152,8 @@ If you are using Swift 4.2 please use RxAppState version 1.4.1
 
 
 ## Dependencies
-RxSwift 6.0  
-RxCocoa 6.0
+RxSwift 6.2  
+RxCocoa 6.2
 
 ## Integration
 ### CocoaPods
