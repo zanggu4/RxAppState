@@ -1,6 +1,6 @@
 # RxAppState
 
-[![CI Status](http://img.shields.io/travis/pixeldock/RxAppState.svg?style=flat)](https://travis-ci.org/pixeldock/RxAppState)
+[![CI Status](https://img.shields.io/travis/com/pixeldock/RxAppState.svg?style=flat)](https://travis-ci.com/pixeldock/RxAppState)
 [![Platform](https://img.shields.io/cocoapods/p/RxAppState.svg?style=flat)](http://cocoapods.org/pods/RxAppState)
 [![Version](https://img.shields.io/cocoapods/v/RxAppState.svg?style=flat)](http://cocoapods.org/pods/RxAppState)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
