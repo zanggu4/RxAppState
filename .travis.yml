@@ -2,8 +2,8 @@
 # * http://www.objc.io/issue-6/travis-ci.html
 # * https://github.com/supermarin/xcpretty#usage
 
-osx_image: xcode12
 language: objective-c
+osx_image: xcode13.1
 podfile: Example/Podfile
 cache: cocoapods
 
