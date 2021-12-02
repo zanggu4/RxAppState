@@ -13,6 +13,7 @@ s.source           = { :git => "https://github.com/pixeldock/RxAppState.git", :t
 #s.social_media_url = 'https://twitter.com/pixeldock'
 
 s.ios.deployment_target = '10.0'
+s.tvos.deployment_target = '10.0'
 s.requires_arc = true
 
 s.source_files = 'Pod/Classes/**/*'
