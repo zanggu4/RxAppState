@@ -19,6 +19,9 @@ public enum ViewControllerViewState: Equatable {
     case viewDidDisappear
     case viewDidLoad
     case viewDidLayoutSubviews
+    
+    @available(iOS 13.0, *)
+    case viewIsAppearing
 }
 
 /**
@@ -39,6 +42,12 @@ extension RxSwift.Reactive where Base: UIViewController {
     
     public var viewWillAppear: Observable<Bool> {
         return methodInvoked(#selector(UIViewController.viewWillAppear))
+            .map { $0.first as? Bool ?? false }
+    }
+    
+    @available(iOS 13.0, *)
+    public var viewIsAppearing: Observable<Bool> {
+        return methodInvoked(#selector(UIViewController.viewIsAppearing))
             .map { $0.first as? Bool ?? false }
     }
     
@@ -65,14 +74,23 @@ extension RxSwift.Reactive where Base: UIViewController {
      - returns: Observable sequence of AppStates
      */
     public var viewState: Observable<ViewControllerViewState> {
-        return Observable.of(
+        var viewControllerStates: [Observable<ViewControllerViewState>] = [
             viewDidLoad.map {_ in return ViewControllerViewState.viewDidLoad },
             viewDidLayoutSubviews.map {_ in return ViewControllerViewState.viewDidLayoutSubviews },
             viewWillAppear.map {_ in return ViewControllerViewState.viewWillAppear },
             viewDidAppear.map {_ in return ViewControllerViewState.viewDidAppear },
             viewWillDisappear.map {_ in return ViewControllerViewState.viewWillDisappear },
             viewDidDisappear.map {_ in return ViewControllerViewState.viewDidDisappear }
+        ]
+        
+        if #available(iOS 13.0, *) {
+            viewControllerStates.append(
+                viewIsAppearing.map { _ in return ViewControllerViewState.viewIsAppearing }
             )
+        }
+        
+        return Observable
+            .from(viewControllerStates)
             .merge()
     }
 }
