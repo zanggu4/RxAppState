@@ -49,22 +49,18 @@ extension UILabel {
         return Binder(self) { label, appState in
             switch appState {
             case .viewDidLoad:
-                label.backgroundColor = UIColor.blue
                 label.text = "VIEW DID LOAD"
             case .viewDidLayoutSubviews:
-                label.backgroundColor = UIColor.magenta
                 label.text = "VIEW DID LAYOUT SUBVIEWS"
             case .viewWillAppear:
-                label.backgroundColor = UIColor.yellow
                 label.text = "VIEW WILL APPEAR"
+            case .viewIsAppearing:
+                label.text = "VIEW IS APPEARING"
             case .viewDidAppear:
-                label.backgroundColor = UIColor.green
                 label.text = "VIEW DID APPEAR"
             case .viewWillDisappear:
-                label.backgroundColor = UIColor.orange
                 label.text = "VIEW WILL DISAPPEAR"
             case .viewDidDisappear:
-                label.backgroundColor = UIColor.red
                 label.text = "VIEW DID DISAPPEAR"
             }
             }

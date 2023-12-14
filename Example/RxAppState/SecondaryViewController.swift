@@ -37,6 +37,8 @@ class SecondaryViewController: UIViewController {
         label.text = String(describing: state)
         switch state {
         case .viewWillAppear:
+            label.backgroundColor = #colorLiteral(red: 0.5843137503, green: 0.8235294223, blue: 0.4196078479, alpha: 1)
+        case .viewIsAppearing:
             label.backgroundColor = #colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)
         case .viewDidAppear:
             label.backgroundColor = #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)
