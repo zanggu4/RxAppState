@@ -1,5 +1,9 @@
 Changelog
 =========
+1.7.2
+-----
+- add support for viewIsAppearing (thanks to [Tommy Han](https://github.com/tommyming) for this contribution!)
+
 1.7.1
 -----
 - update to RxSwift 6.2
