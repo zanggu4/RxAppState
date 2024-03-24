@@ -142,7 +142,7 @@ rx.viewWillDisappear
 There is a simple example project to demonstrate how to use RxAppDelegate.
 
 ## Requirements
-iOS 10 or greater    
+iOS 13 or greater    
 Swift 5  
 Xcode 10.2
 
@@ -152,8 +152,8 @@ If you are using Swift 4.2 please use RxAppState version 1.4.1
 
 
 ## Dependencies
-RxSwift 6.2  
-RxCocoa 6.2
+RxSwift 6.2 or greater
+RxCocoa 6.2 or greater
 
 ## Integration
 ### CocoaPods
