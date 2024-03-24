@@ -193,6 +193,6 @@ class RxAppStateVCTests: XCTestCase {
         viewController.viewDidDisappear(true)
         
         // Then
-        XCTAssertEqual(viewStates, [.viewWillAppear, .viewDidAppear, .viewWillDisappear, .viewDidDisappear])
+        XCTAssertEqual(viewStates, [.viewWillAppear, .viewIsAppearing, .viewDidAppear, .viewWillDisappear, .viewDidDisappear])
     }
 }

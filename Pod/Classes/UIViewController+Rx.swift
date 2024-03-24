@@ -19,8 +19,6 @@ public enum ViewControllerViewState: Equatable {
     case viewDidDisappear
     case viewDidLoad
     case viewDidLayoutSubviews
-    
-    @available(iOS 13.0, *)
     case viewIsAppearing
 }
 
@@ -45,7 +43,6 @@ extension RxSwift.Reactive where Base: UIViewController {
             .map { $0.first as? Bool ?? false }
     }
     
-    @available(iOS 13.0, *)
     public var viewIsAppearing: Observable<Bool> {
         return methodInvoked(#selector(UIViewController.viewIsAppearing))
             .map { $0.first as? Bool ?? false }
