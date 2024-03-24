@@ -1,5 +1,9 @@
 Changelog
 =========
+1.7.3
+-----
+- add privacy info for user defaults usage (thanks to [Alexander Vogel](https://github.com/netrager) for suggesting this)
+
 1.7.2
 -----
 - add support for viewIsAppearing (thanks to [Tommy Han](https://github.com/tommyming) for this contribution!)
