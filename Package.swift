@@ -5,7 +5,7 @@ import PackageDescription
 let package = Package(
     name: "RxAppState",
     platforms: [
-        .iOS(.v10)
+        .iOS(.v13)
     ],
     products: [
         .library(
